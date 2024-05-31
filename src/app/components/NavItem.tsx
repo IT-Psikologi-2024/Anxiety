@@ -19,7 +19,7 @@ const NavItem: React.FC<NavItemProps> = ({ href, children }) => {
       <a 
         href={href} 
         onClick={handleClick} // Call handleClick function on click
-        className="px-2 md:px-3 py-1 md:py-2 rounded hover:font-semibold"
+        className="px-2 md:px-3 py-1 md:py-2 rounded hover:text-black"
       >
         {children}
       </a>
