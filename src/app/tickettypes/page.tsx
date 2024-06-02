@@ -1,7 +1,7 @@
 import React from 'react'
 import { Navbar } from '../components/Navbar'
 
-const TicketPage = () => {
+const TicketTypesPage = () => {
   return (
     <>
     <Navbar />
@@ -12,4 +12,4 @@ const TicketPage = () => {
   )
 }
 
-export default TicketPage
+export default TicketTypesPage
