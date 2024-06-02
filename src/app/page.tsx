@@ -6,6 +6,9 @@ const MyApp: React.FC = () => {
   return (
     <>
       <Navbar />
+      <div>
+        Home Here!
+      </div>
     </>
   );
 }
