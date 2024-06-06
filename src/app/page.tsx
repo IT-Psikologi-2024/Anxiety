@@ -2,6 +2,7 @@ import React from 'react';
 import { Navbar } from './components/Navbar';
 import Footer from './components/Footer';
 import HomeBackground from './components/HomeBackground';
+import InstagramEmbed from './components/InstagramPost';
 
 const MyApp: React.FC = () => {
   return (
@@ -47,7 +48,12 @@ const MyApp: React.FC = () => {
           </div>
 
           <div className='flex justify-end relative'>
-            <div className='flex justify-end'>
+            <div className='flex justify-evenly w-full z-10'>
+            <InstagramEmbed permalink="https://www.instagram.com/p/C1CTB9DRVks/" />
+            <InstagramEmbed permalink="https://www.instagram.com/p/C1CTASMRUlu/" />
+            <InstagramEmbed permalink="https://www.instagram.com/p/C1CS9eJxgnu/" />
+            </div>
+            <div className='flex justify-end absolute z-0'>
               <img src="home/awan-kanan.svg" alt="Awan Kanan" className='h-[50%] md:h-[55%] lg:h-[65%] xl:h-[70%]'/>
             </div>
           </div>
