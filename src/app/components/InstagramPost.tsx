@@ -8,7 +8,6 @@ interface InstagramEmbedProps {
 
 const InstagramEmbed: React.FC<InstagramEmbedProps> = ({ permalink }) => {
   useEffect(() => {
-    // Function to re-render Instagram embeds
     const renderInstagramEmbeds = () => {
       if (window.instgrm) {
         window.instgrm.Embeds.process();
