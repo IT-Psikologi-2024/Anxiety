@@ -11,7 +11,7 @@ const TicketTypesPage = () => {
       <div className='relative min-h-screen h-full flex flex-col overflow-hidden sm:-mt-16'>
         <TicketTypeBackground />
         <div className='flex flex-col flex-grow sm:text-xs lg:text-lg xl:text-xl'>
-          <div className='flex relative justify-center xl:-mt-4 lg:mb-16 sm:mt-8 md:mb-12'>
+          <div className='flex relative justify-center mt-[8rem] xl:-mt-4 lg:mb-16 sm:mt-8 md:mb-12'>
             <img src="/ticket/ticket-types-text.svg" alt="Ticket Text" className='w-3/5 sm:w-[70%] md:w-2/5'/>
           </div>
 
