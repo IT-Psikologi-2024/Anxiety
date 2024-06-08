@@ -85,7 +85,7 @@ const MyApp: React.FC = () => {
           </div>
 
           <div className='flex justify-end relative sm:mt-[-11rem] md:mt-[-12rem] lg:mt-[-10rem] xl:mt-[-13rem] 2xl:mt-[-18rem]'>
-            <div className='flex justify-end overflow-hidden sm:mt-[4rem] sm:w-fit sm:h-4/5 sm:relative absolute bottom-[13rem] sm:bottom-0 right-16'>
+            <div className='flex justify-end overflow-hidden sm:mt-[4rem] sm:w-fit sm:h-4/5 sm:relative absolute bottom-[13rem] sm:bottom-0 sm:right-0 right-16'>
               <img src="home/lolipop-merah.svg" alt="Lolipop Merah" className='w-[25%] sm:mr-[-4rem] md:mr-[-5.8rem] sm:w-[50%] md:w-[60%] lg:w-[80%]'/>
             </div>
           </div>
@@ -98,8 +98,8 @@ const MyApp: React.FC = () => {
             </div>
 
             <div className='flex relative'>
-              <a href='/merchandise' className='flex relative items-center '>
-                <img src="home/get-merch-btn.svg" alt="Button Merch" className=' hover:scale-110 transition ease-in-out sm:pl-[5rem] w-[80%] sm:w-[76%] md:w-[65%] xl:w-[80%]'/>
+              <a href='/merchandise' className='flex relative items-center'>
+                <img src="home/get-merch-btn.svg" alt="Button Merch" className='hover:scale-110 transition ease-in-out sm:pl-[5rem] w-[80%] sm:w-[76%] md:w-[65%] xl:w-[80%]'/>
               </a>
             </div>
           </div>
