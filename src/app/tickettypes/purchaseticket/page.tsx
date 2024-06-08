@@ -59,7 +59,12 @@ const FormProcess: React.FC = () => {
         <PurchaseTicketBackground />
         <div className='flex flex-col flex-grow'>
           {renderPage()}
-          <div className='absolute flex w-full justify-center top-[9rem] gap-x-4'>
+          <div className='absolute flex w-full invisible sm:visible justify-center top-[9rem] gap-x-4'>
+            <BackButton onBack={handleBackClick} />
+            {currentPage < 6 && <NextButton handleClick={handleNextClick} />}
+            {currentPage === 6 && <NextButton handleClick={() => { /* Submit form data */ }} />}
+          </div>
+          <div className='relative flex w-full justify-center top-[7rem] gap-x-4'>
             <BackButton onBack={handleBackClick} />
             {currentPage < 6 && <NextButton handleClick={handleNextClick} />}
             {currentPage === 6 && <NextButton handleClick={() => { /* Submit form data */ }} />}
