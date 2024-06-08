@@ -12,13 +12,13 @@ const TicketBackground = () => {
         className='object-cover sm:visible invisible'
       />
 
-      {/* <Image 
-        src="/ticket/mobile/bg-ticket.svg"
+      <Image 
+        src="/ticket/mobile/bg-ticket-2.svg"
         fill
         alt="Ticket Background"
         sizes='none'
         className='object-cover visible sm:invisible'
-      /> */}
+      />
     </div>
   )
 }
