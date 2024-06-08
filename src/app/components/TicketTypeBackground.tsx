@@ -7,9 +7,17 @@ const TicketTypeBackground = () => {
       <Image 
         src="/bg-ticket-1.svg"
         fill
-        alt="home background"
+        alt="Ticket Background"
         sizes='none'
-        className='object-cover'
+        className='object-cover sm:visible invisible'
+      />
+
+      <Image 
+        src="/ticket/mobile/bg-ticket.svg"
+        fill
+        alt="Ticket Background"
+        sizes='none'
+        className='object-cover visible sm:invisible'
       />
     </div>
   )
