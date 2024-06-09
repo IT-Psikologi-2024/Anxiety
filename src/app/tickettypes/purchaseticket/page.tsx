@@ -32,6 +32,8 @@ const FormProcess: React.FC = () => {
     asalSekolah: '',
   });
   const [checkedItems, setCheckedItems] = useState<{ [key: string]: number }>({}); // State for checkboxes
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [errorMessage, setErrorMessage] = useState<string>('');
   const route = useRouter();
   const formTicketRef = useRef<FormTicketHandles>(null);
   const pilihanKelasRef = useRef<CheckboxGroupHandles>(null);
@@ -51,6 +53,13 @@ const FormProcess: React.FC = () => {
         setCurrentPage(currentPage + 1);
       } else {
         console.log('PilihanKelas validation failed');
+      }
+    } else if (currentPage === 3) {
+      if (selectedFile) {
+        console.log('File is selected, proceeding to next page');
+        setCurrentPage(currentPage + 1);
+      } else {
+        setErrorMessage('Please select a file to upload.');
       }
     } else {
       if (currentPage < 6) {
@@ -80,7 +89,12 @@ const FormProcess: React.FC = () => {
           { id: 'industri', label: 'Psikologi Industri Organisasi' },
         ]} checkedItems={checkedItems} setCheckedItems={setCheckedItems} />; // Pass the state and setter
       case 3:
-        return <FollowInstagram />;
+        return <FollowInstagram 
+          selectedFile={selectedFile} 
+          setSelectedFile={setSelectedFile} 
+          errorMessage={errorMessage} 
+          setErrorMessage={setErrorMessage} 
+        />;
       case 4:
         return <Pembayaran />;
       case 5:
@@ -95,8 +109,8 @@ const FormProcess: React.FC = () => {
   return (
     <div className='flex flex-col'>
       <Navbar />
-      <div className='relative min-h-[1325px] sm:min-h-[1219px] h-full flex flex-col overflow-hidden'>
-        <PurchaseTicketBackground />
+      <div className={`relative ${currentPage === 3 || currentPage === 5 || currentPage === 6 ? 'min-h-[880px] sm:min-h-[1219px]' : 'min-h-[1325px] sm:min-h-[1219px]'} h-full flex flex-col overflow-hidden`}>
+        <PurchaseTicketBackground currentPage={currentPage} />
         <div className='flex flex-col flex-grow'>
           {renderPage()}
           <div className='absolute flex w-full invisible sm:visible justify-center top-[9rem] gap-x-4'>
@@ -104,16 +118,20 @@ const FormProcess: React.FC = () => {
             {currentPage < 6 && <NextButton handleClick={handleNextClick} />}
             {currentPage === 6 && <NextButton handleClick={() => {}} />}
           </div>
-          <div className='relative flex w-full justify-center top-[10rem] gap-x-4'>
+          <div className={`relative flex w-full justify-center ${currentPage === 3 || currentPage === 5 || currentPage === 6 ? 'top-[8rem]' : 'top-[10rem]'} gap-x-4`}>
             <BackButton onBack={handleBackClick} />
             {currentPage < 6 && <NextButton handleClick={handleNextClick} />}
             {currentPage === 6 && <NextButton handleClick={() => {}} />}
           </div>
+
           <div className='absolute flex w-4/5 md:justify-between invisible sm:visible sm:left-[-10rem] md:left-0 bottom-0 lg:bottom-[-2rem] xl:bottom-0 md:bottom-0 sm:w-4/5 xl:w-full'>
-            <img src="/ticket/ito-1.svg" alt="Ito Img" className='sm:-ml-[5rem] md:-ml-[12rem] lg:-ml-[6rem] xl:-ml-[8rem] 2xl:ml-0'/>
-            <img src="/ticket/ita-1.svg" alt="Ita Img" className='md:-ml-[4rem] lg:ml-[5rem] xl:-mr-[8rem] 2xl:mr-0'/>
+            {currentPage <= 2 && <img src="/ticket/ito-1.svg" alt="Ito Img" className='sm:-ml-[5rem] md:-ml-[12rem] lg:-ml-[6rem] xl:-ml-[8rem] 2xl:ml-0'/>}
+            {currentPage > 2 && <img src="/ticket/ito-1.svg" alt="Ito Img" className='sm:-ml-[5rem] md:-ml-[12rem] lg:-ml-[4rem] xl:-ml-[8rem] 2xl:ml-0 rotate-15.60'/>}
+            {currentPage <= 2 && <img src="/ticket/ita-1.svg" alt="Ita Img" className='md:-ml-[4rem] lg:ml-[5rem] xl:-mr-[8rem] 2xl:mr-0'/>}
+            {currentPage > 2 && <img src="/ticket/ita-1.svg" alt="Ita Img" className='md:-ml-[4rem] lg:ml-8 xl:-mr-[8rem] 2xl:mr-0 -rotate-11.34'/>}
           </div>
-          <div className='absolute flex w-full bottom-[4vh] sm:invisible visible right-4'>
+          
+          <div className='absolute flex w-full bottom-0 sm:invisible visible right-4'>
             <img src="/ticket/mobile/ito-1.svg" alt="Ito Img" className=''/>
             <img src="/ticket/mobile/ita-1.svg" alt="Ita Img" className=''/>
           </div>

@@ -1,7 +1,18 @@
 import React from 'react'
 import Image from 'next/image';
 
-const TicketBackground = () => {
+interface TicketBackgroundProps {
+  currentPage: number;
+}
+
+const TicketBackground: React.FC<TicketBackgroundProps> = ({ currentPage }) => {
+  const getMobileSrc = () => {
+    if (currentPage === 3 || currentPage === 5 || currentPage === 6) {
+      return "/ticket/mobile/bg-ticket-3.svg";
+    }
+    return "/ticket/mobile/bg-ticket-2.svg";
+  };
+
   return (
     <div className='absolute w-full h-full'>
       <Image 
@@ -12,15 +23,15 @@ const TicketBackground = () => {
         className='object-cover sm:visible invisible'
       />
 
-      <Image 
-        src="/ticket/mobile/bg-ticket-2.svg"
+      <Image
+        src={getMobileSrc()}
         fill
         alt="Ticket Background"
         sizes='none'
         className='object-cover visible sm:invisible'
       />
     </div>
-  )
+  );
 }
 
-export default TicketBackground
+export default TicketBackground;
