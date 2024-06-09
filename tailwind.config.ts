@@ -15,6 +15,10 @@ const config: Config = {
         inter: ['Inter', 'sans-serif'],
         josefin: ['"Josefin Sans"', 'sans-serif'],
       },
+      rotate: {
+        '15.60': '15.60deg',
+        '-11.34': '-11.34deg',
+      },
     },
   },
   plugins: [],

@@ -67,7 +67,7 @@ const FormTicket = forwardRef<FormTicketHandles, FormTicketProps>(({ formValues,
   return (
     <div className='flex flex-col'>
       <div className='flex relative justify-center w-full top-[6vh] sm:top-[14vh] md:top-[12vh] lg:top-[15vh] xl:top-[20vh]'>
-        <img src="/ticket/form/data-diri.svg" alt="Data Diri IMG" className='w-3/5 sm:w-auto' />
+        <img src="/ticket/form/data-diri.svg" alt="Data Diri Text" className='w-3/5 sm:w-auto' />
       </div>
 
       <div className='flex relative top-[9vh] sm:top-[20vh] md:top-[18vh] lg:top-[20vh] xl:top-[25vh] justify-center'>
