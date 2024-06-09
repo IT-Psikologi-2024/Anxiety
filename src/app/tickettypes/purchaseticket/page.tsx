@@ -32,8 +32,10 @@ const FormProcess: React.FC = () => {
     asalSekolah: '',
   });
   const [checkedItems, setCheckedItems] = useState<{ [key: string]: number }>({}); // State for checkboxes
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  const [errorMessage, setErrorMessage] = useState<string>('');
+  const [selectedFileInsta, setSelectedFileInsta] = useState<File | null>(null);
+  const [errorMessageInsta, setErrorMessageInsta] = useState<string>('');
+  const [selectedFileBayar, setSelectedFileBayar] = useState<File | null>(null);
+  const [errorMessageBayar, setErrorMessageBayar] = useState<string>('');
   const route = useRouter();
   const formTicketRef = useRef<FormTicketHandles>(null);
   const pilihanKelasRef = useRef<CheckboxGroupHandles>(null);
@@ -55,11 +57,17 @@ const FormProcess: React.FC = () => {
         console.log('PilihanKelas validation failed');
       }
     } else if (currentPage === 3) {
-      if (selectedFile) {
+      if (selectedFileInsta) {
         console.log('File is selected, proceeding to next page');
         setCurrentPage(currentPage + 1);
       } else {
-        setErrorMessage('Please select a file to upload.');
+        setErrorMessageInsta('Please select a file to upload.');
+      }
+    } else if (currentPage === 5) {
+      if(selectedFileBayar) {
+        setCurrentPage(currentPage + 1)
+      } else {
+        setErrorMessageBayar('Please select a file to upload.');
       }
     } else {
       if (currentPage < 6) {
@@ -90,15 +98,20 @@ const FormProcess: React.FC = () => {
         ]} checkedItems={checkedItems} setCheckedItems={setCheckedItems} />; // Pass the state and setter
       case 3:
         return <FollowInstagram 
-          selectedFile={selectedFile} 
-          setSelectedFile={setSelectedFile} 
-          errorMessage={errorMessage} 
-          setErrorMessage={setErrorMessage} 
+          selectedFile={selectedFileInsta} 
+          setSelectedFile={setSelectedFileInsta} 
+          errorMessage={errorMessageInsta} 
+          setErrorMessage={setErrorMessageInsta} 
         />;
       case 4:
         return <Pembayaran />;
       case 5:
-        return <UploadBuktiPembayaran />;
+        return <UploadBuktiPembayaran 
+        selectedFile={selectedFileBayar} 
+          setSelectedFile={setSelectedFileBayar} 
+          errorMessage={errorMessageBayar} 
+          setErrorMessage={setErrorMessageBayar} 
+        />;
       case 6:
         return <TerimaKasih />;
       default:

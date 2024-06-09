@@ -47,17 +47,17 @@ const FollowInstagram: React.FC<FollowInstagramProps> = ({ selectedFile, setSele
                   )}
                 </div>
               </label>
-              <label className='block sm:text-2xl md:text-4xl font-medium mb-2'>
+              <label className='block text-lg sm:text-2xl md:text-4xl font-medium mb-2'>
                 Upload Bukti Follow Instagram @itp_psikoui
               </label>
             </div>
             {selectedFile && (
-              <div className='mt-4 text-xl text-gray-700 text-center'>
+              <div className='mt-4 text-base sm:text-xl text-gray-700 text-center'>
                 Selected file: {selectedFile.name}
               </div>
             )}
             {errorMessage && (
-              <div className='mt-2 text-xl text-red-500 text-center'>
+              <div className='mt-2 text-base sm:text-xl text-red-500 text-center'>
                 {errorMessage}
               </div>
             )}
