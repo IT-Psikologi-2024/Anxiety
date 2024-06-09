@@ -1,27 +1,61 @@
-// /app/form-ticket/page.tsx
-
 'use client'
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import Navbar from '../../components/Navbar';
 import NextButton from '../../components/NextButton';
 import BackButton from '../../components/BackButton';
 import PsyTag from '../../components/PsyTag';
 import PurchaseTicketBackground from '../../components/PurchaseTicketBackground';
 import FormTicket from './FormTicket';
-import PilihanKelas from './PilihanKelas';
+import CheckboxGroup from './PilihanKelas';  // Make sure to import correctly
 import FollowInstagram from './FollowInstagram';
 import Pembayaran from './Pembayaran';
 import UploadBuktiPembayaran from './UploadBuktiPembayaran';
 import TerimaKasih from './TerimaKasih';
 import { useRouter } from 'next/navigation';
 
+interface FormTicketHandles {
+  validate: () => boolean;
+}
+
+interface CheckboxGroupHandles {
+  validate: () => boolean;
+}
+
 const FormProcess: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(1);
+  const [formValues, setFormValues] = useState({
+    jenisTiket: '',
+    idLine: '',
+    namaLengkap: '',
+    noTelp: '',
+    email: '',
+    asalSekolah: '',
+  });
+  const [checkedItems, setCheckedItems] = useState<{ [key: string]: number }>({}); // State for checkboxes
   const route = useRouter();
+  const formTicketRef = useRef<FormTicketHandles>(null);
+  const pilihanKelasRef = useRef<CheckboxGroupHandles>(null);
 
   const handleNextClick = () => {
-    if (currentPage < 6) {
-      setCurrentPage(currentPage + 1);
+    console.log(`Current page: ${currentPage}`);
+    if (currentPage === 1) {
+      if (formTicketRef.current?.validate()) {
+        console.log('FormTicket validation passed');
+        setCurrentPage(currentPage + 1);
+      } else {
+        console.log('FormTicket validation failed');
+      }
+    } else if (currentPage === 2) {
+      if (pilihanKelasRef.current?.validate()) {
+        console.log('PilihanKelas validation passed');
+        setCurrentPage(currentPage + 1);
+      } else {
+        console.log('PilihanKelas validation failed');
+      }
+    } else {
+      if (currentPage < 6) {
+        setCurrentPage(currentPage + 1);
+      }
     }
   };
 
@@ -36,9 +70,15 @@ const FormProcess: React.FC = () => {
   const renderPage = () => {
     switch (currentPage) {
       case 1:
-        return <FormTicket />;
+        return <FormTicket ref={formTicketRef} formValues={formValues} setFormValues={setFormValues} />;
       case 2:
-        return <PilihanKelas />;
+        return <CheckboxGroup ref={pilihanKelasRef} labels={[
+          { id: 'pendidikan', label: 'Psikologi Pendidikan' },
+          { id: 'perkembangan', label: 'Psikologi Perkembangan' },
+          { id: 'sosial', label: 'Psikologi Sosial' },
+          { id: 'klinis', label: 'Psikologi Klinis' },
+          { id: 'industri', label: 'Psikologi Industri Organisasi' },
+        ]} checkedItems={checkedItems} setCheckedItems={setCheckedItems} />; // Pass the state and setter
       case 3:
         return <FollowInstagram />;
       case 4:
@@ -48,7 +88,7 @@ const FormProcess: React.FC = () => {
       case 6:
         return <TerimaKasih />;
       default:
-        return <FormTicket />;
+        return <FormTicket ref={formTicketRef} formValues={formValues} setFormValues={setFormValues} />;
     }
   };
 
@@ -62,12 +102,12 @@ const FormProcess: React.FC = () => {
           <div className='absolute flex w-full invisible sm:visible justify-center top-[9rem] gap-x-4'>
             <BackButton onBack={handleBackClick} />
             {currentPage < 6 && <NextButton handleClick={handleNextClick} />}
-            {currentPage === 6 && <NextButton handleClick={() => { /* Submit form data */ }} />}
+            {currentPage === 6 && <NextButton handleClick={() => {}} />}
           </div>
-          <div className='relative flex w-full justify-center top-[7rem] gap-x-4'>
+          <div className='relative flex w-full justify-center top-[10rem] gap-x-4'>
             <BackButton onBack={handleBackClick} />
             {currentPage < 6 && <NextButton handleClick={handleNextClick} />}
-            {currentPage === 6 && <NextButton handleClick={() => { /* Submit form data */ }} />}
+            {currentPage === 6 && <NextButton handleClick={() => {}} />}
           </div>
           <div className='absolute flex w-4/5 md:justify-between invisible sm:visible sm:left-[-10rem] md:left-0 bottom-0 lg:bottom-[-2rem] xl:bottom-0 md:bottom-0 sm:w-4/5 xl:w-full'>
             <img src="/ticket/ito-1.svg" alt="Ito Img" className='sm:-ml-[5rem] md:-ml-[12rem] lg:-ml-[6rem] xl:-ml-[8rem] 2xl:ml-0'/>
