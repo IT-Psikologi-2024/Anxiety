@@ -51,12 +51,12 @@ const CheckboxGroup = forwardRef<CheckboxGroupHandles, CheckboxGroupProps>(({ la
 
   return (
     <div className='flex flex-col'>
-      <div className='flex relative top-[9vh] sm:top-[15vh] md:top-[13vh] lg:top-[15vh] xl:top-[18vh] justify-center'>
+      <div className='flex relative top-[9vh] sm:top-[12vh] md:top-[13vh] lg:top-[15vh] xl:top-[18vh] justify-center'>
         <img src="/ticket/pilihankelas/pilihan-kelas-text.svg" alt="Pilihan Kelas Text" className='sm:visible invisible absolute sm:static'/>
-        <img src="/ticket/pilihankelas/mobile/pilihan-kelas-text.svg" alt="" className='sm:absolute visible sm:invisible'/>
+        <img src="/ticket/pilihankelas/mobile/pilihan-kelas-text.svg" alt="Pilihan Kelas Text" className='sm:absolute visible sm:invisible'/>
       </div>
 
-      <div className='flex relative top-[10vh] sm:top-[20vh] md:top-[18vh] lg:top-[20vh] xl:top-[23vh] justify-center'>
+      <div className='flex relative top-[10vh] sm:top-[17vh] md:top-[18vh] lg:top-[20vh] xl:top-[23vh] justify-center'>
         <div className='flex flex-col gap-y-4 min-w-fit max-w-[832px] max-h-[840px] w-fit lg:h-[500px] bg-[#FBB3D7] rounded-[20px] p-8'>
           <div className="grid md:grid-cols-2 gap-4">
             {labels.map(({ id, label }) => (
@@ -77,8 +77,8 @@ const CheckboxGroup = forwardRef<CheckboxGroupHandles, CheckboxGroupProps>(({ la
         </div>
       </div>
       
-      <div className='flex w-full relative justify-center top-[11vh] sm:top-[24vh] md:top-[22vh] lg:top-[24vh] xl:top-[27vh]'>
-        <div className='w-full px-4 sm:w-1/4 text-center font-bold'>
+      <div className='flex w-full relative justify-center top-[11vh] sm:top-[20vh] md:top-[22vh] lg:top-[24vh] xl:top-[27vh]'>
+        <div className='w-full px-4 sm:w-1/2 md:w-1/4 text-center font-bold'>
           <p>Note: Angka pada checkbox menunjukkan skala prioritas dari kelas yang dipilih</p>
         </div>
       </div>

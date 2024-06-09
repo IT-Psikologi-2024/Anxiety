@@ -9,6 +9,8 @@ const TicketBackground: React.FC<TicketBackgroundProps> = ({ currentPage }) => {
   const getMobileSrc = () => {
     if (currentPage === 3 || currentPage === 5 || currentPage === 6) {
       return "/ticket/mobile/bg-ticket-3.svg";
+    } else if (currentPage === 4) {
+      return "/ticket/mobile/bg-ticket-4.svg"
     }
     return "/ticket/mobile/bg-ticket-2.svg";
   };
