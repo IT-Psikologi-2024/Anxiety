@@ -67,6 +67,7 @@ const CheckboxGroup = forwardRef<CheckboxGroupHandles, CheckboxGroupProps>(({ la
                 label={label}
                 onChange={handleCheckboxChange}
                 checkedOrder={checkedItems[id] || null}
+                className={id === 'industri' ? 'md:col-span-2 justify-center flex' : ''}
               />
             ))}
           </div>
