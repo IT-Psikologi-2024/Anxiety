@@ -59,7 +59,7 @@ const CheckboxGroup = forwardRef<CheckboxGroupHandles, CheckboxGroupProps>(({ la
 
       <div className='flex relative top-[10vh] sm:top-[17vh] md:top-[18vh] lg:top-[20vh] xl:top-[23vh] justify-center'>
         <div className='flex flex-col gap-y-4 min-w-fit max-w-[832px] max-h-[840px] w-fit lg:h-[500px] bg-[#FBB3D7] rounded-[20px] p-8'>
-          <div className="grid md:grid-cols-2 gap-4">
+          <div className="grid md:grid-cols-2 gap-4 h-full">
             {labels.map(({ id, label }) => (
               <KelasCheckBox
                 key={id}
