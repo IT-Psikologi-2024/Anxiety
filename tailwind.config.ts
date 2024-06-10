@@ -21,6 +21,15 @@ const config: Config = {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    function({ addUtilities }: { addUtilities: (utilities: Record<string, Record<string, string>>) => void }) {
+      const newUtilities = {
+        '.text-shadow-white-outline': {
+          textShadow: '0px 0px 1px #fff, -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff',
+        },
+      };
+      addUtilities(newUtilities);
+    },
+  ],
 };
 export default config;

@@ -109,7 +109,7 @@ const FormProcess: React.FC = () => {
     // try {
     //   const response = await axios.post('http://localhost:8000/ticket',formData , {});
     //   console.log(response.data)
-    //   setCurrentPage(currentPage + 1);
+    setCurrentPage(currentPage + 1);
     // } catch (error) {
     //   console.error('Error submitting form', error);
     // }
@@ -156,8 +156,8 @@ const FormProcess: React.FC = () => {
           )}
 
           <div className='absolute flex w-4/5 md:justify-between invisible sm:visible sm:left-[-10rem] md:left-0 bottom-10 lg:bottom-[-2rem] xl:bottom-0 md:bottom-0 sm:w-4/5 xl:w-full -mb-12'>
-            {currentPage <= 2 && <img src="/ticket/ito-1.svg" alt="Ito Img" className='sm:-ml-[5rem] md:-ml-[12rem] lg:-ml-[6rem] xl:-ml-[8rem] 2xl:ml-0' />}
-            {currentPage > 2 && <img src="/ticket/ito-1.svg" alt="Ito Img" className='sm: md:-ml-[12rem] lg:-ml-[4rem] xl:-ml-[8rem] 2xl:ml-0 rotate-15.60' />}
+            {currentPage <= 2 && <img src="/ticket/ito-1.svg" alt="Ito Img" className='sm:w-4/5 md:w-auto sm:-ml-[5rem] md:-ml-[12rem] lg:-ml-[6rem] xl:-ml-[8rem] 2xl:ml-0' />}
+            {currentPage > 2 && <img src="/ticket/ito-1.svg" alt="Ito Img" className='sm:w-4/5 md:w-auto md:-ml-[12rem] lg:-ml-[4rem] xl:-ml-[8rem] 2xl:ml-0 rotate-15.60' />}
             {currentPage <= 2 && <img src="/ticket/ita-1.svg" alt="Ita Img" className='md:-ml-[4rem] lg:ml-[5rem] xl:-mr-[8rem] 2xl:mr-0' />}
             {currentPage > 2 && currentPage !== 4 && <img src="/ticket/ita-1.svg" alt="Ita Img" className='md:-ml-[4rem] lg:ml-8 xl:-mr-[8rem] 2xl:mr-0 -rotate-11.34' />}
             {currentPage === 4 && <img src="/ticket/ita-2.svg" alt="Ita Img" className='xl:mr-0 lg:-ml-[6rem] md:-ml-[8rem] sm:-ml-[12rem] 2xl:h-full' />}

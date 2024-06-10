@@ -1,18 +1,14 @@
 import React from 'react'
 import { Navbar } from '../components/Navbar'
-import Image from 'next/image'
+import MerchBackground from '../components/MerchBackground';
 
 const MerchandisePage = () => {
   return (
-    <div className='absolute w-full h-[4111px]'>
+    <div className='absolute w-full h-[3855px]'>
       <Navbar />
-      <Image 
-            src="/bg-merch-1.svg"
-            fill
-            alt="Merchandise Background"
-            sizes='none'
-            className='object-cover'
-          />
+      <div>
+        <MerchBackground />
+      </div>
     </div>
   )
 }
