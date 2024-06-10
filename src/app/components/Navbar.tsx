@@ -9,7 +9,7 @@ export const Navbar: React.FC = () => {
     <nav className="bg-[#E9E3D7] border-b border-solid border-slate-600 font-josefin w-full sticky top-0 z-50">
       <div className="max-w-7xl mx-auto flex items-center justify-between h-16 px-4">
         <div className="text-gray-800 text-l">
-          <a href="">
+          <a href="/">
             <img src="/tulisan-itp.svg" alt="ITP Logo" className="w-40" />
           </a>
         </div>

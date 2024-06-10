@@ -3,6 +3,7 @@ import React from 'react';
 
 interface NextButtonProps {
   handleClick: () => void;
+  disabled?: boolean;
 }
 
 const NextButton: React.FC<NextButtonProps> = ({ handleClick }) => {
