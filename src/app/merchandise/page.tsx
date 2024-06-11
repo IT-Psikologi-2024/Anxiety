@@ -20,13 +20,12 @@ const MerchandisePage = () => {
     { harga: 55000, nama: "Product Name", description: 'Product Description' },
     { harga: 55000, nama: "Product Name", description: 'Product Description' },
     { harga: 55000, nama: "Product Name", description: 'Product Description' },
-    ];
+  ];
 
   const bundles = [
     { harga: 50000, nama: "Bundle 1", description: 'Product Description + Product Description +Product Description' },
     { harga: 50000, nama: "Bundle 2", description: 'Product Description + Product Description +Product Description' },
     { harga: 50000, nama: "Bundle 3", description: 'Product Description + Product Description +Product Description' },
-    // Add more bundles as needed
   ];
 
   const updateQuantity = (type: 'products' | 'bundles', index: number, amount: number) => {
@@ -42,40 +41,43 @@ const MerchandisePage = () => {
     return productsTotal + bundlesTotal;
   };
 
+  const rows = Math.ceil(products.length / 3);
+  const lastRowStartIndex = (rows - 1) * 3;
+
   return (
-    <div className='flex-flex-col'>
+    <div className='flex flex-col'>
       <Navbar />
       <div className='min-h-[3855px] h-full flex flex-col overflow-hidden relative'>
         <MerchBackground />
         <div className='flex flex-col flex-grow'>
-        <div className='flex absolute top-[10vh]'>
-            <img src="/merch/awan-1.svg" alt="Awan 1" />
+          <div className='flex absolute top-[10vh]'>
+            <img src="/merch/awan-1.svg" alt="Awan 1" className='sm:w-3/5 lg:w-4/5 xl:w-full' />
           </div>
-          <div className='flex absolute top-[5vh] right-0'>
-            <img src="/merch/awan-2.svg" alt="Awan 2" />
+          <div className='flex absolute top-[5vh] right-0 justify-end'>
+            <img src="/merch/awan-2.svg" alt="Awan 2" className='sm:w-3/5 g:w-4/5 xl:w-full' />
           </div>
-          <div className='flex absolute top-[111vh] '>
-            <img src="/merch/awan-3.svg" alt="Awan 3" />
+          <div className='flex absolute top-[111vh]'>
+            <img src="/merch/awan-3.svg" alt="Awan 3" className='sm:w-3/5 lg:w-4/5 xl:w-full' />
           </div>
-          <div className='flex absolute top-[115vh] right-0'>
-            <img src="/merch/awan-4.svg" alt="Awan 4" />
+          <div className='flex absolute justify-end md:top-[170vh] lg:top-[150vh] xl:top-[130vh] 2xl:top-[115vh] right-0'>
+            <img src="/merch/awan-4.svg" alt="Awan 4" className='sm:w-3/5 lg:w-4/5 xl:w-[90%] 2xl:w-full' />
           </div>
           <div className='flex absolute top-[238vh]'>
-            <img src="/merch/awan-5.svg" alt="Awan 5" />
+            <img src="/merch/awan-5.svg" alt="Awan 5" className='lg:w-4/5 xl:w-full' />
           </div>
           <div className='flex absolute top-[330vh] right-8'>
-            <img src="/merch/awan-6.svg" alt="Awan 6" />
+            <img src="/merch/awan-6.svg" alt="Awan 6" className='lg:w-4/5 xl:w-full' />
           </div>
-          
-          <div className='flex absolute bottom-[35vh] right-0'>
-            <img src="/merch/loli-kanan.svg" alt="Loli Kanan" />
+
+          <div className='flex absolute justify-end md:bottom-[15vh] xl:bottom-[20vh] 2xl:bottom-[35vh] right-0'>
+            <img src="/merch/loli-kanan.svg" alt="Loli Kanan" className='w-3/5 lg:w-full'/>
           </div>
           <div className='flex flex-col absolute bottom-[7vh] w-full'>
             <img src="/merch/rumput-1.svg" alt="Rumput" />
           </div>
           <div className='flex flex-col relative items-center w-full top-[15vh] h-fit'>
-            <p className='text-white text-8xl italic font-bold'>Our Products</p>
-            <div className='flex w-4/5 h-[683px] bg-[#C8E3F6] rounded-[80px] p-6 mt-[5rem] shadow-inner-custom justify-evenly space-x-4 text-center text-product-color font-black'>
+            <p className='text-white md:text-4xl lg:text-6xl xl:text-8xl italic font-bold'>Our Products</p>
+            <div className='flex lg:w-[90%] xl:h-[683px] bg-[#C8E3F6] rounded-[80px] p-6 mt-[5rem] shadow-inner-custom justify-evenly space-x-4 text-center text-product-color font-black'>
               {bundles.map((bundle, index) => (
                 <BundleCard
                   key={index}
@@ -88,103 +90,55 @@ const MerchandisePage = () => {
               ))}
             </div>
           </div>
-          <div className='flex flex-col relative h-fit top-[30vh] items-center'>
-            <p className='text-white text-7xl italic font-bold'>Items</p>
-            <div className='flex relative justify-evenly h-full self-center w-full mt-24'>
-              <ProductCard
-                harga={products[0].harga}
-                nama={products[0].nama}
-                description={products[0].description}
-                amount={quantities.products[0]}
-                incrementAmount={() => updateQuantity('products', 0, quantities.products[0] + 1)}
-                decrementAmount={() => updateQuantity('products', 0, Math.max(quantities.products[0] - 1, 0))}
-                handleInputChange={(e) => updateQuantity('products', 0, parseInt(e.target.value, 10))}
-              />
+
+          <div className='flex flex-col relative h-fit md:top-[30vh] lg:top-[45vh] xl:top-[30vh] items-center'>
+            <p className='text-white md:text-4xl lg:text-6xl xl:text-7xl italic font-bold'>Items</p>
+            <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-16 w-[90%] mt-16 lg:mt-24'>
+              {products.slice(0, lastRowStartIndex).map((product, index) => (
                 <ProductCard
-                harga={products[1].harga}
-                nama={products[1].nama}
-                description={products[1].description}
-                amount={quantities.products[1]}
-                incrementAmount={() => updateQuantity('products', 1, quantities.products[1] + 1)}
-                decrementAmount={() => updateQuantity('products', 1, Math.max(quantities.products[1] - 1, 0))}
-                handleInputChange={(e) => updateQuantity('products', 1, parseInt(e.target.value, 10))}
-              />
-              <ProductCard
-                harga={products[2].harga}
-                nama={products[2].nama}
-                description={products[2].description}
-                amount={quantities.products[2]}
-                incrementAmount={() => updateQuantity('products', 2, quantities.products[2] + 1)}
-                decrementAmount={() => updateQuantity('products', 2, Math.max(quantities.products[2] - 1, 0))}
-                handleInputChange={(e) => updateQuantity('products', 2, parseInt(e.target.value, 10))}
-              />
-              </div>
-              <div className='flex relative justify-evenly h-full self-center w-full mt-32'>
-              <ProductCard
-                harga={products[3].harga}
-                nama={products[3].nama}
-                description={products[3].description}
-                amount={quantities.products[3]}
-                incrementAmount={() => updateQuantity('products', 3, quantities.products[3] + 1)}
-                decrementAmount={() => updateQuantity('products', 3, Math.max(quantities.products[3] - 1, 0))}
-                handleInputChange={(e) => updateQuantity('products', 3, parseInt(e.target.value, 10))}
-              />
-              <ProductCard
-                harga={products[4].harga}
-                nama={products[4].nama}
-                description={products[4].description}
-                amount={quantities.products[4]}
-                incrementAmount={() => updateQuantity('products', 4, quantities.products[4] + 1)}
-                decrementAmount={() => updateQuantity('products', 4, Math.max(quantities.products[4] - 1, 0))}
-                handleInputChange={(e) => updateQuantity('products', 4, parseInt(e.target.value, 10))}
-              />
-              <ProductCard
-                harga={products[5].harga}
-                nama={products[5].nama}
-                description={products[5].description}
-                amount={quantities.products[5]}
-                incrementAmount={() => updateQuantity('products', 5, quantities.products[5] + 1)}
-                decrementAmount={() => updateQuantity('products', 5, Math.max(quantities.products[5] - 1, 0))}
-                handleInputChange={(e) => updateQuantity('products', 5, parseInt(e.target.value, 10))}
-              />
-              </div>
-              <div className='flex relative justify-center space-x-10 h-full self-center w-full mt-32'>
-              <ProductCard
-                harga={products[6].harga}
-                nama={products[6].nama}
-                description={products[6].description}
-                amount={quantities.products[6]}
-                incrementAmount={() => updateQuantity('products', 6, quantities.products[6] + 1)}
-                decrementAmount={() => updateQuantity('products', 6, Math.max(quantities.products[6] - 1, 0))}
-                handleInputChange={(e) => updateQuantity('products', 6, parseInt(e.target.value, 10))}
-              />
-              <ProductCard
-                harga={products[7].harga}
-                nama={products[7].nama}
-                description={products[7].description}
-                amount={quantities.products[7]}
-                incrementAmount={() => updateQuantity('products', 7, quantities.products[7] + 1)}
-                decrementAmount={() => updateQuantity('products', 7, Math.max(quantities.products[7] - 1, 0))}
-                handleInputChange={(e) => updateQuantity('products', 7, parseInt(e.target.value, 10))}
-              />
-              </div>
+                  key={index}
+                  harga={product.harga}
+                  nama={product.nama}
+                  description={product.description}
+                  amount={quantities.products[index]}
+                  incrementAmount={() => updateQuantity('products', index, quantities.products[index] + 1)}
+                  decrementAmount={() => updateQuantity('products', index, Math.max(quantities.products[index] - 1, 0))}
+                  handleInputChange={(e) => updateQuantity('products', index, parseInt(e.target.value, 10))}
+                />
+              ))}
+            </div>
+
+            <div className='grid grid-cols-2 gap-8 w-[90%] mt-16 lg:mt-24 justify-evenly lg:flex pb-2' >
+              {products.slice(lastRowStartIndex).map((product, index) => (
+                <ProductCard
+                  key={lastRowStartIndex + index}
+                  harga={product.harga}
+                  nama={product.nama}
+                  description={product.description}
+                  amount={quantities.products[lastRowStartIndex + index]}
+                  incrementAmount={() => updateQuantity('products', lastRowStartIndex + index, quantities.products[lastRowStartIndex + index] + 1)}
+                  decrementAmount={() => updateQuantity('products', lastRowStartIndex + index, Math.max(quantities.products[lastRowStartIndex + index] - 1, 0))}
+                  handleInputChange={(e) => updateQuantity('products', lastRowStartIndex + index, parseInt(e.target.value, 10))}
+                />
+              ))}
+            </div>
           </div>
 
-          <div className='flex absolute bottom-[30vh]'>
-            <img src="/merch/loli-kiri.svg" alt="Loli Kiri" />
+          <div className='flex absolute md:bottom-[25vh] lg:bottom-[30vh]'>
+            <img src="/merch/loli-kiri.svg" alt="Loli Kiri" className='w-3/5 lg:w-full'/>
           </div>
           <div className='flex absolute bottom-16'>
-            <img src="/merch/ito-1.svg" alt="Ito 1" className='w-4/5'/>
+            <img src="/merch/ito-1.svg" alt="Ito 1" className='w-3/5 lg:w-4/5' />
           </div>
           <div className='flex absolute bottom-[8vh] right-0 justify-end '>
-            <img src="/merch/ivy-1.svg" alt="Ivy 1" className='w-4/5'/>
+            <img src="/merch/ivy-1.svg" alt="Ivy 1" className='w-3/5 lg:w-4/5' />
           </div>
-          
+
           <div className='flex flex-col absolute items-end p-6 bottom-0 w-full bg-[#FBB3D7] h-[2.5%]'>
             <p className='text-product-color text-lg font-semibold'>
               Total Price: Rp.{calculateTotalPrice().toLocaleString('id-ID')},00
             </p>
-            <button className='bg-[#618758] text-white rounded-[34.15px] w-[10%]'>
+            <button className='bg-[#618758] text-white rounded-[34.15px] md:w-[15%] xl:w-[12%]'>
               Check Out
             </button>
           </div>
