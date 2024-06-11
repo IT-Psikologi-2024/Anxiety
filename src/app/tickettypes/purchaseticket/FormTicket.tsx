@@ -1,25 +1,13 @@
 import React, { useState, useImperativeHandle, forwardRef } from 'react';
 import InputField from '../../components/InputField';
-
-interface FormValues {
-  jenisTiket: string;
-  idLine: string;
-  namaLengkap: string;
-  noTelp: string;
-  email: string;
-  asalSekolah: string;
-}
+import { useFormContext } from './context/PurchaseContext';
 
 interface FormTicketHandles {
   validate: () => boolean;
 }
 
-interface FormTicketProps {
-  formValues: FormValues;
-  setFormValues: React.Dispatch<React.SetStateAction<FormValues>>;
-}
-
-const FormTicket = forwardRef<FormTicketHandles, FormTicketProps>(({ formValues, setFormValues }, ref) => {
+const FormTicket = forwardRef<FormTicketHandles>((_, ref) => {
+  const { formValues, setFormValues } = useFormContext();
   const [errors, setErrors] = useState({
     jenisTiket: '',
     idLine: '',
@@ -32,23 +20,33 @@ const FormTicket = forwardRef<FormTicketHandles, FormTicketProps>(({ formValues,
   useImperativeHandle(ref, () => ({
     validate: () => {
       const newErrors = {
-        jenisTiket: formValues.jenisTiket ? '' : 'Jenis Tiket is required',
-        idLine: formValues.idLine ? '' : 'ID Line is required',
-        namaLengkap: formValues.namaLengkap ? '' : 'Nama Lengkap is required',
-        noTelp: formValues.noTelp ? '' : 'No. Telp is required',
+        jenisTiket: '',
+        idLine: '',
+        namaLengkap: '',
+        noTelp: '',
         email: '',
-        asalSekolah: formValues.asalSekolah ? '' : 'Asal Sekolah is required',
+        asalSekolah: '',
       };
+
+      if (!formValues.jenisTiket) {
+        newErrors.jenisTiket = 'Jenis Tiket is required';
+      } else if (formValues.jenisTiket !== 'Presale' && formValues.jenisTiket !== 'Presale Roadshow') {
+        newErrors.jenisTiket = 'Jenis Tiket must be either "Presale" or "Presale Roadshow"';
+      }
+
+      newErrors.idLine = formValues.idLine ? '' : 'ID Line is required';
+      newErrors.namaLengkap = formValues.namaLengkap ? '' : 'Nama Lengkap is required';
+      newErrors.noTelp = formValues.noTelp ? '' : 'No. Telp is required';
+      newErrors.asalSekolah = formValues.asalSekolah ? '' : 'Asal Sekolah is required';
 
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       newErrors.email = emailRegex.test(formValues.email) ? '' : 'Please enter a valid email address';
 
-      const phoneRegex = /^\d+$/;
-      newErrors.noTelp = phoneRegex.test(formValues.noTelp) ? '' : 'No. Telp should contain only numbers';
+      const indonesianPhoneRegex = /^(\+62|62|0)8[1-9][0-9]{6,9}$/;
+      newErrors.noTelp = indonesianPhoneRegex.test(formValues.noTelp) ? '' : 'Please enter a valid phone number';
 
       setErrors(newErrors);
 
-      // Check if there are any errors
       return !Object.values(newErrors).some(error => error);
     }
   }));

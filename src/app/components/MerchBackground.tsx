@@ -5,7 +5,7 @@ const MerchBackground = () => {
   return (
     <div className='absolute w-full h-full'>
           <Image 
-            src="/bg-merch-1.svg"
+            src="/merch/bg-merch-1.svg"
             fill
             alt="home background"
             sizes='none'

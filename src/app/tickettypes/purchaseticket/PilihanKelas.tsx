@@ -2,6 +2,7 @@
 import React, { useImperativeHandle, forwardRef, useState } from 'react';
 import PsyTag from '@/app/components/PsyTag';
 import KelasCheckBox from '../../components/KelasCheckBox';
+import { useFormContext } from './context/PurchaseContext';
 
 interface CheckboxGroupHandles {
   validate: () => boolean;
@@ -9,12 +10,12 @@ interface CheckboxGroupHandles {
 
 interface CheckboxGroupProps {
   labels: { id: string; label: string }[];
-  checkedItems: { [key: string]: number }; // Checked items state
-  setCheckedItems: React.Dispatch<React.SetStateAction<{ [key: string]: number }>>; // State setter function
 }
 
-const CheckboxGroup = forwardRef<CheckboxGroupHandles, CheckboxGroupProps>(({ labels, checkedItems, setCheckedItems }, ref) => {
+const CheckboxGroup = forwardRef<CheckboxGroupHandles, CheckboxGroupProps>(({ labels }, ref) => {
+  const { checkedItems, setCheckedItems } = useFormContext();
   const [showError, setShowError] = useState(false);
+
   useImperativeHandle(ref, () => ({
     validate: () => {
       const isValid = Object.keys(checkedItems).length > 0;
@@ -58,7 +59,7 @@ const CheckboxGroup = forwardRef<CheckboxGroupHandles, CheckboxGroupProps>(({ la
 
       <div className='flex relative top-[10vh] sm:top-[17vh] md:top-[18vh] lg:top-[20vh] xl:top-[23vh] justify-center'>
         <div className='flex flex-col gap-y-4 min-w-fit max-w-[832px] max-h-[840px] w-fit lg:h-[500px] bg-[#FBB3D7] rounded-[20px] p-8'>
-          <div className="grid md:grid-cols-2 gap-4">
+          <div className="grid md:grid-cols-2 gap-4 h-full">
             {labels.map(({ id, label }) => (
               <KelasCheckBox
                 key={id}
@@ -66,6 +67,7 @@ const CheckboxGroup = forwardRef<CheckboxGroupHandles, CheckboxGroupProps>(({ la
                 label={label}
                 onChange={handleCheckboxChange}
                 checkedOrder={checkedItems[id] || null}
+                className={id === 'industri' ? 'md:col-span-2 justify-center flex' : ''}
               />
             ))}
           </div>

@@ -1,21 +1,16 @@
 import React from 'react';
+import { useFormContext } from './context/PurchaseContext';
 
-interface UploadPembayaranProps {
-    selectedFile: File | null;
-    setSelectedFile: (file: File | null) => void;
-    errorMessage: string;
-    setErrorMessage: (message: string) => void;
-  }
-
-const UploadBuktiPembayaran: React.FC<UploadPembayaranProps> = ({ selectedFile, setSelectedFile, errorMessage, setErrorMessage }) => {
+const UploadBuktiPembayaran: React.FC = () => {
+    const { selectedFileBayar, setSelectedFileBayar, errorMessageBayar, setErrorMessageBayar } = useFormContext();
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         if (event.target.files && event.target.files.length > 0) {
           const file = event.target.files[0];
           if (file.type.startsWith('image/')) {
-            setSelectedFile(file);
-            setErrorMessage(''); 
+            setSelectedFileBayar(file);
+            setErrorMessageBayar(''); 
           } else {
-            setErrorMessage('Please select a valid image file.');
+            setErrorMessageBayar('Please select a valid image file.');
           }
         }
       };
@@ -39,7 +34,7 @@ const UploadBuktiPembayaran: React.FC<UploadPembayaranProps> = ({ selectedFile, 
               />
               <label htmlFor='file-input' className='cursor-pointer'>
                 <div className='w-[100px] h-[100px] bg-white rounded-[20px] flex items-center justify-center'>
-                  {selectedFile ? (
+                  {selectedFileBayar ? (
                     <span className='text-9xl text-[#FBB3D7]'>&#10003;</span> // Checkmark symbol
                   ) : (
                     <span className='text-9xl text-[#FBB3D7]'>+</span>
@@ -50,14 +45,14 @@ const UploadBuktiPembayaran: React.FC<UploadPembayaranProps> = ({ selectedFile, 
               Upload Bukti Transfer atau Pembayaran
               </label>
             </div>
-            {selectedFile && (
+            {selectedFileBayar && (
               <div className='mt-4 text-base sm:text-xl text-gray-700 text-center'>
-                Selected file: {selectedFile.name}
+                Selected file: {selectedFileBayar.name}
               </div>
             )}
-            {errorMessage && (
+            {errorMessageBayar && (
               <div className='mt-2 text-base sm:text-xl text-red-500 text-center'>
-                {errorMessage}
+                {errorMessageBayar}
               </div>
             )}
           </div>
