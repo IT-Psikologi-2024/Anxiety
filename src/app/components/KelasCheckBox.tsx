@@ -12,7 +12,6 @@ const CustomCheckbox: React.FC<CustomCheckboxProps> = ({ label, id, onChange, ch
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     onChange(id, e.target.checked);
   };
-
   return (
     <div className={`${className}`}>
         <div className={`flex items-center mb-4 lg:w-full md:w-[90%] max-w-xs bg-white h-[80px] rounded-[20px] px-2 `}>
