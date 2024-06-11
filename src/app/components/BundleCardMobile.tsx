@@ -22,9 +22,9 @@ const BundleCardMobile: React.FC<BundleCardMobileProps> = ({
   }) => {
   const formattedPrice = formatPrice(harga);
   return (
-    <div className='flex bg-[#C8E3F6] w-[90%] p-6 rounded-[50px] shadow-custom-outer text-center text-product-color'>
+    <div className='flex bg-[#C8E3F6] h-[226px] sm:h-auto sm:w-[90%] p-6 rounded-[50px] shadow-custom-outer text-center text-product-color'>
         <div className='bg-white shadow-inner-custom flex flex-col items-center w-1/2 rounded-[38px]'>
-            <div className='flex relative w-4/5'>
+            <div className='flex relative sm:h-auto h-4/5 w-4/5'>
                 <img src="/icon.ico" alt=""/>
             </div>
             <div>
@@ -39,6 +39,7 @@ const BundleCardMobile: React.FC<BundleCardMobileProps> = ({
             incrementAmount={incrementAmount}
             decrementAmount={decrementAmount}
             handleInputChange={handleInputChange}
+            className='w-[90%] h-7'
             />
         </div>
     </div>

@@ -7,9 +7,16 @@ const MerchBackground = () => {
           <Image 
             src="/merch/bg-merch-1.svg"
             fill
-            alt="home background"
+            alt="Merch background"
             sizes='none'
-            className='object-cover'
+            className='object-cover invisible sm:visible'
+          />
+          <Image
+            src="/merch/mobile/bg-merch-1.svg"
+            fill
+            alt="Merch background"
+            sizes='none'
+            className='object-cover sm:invisible'
           />
     </div>
   )
