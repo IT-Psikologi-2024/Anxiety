@@ -4,6 +4,7 @@ import { Navbar } from '../components/Navbar';
 import MerchBackground from '../components/MerchBackground';
 import ProductCard from '../components/ProductCard';
 import BundleCard from '../components/BundleCard';
+import BundleCardMobile from '../components/BundleCardMobile';
 
 const MerchandisePage = () => {
   const [quantities, setQuantities] = useState({
@@ -24,8 +25,8 @@ const MerchandisePage = () => {
 
   const bundles = [
     { harga: 50000, nama: "Bundle 1", description: 'Product Description + Product Description +Product Description' },
-    { harga: 50000, nama: "Bundle 2", description: 'Product Description + Product Description +Product Description' },
-    { harga: 50000, nama: "Bundle 3", description: 'Product Description + Product Description +Product Description' },
+    { harga: 50000, nama: "Bundle 1", description: 'Product Description + Product Description +Product Description' },
+    { harga: 50000, nama: "Bundle 1", description: 'Product Description + Product Description +Product Description' },
   ];
 
   const updateQuantity = (type: 'products' | 'bundles', index: number, amount: number) => {
@@ -59,7 +60,7 @@ const MerchandisePage = () => {
           <div className='flex absolute top-[111vh]'>
             <img src="/merch/awan-3.svg" alt="Awan 3" className='sm:w-3/5 lg:w-4/5 xl:w-full' />
           </div>
-          <div className='flex absolute justify-end md:top-[170vh] lg:top-[150vh] xl:top-[130vh] 2xl:top-[115vh] right-0'>
+          <div className='flex absolute justify-end sm:top-[200vh] md:top-[170vh] lg:top-[150vh] xl:top-[130vh] 2xl:top-[115vh] right-0'>
             <img src="/merch/awan-4.svg" alt="Awan 4" className='sm:w-3/5 lg:w-4/5 xl:w-[90%] 2xl:w-full' />
           </div>
           <div className='flex absolute top-[238vh]'>
@@ -69,15 +70,15 @@ const MerchandisePage = () => {
             <img src="/merch/awan-6.svg" alt="Awan 6" className='lg:w-4/5 xl:w-full' />
           </div>
 
-          <div className='flex absolute justify-end md:bottom-[15vh] xl:bottom-[20vh] 2xl:bottom-[35vh] right-0'>
+          <div className='flex absolute justify-end sm:bottom-[10vh] md:bottom-[15vh] xl:bottom-[20vh] 2xl:bottom-[35vh] right-0'>
             <img src="/merch/loli-kanan.svg" alt="Loli Kanan" className='w-3/5 lg:w-full'/>
           </div>
           <div className='flex flex-col absolute bottom-[7vh] w-full'>
             <img src="/merch/rumput-1.svg" alt="Rumput" />
           </div>
-          <div className='flex flex-col relative items-center w-full top-[15vh] h-fit'>
+          <div className='flex flex-col relative items-center w-full top-[15vh] h-fit invisible md:visible'>
             <p className='text-white md:text-4xl lg:text-6xl xl:text-8xl italic font-bold'>Our Products</p>
-            <div className='flex lg:w-[90%] xl:h-[683px] bg-[#C8E3F6] rounded-[80px] p-6 mt-[5rem] shadow-inner-custom justify-evenly space-x-4 text-center text-product-color font-black'>
+            <div className='flex absolute  md:relative lg:w-[90%] xl:h-[683px] bg-[#C8E3F6] rounded-[80px] p-6 mt-[5rem] shadow-inner-custom justify-evenly space-x-4 text-center text-product-color font-black'>
               {bundles.map((bundle, index) => (
                 <BundleCard
                   key={index}
@@ -91,9 +92,48 @@ const MerchandisePage = () => {
             </div>
           </div>
 
-          <div className='flex flex-col relative h-fit md:top-[30vh] lg:top-[45vh] xl:top-[30vh] items-center'>
-            <p className='text-white md:text-4xl lg:text-6xl xl:text-7xl italic font-bold'>Items</p>
-            <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-16 w-[90%] mt-16 lg:mt-24'>
+          <div className='visible md:invisible md:absolute w-full flex flex-col relative top-[15vh] h-fit space-y-10'>
+            <div className='flex right-0 justify-end -mr-8'>
+              <BundleCardMobile 
+                key={0}
+                nama='Bundle 1'
+                harga={50000}
+                description='Product Description + Product Description +Product Description'
+                amount={quantities.bundles[0]}
+                incrementAmount={() => updateQuantity('bundles', 0, quantities.bundles[0] + 1)}
+                decrementAmount={() => updateQuantity('bundles', 0, Math.max(quantities.bundles[0] - 1, 0))}
+                handleInputChange={(e) => updateQuantity('bundles', 0, parseInt(e.target.value, 10))}
+              />
+            </div>
+            <div className='flex -ml-8'>
+              <BundleCardMobile 
+                key={0}
+                nama='Bundle 1'
+                harga={50000}
+                description='Product Description + Product Description +Product Description'
+                amount={quantities.bundles[0]}
+                incrementAmount={() => updateQuantity('bundles', 0, quantities.bundles[0] + 1)}
+                decrementAmount={() => updateQuantity('bundles', 0, Math.max(quantities.bundles[0] - 1, 0))}
+                handleInputChange={(e) => updateQuantity('bundles', 0, parseInt(e.target.value, 10))}
+              />
+            </div>
+            <div className='flex right-0 justify-end -mr-8'>
+              <BundleCardMobile 
+                key={0}
+                nama='Bundle 1'
+                harga={50000}
+                description='Product Description + Product Description +Product Description'
+                amount={quantities.bundles[0]}
+                incrementAmount={() => updateQuantity('bundles', 0, quantities.bundles[0] + 1)}
+                decrementAmount={() => updateQuantity('bundles', 0, Math.max(quantities.bundles[0] - 1, 0))}
+                handleInputChange={(e) => updateQuantity('bundles', 0, parseInt(e.target.value, 10))}
+              />
+            </div>
+          </div>
+
+          <div className='flex flex-col relative h-fit sm:top-[25vh] md:top-[30vh] lg:top-[45vh] xl:top-[30vh] items-center'>
+            <p className='text-white sm:text-4xl md:text-4xl lg:text-6xl xl:text-7xl italic font-bold'>Items</p>
+            <div className='grid grid-cols-2 lg:grid-cols-3 gap-16 w-[90%] sm:mt-12 md:mt-16 lg:mt-24'>
               {products.slice(0, lastRowStartIndex).map((product, index) => (
                 <ProductCard
                   key={index}
@@ -108,7 +148,7 @@ const MerchandisePage = () => {
               ))}
             </div>
 
-            <div className='grid grid-cols-2 gap-8 w-[90%] mt-16 lg:mt-24 justify-evenly lg:flex pb-2' >
+            <div className='grid grid-cols-2 gap-8 w-[90%] sm:mt-12 md:mt-16 lg:mt-24 justify-evenly lg:flex pb-2' >
               {products.slice(lastRowStartIndex).map((product, index) => (
                 <ProductCard
                   key={lastRowStartIndex + index}
@@ -124,7 +164,7 @@ const MerchandisePage = () => {
             </div>
           </div>
 
-          <div className='flex absolute md:bottom-[25vh] lg:bottom-[30vh]'>
+          <div className='flex absolute sm:bottom-[20vh] md:bottom-[25vh] lg:bottom-[30vh]'>
             <img src="/merch/loli-kiri.svg" alt="Loli Kiri" className='w-3/5 lg:w-full'/>
           </div>
           <div className='flex absolute bottom-16'>
@@ -138,7 +178,7 @@ const MerchandisePage = () => {
             <p className='text-product-color text-lg font-semibold'>
               Total Price: Rp.{calculateTotalPrice().toLocaleString('id-ID')},00
             </p>
-            <button className='bg-[#618758] text-white rounded-[34.15px] md:w-[15%] xl:w-[12%]'>
+            <button className='bg-[#618758] text-white rounded-[34.15px] sm:w-1/5 md:w-[15%] xl:w-[12%]'>
               Check Out
             </button>
           </div>

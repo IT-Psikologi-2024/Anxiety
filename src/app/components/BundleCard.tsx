@@ -23,7 +23,7 @@ const BundleCard: React.FC<BundleCardProps> = ({
   const formattedPrice = formatPrice(harga);
 
   return (
-    <div className="w-1/3 h-full">
+    <div className="flex flex-col items-center w-1/3 h-full">
       <div className="flex flex-col bg-white rounded-[80px] h-4/5 shadow-inner-custom py-8 px-4 items-center space-y-2">
         <p className="text-5xl italic">{nama}</p>
         <img src="/icon.ico" alt="" className="h-[70%] w-4/5" />
