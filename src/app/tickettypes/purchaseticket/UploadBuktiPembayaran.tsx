@@ -1,5 +1,5 @@
 import React from 'react';
-import { useFormContext } from './context/PurchaseContext';
+import { useFormContext } from '../../context/PurchaseContext';
 
 const UploadBuktiPembayaran: React.FC = () => {
     const { selectedFileBayar, setSelectedFileBayar, errorMessageBayar, setErrorMessageBayar } = useFormContext();

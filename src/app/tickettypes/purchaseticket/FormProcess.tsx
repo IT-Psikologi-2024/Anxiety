@@ -12,7 +12,7 @@ import Pembayaran from './Pembayaran';
 import UploadBuktiPembayaran from './UploadBuktiPembayaran';
 import TerimaKasih from './TerimaKasih';
 import { useRouter } from 'next/navigation';
-import { useFormContext } from './context/PurchaseContext';
+import { useFormContext } from '../../context/PurchaseContext';
 import axios from 'axios';
 import InstagramEmbed from '../../components/InstagramPost';
 

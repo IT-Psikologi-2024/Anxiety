@@ -1,5 +1,5 @@
 import React from 'react';
-import { useFormContext } from './context/PurchaseContext';
+import { useFormContext } from '../../context/PurchaseContext';
 
 const FollowInstagram: React.FC = () => {
   const { selectedFileInsta, setSelectedFileInsta, errorMessageInsta, setErrorMessageInsta } = useFormContext();

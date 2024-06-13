@@ -2,6 +2,7 @@ import React from 'react';
 import AmountProduct from './AmountProduct';
 
 interface ProductCardProps {
+  image: string;
   harga: number;
   nama: string;
   description: string;
@@ -12,6 +13,7 @@ interface ProductCardProps {
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({
+  image,
   harga,
   nama,
   description,
@@ -23,19 +25,21 @@ const ProductCard: React.FC<ProductCardProps> = ({
   const formattedPrice = formatPrice(harga);
 
   return (
-    <div className='flex flex-col items-center relative h-[610px] w-[460px] bg-[#C8E3F6] rounded-[80px] p-6 shadow-custom-outer space-y-6'>
-      <div className='h-3/5 flex justify-center w-[95%] bg-white rounded-[65px] shadow-inner-custom'>
-        <img src="/icon.ico" alt="" className='h-full w-full rounded-[65px]' />
+    <div className='flex flex-col items-center relative h-[215px] w-[155px] sm:h-[450px] md:h-[500px] lg:h-[490px] xl:h-[550px] 2xl:h-[610px] sm:w-auto xl:w-[350px] 2xl:w-[410px] bg-[#C8E3F6] rounded-[25px] sm:rounded-[80px] p-2 sm:p-6 shadow-custom-outer space-y-1 sm:space-y-6'>
+      <div className=' w-full h-3/5 flex sm:flex-row flex-col justify-center items-center sm:w-[95%] bg-white rounded-[25px] sm:rounded-[65px] shadow-inner-custom'>
+        <img src={image} alt={nama} className='rounded-[25px] w-4/5 h-4/5 sm:h-full sm:w-full sm:rounded-[65px]' />
+        <p className='sm:invisible sm:absolute text-lg mt-1'>Rp.{formattedPrice}</p>
       </div>
-      <div className='text-center text-product-color font-extrabold flex flex-col justify-center'>
-        <p className='text-4xl'>{nama}</p>
-        <p>{description}</p>
-        <p className='text-2xl mt-3'>Rp.{formattedPrice}</p>
+      <div className='text-center text-product-color font-extrabold flex flex-col justify-center items-center'>
+        <p className='text-lg sm:text-2xl lg:text-3xl xl:text-4xl'>{nama}</p>
+        <p className='text-xs sm:text-base my-1'>{description}</p>
+        <p className='invisible sm:visible sm:relative absolute text-lg sm:mt-3'>Rp.{formattedPrice}</p>
         <AmountProduct
           amount={amount}
           incrementAmount={incrementAmount}
           decrementAmount={decrementAmount}
           handleInputChange={handleInputChange}
+          className='sm:w-4/5 sm:h-4/5'
         />
       </div>
     </div>
