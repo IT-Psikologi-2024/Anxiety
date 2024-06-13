@@ -27,7 +27,9 @@ interface FormContextProps {
   setErrorMessageBayar: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const FormContext = createContext<FormContextProps | undefined>(undefined);
+const FormContext = createContext({} as FormContextProps);
+  
+export const useFormContext = () => useContext(FormContext)
 
 export const FormProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -58,12 +60,4 @@ export const FormProvider: React.FC<{ children: React.ReactNode }> = ({ children
       {children}
     </FormContext.Provider>
   );
-};
-
-export const useFormContext = (): FormContextProps => {
-  const context = useContext(FormContext);
-  if (context === undefined) {
-    throw new Error('useFormContext must be used within a FormProvider');
-  }
-  return context;
 };

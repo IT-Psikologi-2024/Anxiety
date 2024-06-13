@@ -40,7 +40,7 @@ export const Navbar: React.FC = () => {
           } md:flex`}
         >
           <NavItem href="/">Home</NavItem>
-          <NavItem href="/tickettypes">Ticket</NavItem>
+          <NavItem href="/ticket">Ticket</NavItem>
           <NavItem href="/merchandise">Merchandise</NavItem>
         </ul>
       </div>

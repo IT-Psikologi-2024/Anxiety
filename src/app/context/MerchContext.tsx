@@ -1,6 +1,6 @@
 'use client';
 
-import React, { createContext, useContext, useState, ReactNode } from 'react';
+import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react';
 
 interface Product {
   image: string;
@@ -40,7 +40,9 @@ interface MerchProviderProps {
   children: ReactNode;
 }
 
-const MerchContext = createContext<MerchContextType | undefined>(undefined);
+const MerchContext = createContext({} as MerchContextType );
+  
+export const useMerchContext = () => useContext(MerchContext)
 
 export const MerchProvider: React.FC<MerchProviderProps> = ({ children }) => {
   const [merchValues, setMerchValues] = useState<MerchValuesType>({
@@ -56,17 +58,11 @@ export const MerchProvider: React.FC<MerchProviderProps> = ({ children }) => {
     notePemesanan: ''
   });
 
+  console.log(merchValues)
+
   return (
     <MerchContext.Provider value={{ merchValues, setMerchValues }}>
       {children}
     </MerchContext.Provider>
   );
-};
-
-export const useMerchContext = (): MerchContextType => {
-  const context = useContext(MerchContext);
-  if (!context) {
-    throw new Error('useMerchContext must be used within a MerchProvider');
-  }
-  return context;
 };

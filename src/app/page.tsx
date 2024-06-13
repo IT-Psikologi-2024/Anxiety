@@ -92,7 +92,7 @@ const MyApp: React.FC = () => {
 
           <div className='flex relative sm:mt-[-4rem] md:mt-[-8rem] lg:mt-[-10rem] xl:mt-[-9rem] 2xl:mt-[-5rem] justify-center sm:pl-[3rem] md:pl-[7rem]'>
             <div className='flex relative justify-end'>
-              <a href='/tickettypes' className='flex relative justify-end items-center'>
+              <a href='/ticket' className='flex relative justify-end items-center'>
                 <img src="home/get-ticket-btn.svg" alt="Button Ticket" className=' hover:scale-110 transition ease-in-out w-[75%] sm:w-[70%] md:w-[60%] xl:w-[80%]' />
               </a>
             </div>

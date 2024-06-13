@@ -106,13 +106,13 @@ const FormProcess: React.FC = () => {
       formData.append('Files', selectedFileBayar);
     }
 
-    // try {
-    //   const response = await axios.post('http://localhost:8000/ticket',formData , {});
-    //   console.log(response.data)
-    setCurrentPage(currentPage + 1);
-    // } catch (error) {
-    //   console.error('Error submitting form', error);
-    // }
+    try {
+      const response = await axios.post('http://localhost:8000/ticket',formData , {});
+      console.log(response.data)
+      setCurrentPage(currentPage + 1);
+    } catch (error) {
+      console.error('Error submitting form', error);
+    }
   };
 
   const renderPage = () => {
