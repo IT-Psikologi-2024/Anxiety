@@ -1,6 +1,6 @@
 import React, { useState, useImperativeHandle, forwardRef } from 'react';
 import InputField from '../../components/InputField';
-import { useFormContext } from './context/PurchaseContext';
+import { useFormContext } from '../../context/PurchaseContext';
 
 interface FormTicketHandles {
   validate: () => boolean;

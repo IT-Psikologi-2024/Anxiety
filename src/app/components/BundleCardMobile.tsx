@@ -2,6 +2,7 @@ import React from 'react'
 import AmountProduct from './AmountProduct';
 
 interface BundleCardMobileProps {
+  image: string;
   nama: string;
   harga: number;
   description: string;
@@ -12,6 +13,7 @@ interface BundleCardMobileProps {
 }
 
 const BundleCardMobile: React.FC<BundleCardMobileProps> = ({
+    image,
     nama,
     harga,
     description,
@@ -25,7 +27,7 @@ const BundleCardMobile: React.FC<BundleCardMobileProps> = ({
     <div className='flex bg-[#C8E3F6] h-[226px] sm:h-auto sm:w-[90%] p-6 rounded-[50px] shadow-custom-outer text-center text-product-color'>
         <div className='bg-white shadow-inner-custom flex flex-col items-center w-1/2 rounded-[38px]'>
             <div className='flex relative sm:h-auto h-4/5 w-4/5'>
-                <img src="/icon.ico" alt=""/>
+                <img src={image} alt={nama}/>
             </div>
             <div>
                 <p className='text-2xl font-black'>Rp{formattedPrice}</p>

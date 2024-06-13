@@ -2,6 +2,7 @@ import React from 'react';
 import AmountProduct from './AmountProduct';
 
 interface ProductCardProps {
+  image: string;
   harga: number;
   nama: string;
   description: string;
@@ -12,6 +13,7 @@ interface ProductCardProps {
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({
+  image,
   harga,
   nama,
   description,
@@ -25,7 +27,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
   return (
     <div className='flex flex-col items-center relative h-[215px] w-[155px] sm:h-[450px] md:h-[500px] lg:h-[490px] xl:h-[550px] 2xl:h-[610px] sm:w-auto xl:w-[350px] 2xl:w-[410px] bg-[#C8E3F6] rounded-[25px] sm:rounded-[80px] p-2 sm:p-6 shadow-custom-outer space-y-1 sm:space-y-6'>
       <div className=' w-full h-3/5 flex sm:flex-row flex-col justify-center items-center sm:w-[95%] bg-white rounded-[25px] sm:rounded-[65px] shadow-inner-custom'>
-        <img src="/icon.ico" alt="" className='rounded-[25px] w-4/5 h-4/5 sm:h-full sm:w-full sm:rounded-[65px]' />
+        <img src={image} alt={nama} className='rounded-[25px] w-4/5 h-4/5 sm:h-full sm:w-full sm:rounded-[65px]' />
         <p className='sm:invisible sm:absolute text-lg mt-1'>Rp.{formattedPrice}</p>
       </div>
       <div className='text-center text-product-color font-extrabold flex flex-col justify-center items-center'>

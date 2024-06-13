@@ -1,7 +1,8 @@
 import React from 'react';
+import MerchForm from './MerchForm';
 import MerchandiseProviderWrapper from './Wrapper';
 
-const MerchPage: React.FC = () => {
+const CheckoutPage: React.FC = () => {
   return (
     <div>
       <MerchandiseProviderWrapper />
@@ -9,4 +10,4 @@ const MerchPage: React.FC = () => {
   );
 };
 
-export default MerchPage;
+export default CheckoutPage;
