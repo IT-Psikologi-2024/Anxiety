@@ -24,6 +24,7 @@ const CheckOutPage = () => {
     });
 
     const [pickupLocation, setPickupLocation] = useState<string>('');
+    const [shippingCost, setShippingCost] = useState<number>(0);
 
     const handleInputChange = (id: string, value: string) => {
         setMerchValues((prevValues) => ({
@@ -37,8 +38,24 @@ const CheckOutPage = () => {
     };
 
     const handlePickupLocationChange = (value: string) => {
-        setPickupLocation(value);
-    };
+      setPickupLocation(value);
+      switch (value) {
+          case 'Fakultas Psikologi UI':
+              setShippingCost(0);
+              break;
+          case 'Jabodetabek (+19.000)':
+              setShippingCost(19000);
+              break;
+          case 'Pulau Jawa (+29.000)':
+              setShippingCost(29000);
+              break;
+          case 'Luar Pulau Jawa (+49.000)':
+              setShippingCost(49000);
+              break;
+          default:
+              setShippingCost(0);
+      }
+  };
     
       const validateInputs = () => {
         const newErrors = {
@@ -65,6 +82,14 @@ const CheckOutPage = () => {
 
     const { products, bundles } = merchValues.cart;
     const [extraBubbleWrap, setExtraBubbleWrap] = useState<boolean>(false);
+    
+    const calculateTotalPrice = () => {
+      const totalHarga = merchValues.totalHargaProduk + shippingCost;
+      if(extraBubbleWrap ) {
+        return totalHarga + 5000;
+      }
+      return totalHarga
+    };
 
   return (
     <div className="flex flex-col">
@@ -106,7 +131,7 @@ const CheckOutPage = () => {
             </div>
 
             <div className="flex flex-col relative items-center justify-center w-full mt-[15vh] h-fit">
-                <p className="text-white md:text-4xl lg:text-6xl xl:text-7xl italic font-black">Data Diri</p>
+                <p className="text-white sm:text-4xl lg:text-6xl xl:text-7xl italic font-black">Data Diri</p>
                 <div className="flex relative flex-col w-4/5 bg-[#C8E3F6] h-[1536px] rounded-[25px] mt-10 p-16 space-y-12 shadow-inner-custom">
                     <MerchInput
                         label="Nama Lengkap"
@@ -145,7 +170,7 @@ const CheckOutPage = () => {
                     />
 
                     <div className="flex flex-col w-full space-y-8 ml-3">
-                        <p className="text-4xl font-black text-product-color mb-2">Pengambilan Barang</p>
+                        <p className="text-3xl md:text-4xl font-black text-product-color mb-2">Pengambilan Barang</p>
                         <RadioInput
                         label="Fakultas Psikologi UI"
                         name="pickupLocation"
@@ -179,10 +204,10 @@ const CheckOutPage = () => {
             </div>
 
             <div className='flex flex-col relative items-center justify-center w-full h-fit mt-[10vh] z-10'>
-                <p className="text-white md:text-4xl lg:text-6xl xl:text-7xl italic font-black">Pesanan</p>
+                <p className="text-white sm:text-4xl lg:text-6xl xl:text-7xl italic font-black">Pesanan</p>
 
                 <div className="flex relative flex-col w-4/5 bg-[#C8E3F6] h-[1119px] rounded-[25px] mt-10 p-16 space-y-12 shadow-inner-custom">
-                    <div className={`space-y-8 p-8 ${(products.length > 2  || bundles.length > 2)? 'overflow-y-scroll' : 'overflow-hidden'} h-3/5`}>
+                    <div className={`space-y-8 p-8 ${(products.length + bundles.length > 2)? 'overflow-y-scroll' : 'overflow-hidden'} h-3/5`}>
                         {bundles.map((bundle, index) => (
                         <ProductShow
                             key={index}
@@ -218,7 +243,7 @@ const CheckOutPage = () => {
                             <label htmlFor="extraBubbleWrap" className="text-3xl font-bold text-product-color">
                             Extra Bubble Wrap
                             </label>
-                            <p className='text-white text-2xl drop-shadow-md'>Rp XX.XXX</p>
+                            <p className='text-white text-2xl drop-shadow-md'>Rp 5.000</p>
                         </div>
                     </div>
 
@@ -235,39 +260,47 @@ const CheckOutPage = () => {
             </div>
 
             <div className='flex relative justify-center w-full h-fit mt-[10vh]'>
-                <div className='flex relative flex-col items-center w-4/5 bg-[#C8E3F6] h-[489px] rounded-[25px] mt-10 p-16 space-y-12 z-10 shadow-inner-custom'>
+                <div className='flex relative flex-col items-center w-4/5 bg-[#C8E3F6] h-[489px] rounded-[25px] mt-10 p-16 space-y-8 lg:space-y-12 z-10 shadow-inner-custom'>
                     <div className='flex flex-col relative h-4/5 text-product-color w-full font-black space-y-16 justify-center'>
                         <div className='flex flex-col relative space-y-2'>
                             <div className='flex justify-between'>
-                                <p className='text-4xl'>
+                                <p className='text-3xl md:text-4xl'>
                                     Total Harga
                                 </p>
-                                <p className='text-white text-4xl drop-shadow-md'>
-                                    Rp XX.XXX
+                                <p className='text-white text-3xl md:text-4xl drop-shadow-md'>
+                                    Rp {merchValues.totalHargaProduk.toLocaleString('id-ID')}
                                 </p>
                             </div>
                             <div className='flex justify-between'>
-                                <p className='text-4xl'>
+                                <p className='text-3xl md:text-4xl'>
                                     Biaya Ongkir
                                 </p>
-                                <p className='text-white text-4xl drop-shadow-md'>
-                                    Rp XX.XXX
+                                <p className='text-white text-3xl md:text-4xl drop-shadow-md'>
+                                    Rp {shippingCost.toLocaleString('id-ID')}
+                                </p>
+                            </div>
+                            <div className='flex justify-between'>
+                                <p className='text-3xl lg:text-4xl w-1/2'>
+                                    Extra Bubble Wrap
+                                </p>
+                                <p className='flex justify-end w-1/2 text-white text-3xl md:text-4xl drop-shadow-md'>
+                                    Rp {extraBubbleWrap ? '5.000' : '0'}
                                 </p>
                             </div>
                         </div>
                         
                         <div className='flex justify-between mt-4'>
-                            <p className='text-4xl'>
+                            <p className='w-1/2 text-3xl lg:text-4xl'>
                                 Total Pembelanjaan
                             </p>
-                            <p className='text-white text-4xl drop-shadow-md'>
-                                Rp XX.XXX
+                            <p className='flex w-1/2 text-white text-3xl md:text-4xl drop-shadow-md justify-end'>
+                                Rp {calculateTotalPrice().toLocaleString('id-ID')}
                             </p>
                         </div>
                     </div>
                     
                     <div className='flex relative w-full h-1/5 justify-center items-center'>
-                        <button className='bg-[#FBB3D7] text-black text-2xl drop-shadow-md rounded-[37px] w-1/5 h-4/5'>
+                        <button className='bg-[#FBB3D7] text-black text-2xl drop-shadow-md rounded-[37px] sm:w-1/2 md:w-2/5 lg:w-[29%] 2xl:w-1/5 h-4/5'>
                             Bayar Sekarang
                         </button>
                     </div>

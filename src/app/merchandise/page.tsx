@@ -29,7 +29,7 @@ const MerchandisePage: React.FC = () => {
   ];
 
   const bundles = [
-    { image:"/icon.ico", harga: 50000, nama: "Bundle 1", description: 'Product Description + Product Description +Product Description' },
+    { image:"/icon.ico", harga: 50000, nama: "Bundle 1", description: 'Product Description' },
     { image:"/icon.ico", harga: 50000, nama: "Bundle 2", description: 'Product Description + Product Description +Product Description' },
     { image:"/icon.ico", harga: 50000, nama: "Bundle 3", description: 'Product Description + Product Description +Product Description' },
   ];
@@ -47,6 +47,8 @@ const MerchandisePage: React.FC = () => {
     return productsTotal + bundlesTotal;
   };
 
+  const [showError, setShowError] = useState(false);
+
   const handleCheckout = () => {
     const filteredProducts = products
         .map((product, index) => ({ ...product, jumlah: quantities.products[index] }))
@@ -56,14 +58,22 @@ const MerchandisePage: React.FC = () => {
         .map((bundle, index) => ({ ...bundle, jumlah: quantities.bundles[index] }))
         .filter(bundle => bundle.jumlah > 0);
     
+    if (filteredBundles.length === 0 && filteredProducts.length === 0) {
+      setShowError(true);
+      return;
+    }
+
+    setShowError(false);
+
     setMerchValues((prevValues) => ({
         ...prevValues,
         cart: {
             products: filteredProducts,
             bundles: filteredBundles,
         },
+        totalHargaProduk: calculateTotalPrice(),
     }));
-
+    
     router.push('/merchandise/checkout');
 };
 
@@ -114,7 +124,7 @@ const MerchandisePage: React.FC = () => {
 
           <div className='flex flex-col relative items-center w-full top-[15vh] h-fit invisible md:visible'>
             <p className='text-white md:text-4xl lg:text-6xl xl:text-8xl italic font-bold'>Our Products</p>
-            <div className='flex absolute  md:relative lg:w-[90%] xl:h-[683px] bg-[#C8E3F6] rounded-[80px] p-6 mt-[5rem] shadow-inner-custom justify-evenly space-x-4 text-center text-product-color font-black'>
+            <div className='flex absolute  md:relative lg:w-[90%] md:h-[530px] lg:h-[580px] xl:h-[630px] 2xl:h-[683px] bg-[#C8E3F6] rounded-[80px] p-6 mt-[5rem] shadow-inner-custom justify-evenly space-x-4 text-center text-product-color font-black'>
               {bundles.map((bundle, index) => (
                 <BundleCard
                   key={index}
@@ -173,7 +183,7 @@ const MerchandisePage: React.FC = () => {
 
           <div className='flex flex-col relative h-fit top-[10vh] sm:top-[15vh] md:top-[30vh] lg:top-[45vh] xl:top-[30vh] items-center'>
             <p className='text-white text-4xl lg:text-6xl xl:text-7xl italic font-bold'>Items</p>
-            <div className='grid grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-16 sm:w-[90%] sm:mt-12 md:mt-16 lg:mt-24'>
+            <div className='grid grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-16 sm:w-[90%] md:w-4/5 lg:w-[90%] sm:mt-12 md:mt-16 lg:mt-24'>
               {products.slice(0, lastRowStartIndex).map((product, index) => (
                 <ProductCard
                   key={index}
@@ -186,7 +196,7 @@ const MerchandisePage: React.FC = () => {
               ))}
             </div>
 
-            <div className='grid sm:grid-cols-2 gap-4 sm:gap-8 md:w-[90%] mt-4 sm:mt-12 md:mt-16 lg:mt-24 justify-evenly lg:flex pb-2' >
+            <div className='grid sm:grid-cols-2 gap-4 sm:gap-8 md:w-4/5 mt-4 sm:mt-12 md:mt-16 lg:mt-24 justify-evenly lg:flex pb-2' >
               {products.slice(lastRowStartIndex).map((product, index) => (
                 <ProductCard
                   key={lastRowStartIndex + index}
@@ -216,10 +226,15 @@ const MerchandisePage: React.FC = () => {
             <img src="/merch/mobile/ivy-1.svg" alt="Ivy Mobile" />
           </div>
 
-          <div className='flex flex-col absolute items-end p-6 bottom-0 w-full bg-[#FBB3D7] h-[5%] sm:h-[2.5%]'>
+          <div className={`flex flex-col absolute items-end ${showError ? 'p-2' : 'p-6'} bottom-0 w-full bg-[#FBB3D7] h-[5%] sm:h-[2.5%]`}>
             <p className='text-product-color text-lg font-semibold'>
                 Total Price: Rp.{calculateTotalPrice().toLocaleString('id-ID')},00
             </p>
+            {showError && (
+              <p className='text-red-600'>
+                Please add at least one product or bundle to the cart before checking out.
+              </p>
+            )}
             <button className='bg-[#618758] text-white rounded-[34.15px] w-1/4 sm:w-1/5 md:w-[15%] xl:w-[12%]' onClick={handleCheckout}>
                 Check Out
             </button>

@@ -12,14 +12,14 @@ const ProductShow: React.FC<ProductShowProps> = ({image, nama, description, harg
     const formattedPrice = formatPrice(harga);
     return (
         <div className='flex relative gap-6'>
-            <div className='flex w-1/3 h-[48%] bg-white rounded-[51px] shadow-inner-custom justify-center'>
-                <img src={image} alt={nama} />
+            <div className='flex flex-shrink-0 w-1/3 h-[200px] bg-white rounded-[51px] shadow-inner-custom justify-center items-center'>
+                <img src={image} alt={nama} className='h-full object-contain'/>
             </div>
-            <div className='flex flex-col text-product-color py-8 justify-center font-black'>
-                <p className='text-5xl'>{nama}</p>
-                <p className='text-lg'>{description}</p>
-                <p className='text-white text-4xl drop-shadow-md mt-4'> Rp {formattedPrice}</p>
-                <p className='text-3xl mt-2'>Jumlah: {jumlah}</p>
+            <div className='flex flex-col text-product-color py-4 xl:py-8 justify-center font-black'>
+                <p className='text-3xl xl:text-5xl'>{nama}</p>
+                <p className='xl:text-lg'>{description}</p>
+                <p className='text-white text-2xl xl:text-4xl drop-shadow-md mt-4'> Rp {formattedPrice}</p>
+                <p className='text-xl xl:text-3xl mt-2'>Jumlah: {jumlah}</p>
             </div>
         </div>
     )

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react';
+import React, { createContext, useContext, useState, ReactNode } from 'react';
 
 interface Product {
   image: string;
@@ -29,6 +29,7 @@ interface MerchValuesType {
     bundles: Bundle[];
   };
   notePemesanan: string;
+  totalHargaProduk: number;
 }
 
 interface MerchContextType {
@@ -55,7 +56,8 @@ export const MerchProvider: React.FC<MerchProviderProps> = ({ children }) => {
       products: [],
       bundles: []
     },
-    notePemesanan: ''
+    notePemesanan: '',
+    totalHargaProduk: 0
   });
 
   console.log(merchValues)
