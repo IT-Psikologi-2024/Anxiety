@@ -30,7 +30,7 @@ const MerchandisePage: React.FC = () => {
 
   const bundles = [
     { image:"/icon.ico", harga: 50000, nama: "Bundle 1", description: 'Product Description' },
-    { image:"/icon.ico", harga: 50000, nama: "Bundle 2", description: 'Product Description + Product Description +Product Description' },
+    { image:"/icon.ico", harga: 50000, nama: "Bundle 2", description: 'Product Description + Product Description +Product Description + Product Description + Product Description + Product Description' },
     { image:"/icon.ico", harga: 50000, nama: "Bundle 3", description: 'Product Description + Product Description +Product Description' },
   ];
 
