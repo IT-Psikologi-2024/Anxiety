@@ -17,7 +17,7 @@ const MerchInput: React.FC<MerchInputProps> = ({
   value,
   onChange,
   error,
-  className = 'h-[50px] sm:h-[115px]'
+  className = 'h-[40px] sm:h-[80px]',
 }) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     onChange(id, e.target.value);
@@ -27,14 +27,14 @@ const MerchInput: React.FC<MerchInputProps> = ({
     <div className="flex flex-col sm:mb-4 w-full gap-y-2 z-10">
       <div>
         <label htmlFor={id} className="ml-3 text-2xl sm:text-3xl font-black text-product-color">{label}</label>
-        {label === 'Alamat Lengkap' && <p className='ml-3 font-black text-product-color sm:text-base text-xs'>*Sertakan Nama Jalan, Nomor Rumah, Kelurahan dan Kecamatan</p>}
+        {label === 'Alamat Lengkap' && <p className='ml-3 font-black text-product-color sm:text-base text-xs'>*Sertakan Nama Jalan, Nomor Rumah, Kelurahan, Kecamatan, dan Kode Pos</p>}
       </div>
       {type === 'textarea' ? (
         <textarea
           id={id}
           value={value}
           onChange={handleChange}
-          className={`rounded-[19px] ${className} border shadow-inner-custom p-2 px-4 text-2xl`}
+          className={`rounded-[19px] ${className} border shadow-inner-custom p-2 px-4 text-xl sm:text-2xl`}
           required
           rows={4}
         />
@@ -44,7 +44,7 @@ const MerchInput: React.FC<MerchInputProps> = ({
           id={id}
           value={value}
           onChange={handleChange}
-          className={`rounded-[19px] ${className} border shadow-inner-custom p-2 px-4 text-2xl`}
+          className={`rounded-[19px] ${className} border shadow-inner-custom p-2 px-4 text-xl sm:text-2xl`}
           required
         />
       )}

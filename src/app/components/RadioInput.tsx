@@ -14,7 +14,7 @@ const RadioInput: React.FC<RadioInputProps> = ({ label, name, value, checked, on
   };
 
   return (
-    <div className="flex items-center mb-4">
+    <div className="flex items-center sm:mb-4">
       <input
         type="radio"
         id={value}
@@ -24,7 +24,7 @@ const RadioInput: React.FC<RadioInputProps> = ({ label, name, value, checked, on
         onChange={handleChange}
         className="mr-4 w-6 h-6 sm:w-8 sm:h-8"
       />
-      <label htmlFor={value} className="text-xl sm:text-2xl md:text-3xl font-bold text-product-color">{label}</label>
+      <label htmlFor={value} className="text-lg sm:text-2xl md:text-3xl font-bold text-product-color">{label}</label>
     </div>
   );
 };
