@@ -58,7 +58,9 @@ const MerchandisePage: React.FC = () => {
         .map((bundle, index) => ({ ...bundle, jumlah: quantities.bundles[index] }))
         .filter(bundle => bundle.jumlah > 0);
     
-    if (filteredBundles.length === 0 && filteredProducts.length === 0) {
+    const combinedFilteredItems = [...filteredProducts, ...filteredBundles];
+    
+    if (combinedFilteredItems.length === 0) {
       setShowError(true);
       return;
     }
@@ -67,10 +69,7 @@ const MerchandisePage: React.FC = () => {
 
     setMerchValues((prevValues) => ({
         ...prevValues,
-        cart: {
-            products: filteredProducts,
-            bundles: filteredBundles,
-        },
+        products: combinedFilteredItems,
         totalHargaProduk: calculateTotalPrice(),
     }));
     

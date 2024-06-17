@@ -24,7 +24,7 @@ const MerchInput: React.FC<MerchInputProps> = ({
   };
 
   return (
-    <div className="flex flex-col sm:mb-4 w-full gap-y-2 z-10">
+    <div className="flex flex-col w-full gap-y-2 z-10">
       <div>
         <label htmlFor={id} className="ml-3 text-2xl sm:text-3xl font-black text-product-color">{label}</label>
         {label === 'Alamat Lengkap' && <p className='ml-3 font-black text-product-color sm:text-base text-xs'>*Sertakan Nama Jalan, Nomor Rumah, Kelurahan, Kecamatan, dan Kode Pos</p>}
@@ -48,7 +48,7 @@ const MerchInput: React.FC<MerchInputProps> = ({
           required
         />
       )}
-      {error && <div className="text-red-500 text-sm">{error}</div>}
+      {error && <div className="text-red-500 text-sm ml-3">{error}</div>}
     </div>
   );
 };

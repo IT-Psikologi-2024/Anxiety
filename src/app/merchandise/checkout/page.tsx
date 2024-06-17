@@ -28,6 +28,8 @@ const CheckOutPage = () => {
 
     const [pickupLocation, setPickupLocation] = useState<string>('');
     const [shippingCost, setShippingCost] = useState<number>(0);
+    const [selectedDate, setSelectedDate] = useState<string>('');
+    const [dateError, setDateError] = useState<string>('');
 
     const handleInputChange = (id: string, value: string) => {
         setMerchValues((prevValues) => ({
@@ -64,7 +66,25 @@ const CheckOutPage = () => {
               setShippingCost(0);
       }
     };
-    
+
+    const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      const value = e.target.value;
+      setSelectedDate(value);
+      setDateError('');
+
+      if (value) {
+        const [year, month, day] = value.split('-').map(Number);
+        const date = new Date(year, month - 1, day);  // month is 0-indexed
+
+        const minDate = new Date(2024, 7, 1); 
+        const maxDate = new Date(2024, 7, 5);
+
+        if (date < minDate || date > maxDate) {
+          setDateError('Please select a date between 1 and 5 August 2024');
+        }
+      }
+    };
+
     const validateInputs = () => {
       const newErrors = {
         namaLengkap: '',
@@ -73,7 +93,7 @@ const CheckOutPage = () => {
         alamatLengkap: '',
         kodePos: '',
       };
-    
+
       newErrors.namaLengkap = merchValues.namaLengkap ? '' : 'Nama Lengkap is required';
       newErrors.noTelp = merchValues.noTelp ? '' : 'No. Telp is required';
       newErrors.idLine = merchValues.idLine ? '' : 'ID Line is required';
@@ -81,19 +101,15 @@ const CheckOutPage = () => {
         newErrors.alamatLengkap = merchValues.alamatLengkap ? '' : 'Alamat Lengkap is required';
         newErrors.kodePos = merchValues.kodePos ? '' : 'Kode Pos is required';
       }
-    
+
       const indonesianPhoneRegex = /^(\+62|62|0)8[1-9][0-9]{6,9}$/;
       newErrors.noTelp = indonesianPhoneRegex.test(merchValues.noTelp) ? '' : 'Please enter a valid phone number';
-    
-      setErrors(newErrors);
-    
-      return !Object.values(newErrors).some(error => error) && !dateError;
-    };
-    
 
-    const { products, bundles } = merchValues.cart;
-    const [extraBubbleWrap, setExtraBubbleWrap] = useState<boolean>(false);
-    
+      setErrors(newErrors);
+
+      return !Object.values(newErrors).some(error => error);
+    };
+
     const calculateTotalPrice = () => {
       const totalHarga = merchValues.totalHargaProduk + shippingCost;
       if(extraBubbleWrap ) {
@@ -103,30 +119,37 @@ const CheckOutPage = () => {
     };
 
     const handleSubmit = () => {
-      if (validateInputs()) {
+      const isValid = validateInputs();
+
+      if (pickupLocation === 'Fakultas Psikologi UI') {
+        if (!selectedDate) {
+          setDateError('Please select a date');
+        }
+      }
+
+      if (isValid && (pickupLocation !== 'Fakultas Psikologi UI' || selectedDate)) {
         route.push('/merchandise/checkout/payment');
       }
     };
 
     const hasErrors = Object.values(errors).some(error => error !== '');
+    const products  = merchValues.products;
+    const [extraBubbleWrap, setExtraBubbleWrap] = useState<boolean>(false);
 
-    const [selectedDate, setSelectedDate] = useState<string>('');
-    const [dateError, setDateError] = useState<string>('');
+    const [provinces, setProvinces] = useState<string[]>([]);
+    useEffect(() => {
+      const fetchProvinces = async () => {
+        try {
+          const response = await fetch('/api/provinces');
+          const data = await response.json();
+          setProvinces(data);
+        } catch (error) {
+          console.error('Error fetching provinces:', error);
+        }
+      };
 
-    const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-      const value = e.target.value;
-      setSelectedDate(value);
-      const [year, month, day] = value.split('-').map(Number);
-      const date = new Date(year, month - 1, day);  // month is 0-indexed
-
-      const minDate = new Date(2024, 7, 1); 
-      const maxDate = new Date(2024, 7, 5);
-
-      setDateError(value ? '' : 'Please select a date');
-      if (date < minDate || date > maxDate) {
-        setDateError('Please select a date between 1 and 5 August 2024');
-      }
-    };
+      fetchProvinces();
+    }, []);
 
     return (
       <div className="flex flex-col">
@@ -176,7 +199,7 @@ const CheckOutPage = () => {
 
               <div className="flex flex-col relative items-center justify-center w-full mt-[5vh] sm:mt-[15vh] h-fit z-10">
                 <p className="text-white text-5xl sm:text-4xl lg:text-6xl xl:text-7xl italic font-black">Data Diri</p>
-                <div className={`flex relative flex-col w-4/5 bg-[#C8E3F6CC] backdrop-opacity-10 h-fit rounded-[25px] mt-10 p-8 sm:p-16 ${hasErrors ? 'space-y-3' : 'space-y-4'} sm:space-y-12 shadow-inner-custom`}>
+                <div className={`flex relative flex-col w-4/5 bg-[#C8E3F6CC] backdrop-opacity-10 h-fit rounded-[25px] mt-10 p-8 sm:p-12 ${hasErrors ? 'space-y-2' : 'space-y-4'} sm:space-y-12 shadow-inner-custom`}>
                   <MerchInput
                     label="Nama Lengkap"
                     id="namaLengkap"
@@ -215,38 +238,55 @@ const CheckOutPage = () => {
                         id="pickupLocation"
                         value={selectedDate}
                         onChange={handleDateChange}
-                        className={`mt-2 p-2 border rounded ${dateError ? 'border-red-500' : 'border-gray-300'}`}
+                        className={`p-2 border rounded ${dateError ? 'border-red-500' : 'border-gray-300'}`}
                         min="2024-08-01"
                         max="2024-08-05"
-                        required
                       />
                       {dateError !== '' && <div className="text-red-500 text-sm">{dateError}</div>}
                     </div>
                   )}
                     <RadioInput
-                      label="Jabodetabek (+19.000)"
+                      label="Dikirim berdasarkan alamat"
                       name="pickupLocation"
                       value="Jabodetabek (+19.000)"
                       checked={pickupLocation === 'Jabodetabek (+19.000)'}
                       onChange={handlePickupLocationChange}
                     />
-                    <RadioInput
-                      label="Pulau Jawa (+29.000)"
-                      name="pickupLocation"
-                      value="Pulau Jawa (+29.000)"
-                      checked={pickupLocation === 'Pulau Jawa (+29.000)'}
-                      onChange={handlePickupLocationChange}
-                    />
-                    <RadioInput
-                      label="Luar Pulau Jawa (+49.000)"
-                      name="pickupLocation"
-                      value="Luar Pulau Jawa (+49.000)"
-                      checked={pickupLocation === 'Luar Pulau Jawa (+49.000)'}
-                      onChange={handlePickupLocationChange}
-                    />
                   </div>
                   {pickupLocation && pickupLocation !== 'Fakultas Psikologi UI' && (
                     <>
+                      <div className="flex flex-col w-full space-y-2 sm:space-y-2 ml-3">
+                        <label htmlFor="province" className="ml-3 text-2xl font-black text-product-color">Provinsi</label>
+                        <select
+                          id="province"
+                          className="p-4 border rounded-[20px] shadow-inner-custom h-[30px] sm:h-[60px]"
+                          value={merchValues.provinsi}
+                          onChange={(e) => handleInputChange('province', e.target.value)}
+                        >
+                          <option value="">Pilih Provinsi</option>
+                          {provinces.map((province) => (
+                            <option key={province} value={province}>
+                              {province}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+                      <div className="flex flex-col w-full ml-3">
+                        <label htmlFor="kota" className="ml-3 text-2xl font-black text-product-color">Kota/Kabupaten</label>
+                        <select
+                          id="kota"
+                          className="p-4 border rounded-[20px] shadow-inner-custom h-[30px] sm:h-[60px]"
+                          value={merchValues.kota}
+                          onChange={(e) => handleInputChange('kota', e.target.value)}
+                        >
+                          <option value="">Pilih Kota/Kabupaten</option>
+                          {provinces.map((province) => (
+                            <option key={province} value={province}>
+                              {province}
+                            </option>
+                          ))}
+                        </select>
+                      </div>
                       <MerchInput
                       label="Alamat Lengkap"
                       id="alamatLengkap"
@@ -254,7 +294,7 @@ const CheckOutPage = () => {
                       value={merchValues.alamatLengkap}
                       onChange={handleInputChange}
                       error={errors.alamatLengkap}
-                      className='h-[80px] sm:h-[115px]'
+                      className='h-[80px] sm:h-[115px] p-4'
                       />
                     </>
                   )}
@@ -265,20 +305,10 @@ const CheckOutPage = () => {
 
               <div className='flex flex-col relative items-center justify-center w-full h-fit mt-[10vh] z-10'>
                   <p className="text-white text-5xl sm:text-4xl lg:text-6xl xl:text-7xl italic font-black">Pesanan</p>
-                  <div className="flex relative flex-col max-h-[600px] w-4/5 bg-[#C8E3F6CC] backdrop-opacity-10 h-fit rounded-[25px] py-4 mt-5 sm:mt-10 px-5  sm:p-16 space-y-6 sm:space-y-12 shadow-inner-custom">
-                    {products.length + bundles.length > 0 && (
+                  <div className="flex relative flex-col max-h-[700px] w-4/5 bg-[#C8E3F6CC] backdrop-opacity-10 h-fit rounded-[25px] py-4 mt-5 sm:mt-10 px-5  sm:p-16 space-y-6 shadow-inner-custom">
+                    {products.length > 0 && (
                       <>
-                        <div className={`space-y-8 p-8 overflow-y-scroll h-3/5 ${(products.length + bundles.length > 2)? 'overflow-y-scroll' : 'overflow-hidden'} sm:visible invisible absolute sm:static`}>
-                            {bundles.map((bundle, index) => (
-                            <ProductShow
-                                key={index}
-                                image={bundle.image}
-                                nama={bundle.nama}
-                                description={bundle.description}
-                                harga={bundle.harga}
-                                jumlah={bundle.jumlah}
-                            />
-                            ))}
+                        <div className={`space-y-8 p-8 overflow-y-scroll min-h-[200px] h-3/5 sm:visible invisible absolute sm:static`}>
                             {products.map((product, index) => (
                                 <ProductShow
                                     key={index}
@@ -291,16 +321,6 @@ const CheckOutPage = () => {
                             ))}
                           </div>
                         <div className={`space-y-8 p-2  h-3/5 sm:invisible sm:absolute overflow-y-scroll`}>
-                            {bundles.map((bundle, index) => (
-                            <ProductShowMobile
-                                key={index}
-                                image={bundle.image}
-                                nama={bundle.nama}
-                                description={bundle.description}
-                                harga={bundle.harga}
-                                jumlah={bundle.jumlah}
-                            />
-                            ))}
                             {products.map((product, index) => (
                                 <ProductShowMobile
                                     key={index}
@@ -345,7 +365,7 @@ const CheckOutPage = () => {
               </div>
 
               <div className='flex relative justify-center w-full h-fit mt-12 sm:mt-[10vh]'>
-                  <div className='flex relative flex-col items-center w-4/5 bg-[#c8e3f696] h-[350px] sm:h-[489px] rounded-[25px] sm:mt-10 p-8 sm:p-16 space-y-4 sm:space-y-8 lg:space-y-12 shadow-inner-custom'>
+                  <div className='flex relative flex-col items-center w-4/5 bg-[#c8e3f696] h-[350px] sm:h-[489px] rounded-[25px] sm:mt-10 p-8 sm:p-16 space-y-4 sm:space-y-8 shadow-inner-custom'>
                       <div className='flex flex-col relative h-4/5 text-product-color w-full font-black space-y-8 sm:space-y-16 sm:justify-center'>
                           <div className='flex flex-col relative space-y-2'>
                               <div className='flex justify-between'>

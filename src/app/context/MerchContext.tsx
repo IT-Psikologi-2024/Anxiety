@@ -10,26 +10,18 @@ interface Product {
   jumlah: number;
 }
 
-interface Bundle {
-  image: string;
-  harga: number;
-  nama: string;
-  description: string;
-  jumlah: number;
-}
-
 interface MerchValuesType {
   namaLengkap: string;
   noTelp: string;
   idLine: string;
   alamatLengkap: string;
   kodePos: string;
-  cart: {
-    products: Product[];
-    bundles: Bundle[];
-  };
+  products: Product[];
   notePemesanan: string;
   totalHargaProduk: number;
+  provinsi: string;
+  kota: string;
+  extraBubbleWrap: boolean;
 }
 
 interface MerchContextType {
@@ -52,12 +44,12 @@ export const MerchProvider: React.FC<MerchProviderProps> = ({ children }) => {
     idLine: '',
     alamatLengkap: '',
     kodePos: '',
-    cart: {
-      products: [],
-      bundles: []
-    },
+    products: [],
     notePemesanan: '',
-    totalHargaProduk: 0
+    totalHargaProduk: 0,
+    provinsi:'',
+    kota: '',
+    extraBubbleWrap: false,
   });
 
   console.log(merchValues)

@@ -137,7 +137,7 @@ const FormProcess: React.FC = () => {
   return (
     <div className='flex flex-col'>
       <Navbar />
-      <div className={`relative ${currentPage === 3 || currentPage === 5 || currentPage === 6 ? 'min-h-[880px] sm:min-h-[1219px]' : (currentPage === 4 ? 'min-h-[1071px] sm:min-h-[1642px]' : 'min-h-[1325px] sm:min-h-[1219px]')}
+      <div className={`relative ${currentPage === 3 || currentPage === 5 || currentPage === 6 ? 'min-h-[880px] sm:min-h-[1219px]' : (currentPage === 4 ? 'min-h-[1500px] sm:min-h-[1642px]' : 'min-h-[1325px] sm:min-h-[1219px]')}
           h-full flex flex-col overflow-hidden`}>
         <PurchaseTicketBackground currentPage={currentPage} />
         <div className='flex flex-col flex-grow'>
@@ -155,15 +155,15 @@ const FormProcess: React.FC = () => {
             </>
           )}
 
-          <div className='absolute flex w-4/5 md:justify-between invisible sm:visible sm:left-[-10rem] md:left-0 bottom-10 lg:bottom-[-2rem] xl:bottom-0 md:bottom-0 sm:w-4/5 xl:w-full -mb-12'>
-            {currentPage <= 2 && <img src="/ticket/ito-1.svg" alt="Ito Img" className='sm:w-4/5 md:w-auto sm:-ml-[5rem] md:-ml-[12rem] lg:-ml-[6rem] xl:-ml-[8rem] 2xl:ml-0' />}
+          <div className={`${currentPage === 4 ? "relative" : "absolute"} flex sm:justify-between invisible sm:visible sm:left-[-10rem] md:left-0 bottom-10 lg:bottom-[-2rem] xl:bottom-0 md:bottom-0 w-full -mb-12`}>
+            {currentPage <= 2 && <img src="/ticket/ito-1.svg" alt="Ito Img" className='sm:w-4/5 md:w-auto md:-ml-[12rem] lg:-ml-[6rem] xl:-ml-[8rem] 2xl:ml-0' />}
             {currentPage > 2 && <img src="/ticket/ito-1.svg" alt="Ito Img" className='sm:w-4/5 md:w-auto md:-ml-[12rem] lg:-ml-[4rem] xl:-ml-[8rem] 2xl:ml-0 rotate-15.60' />}
             {currentPage <= 2 && <img src="/ticket/ita-1.svg" alt="Ita Img" className='md:-ml-[4rem] lg:ml-[5rem] xl:-mr-[8rem] 2xl:mr-0' />}
             {currentPage > 2 && currentPage !== 4 && <img src="/ticket/ita-1.svg" alt="Ita Img" className='md:-ml-[4rem] lg:ml-8 xl:-mr-[8rem] 2xl:mr-0 -rotate-11.34' />}
-            {currentPage === 4 && <img src="/ticket/ita-2.svg" alt="Ita Img" className='xl:mr-0 lg:-ml-[6rem] md:-ml-[8rem] sm:-ml-[12rem] 2xl:h-full' />}
+            {currentPage === 4 && <img src="/ticket/ita-2.svg" alt="Ita Img" className='right-0' />}
           </div>
 
-          <div className={`absolute flex w-full ${currentPage === 4 ? 'bottom-0' : 'bottom-10'} sm:invisible visible right-4`}>
+          <div className={`justify-evenly flex w-full absolute ${currentPage === 4 ? 'bottom-0' : 'bottom-10'} sm:invisible visible right-4`}>
             <img src="/ticket/mobile/ito-1.svg" alt="Ito Img" className='' />
             <img src={`${currentPage === 4 ? "/ticket/mobile/ita-2.svg" : "/ticket/mobile/ita-1.svg"}`} alt="Ita Img" className={`${currentPage === 4 ? "-ml-[3.5rem]" : "-ml-8"}`} />
           </div>
