@@ -406,7 +406,7 @@ const CheckOutPage = () => {
                       </div>
                       
                       <div className='flex relative w-full h-1/5 justify-center items-center'>
-                          <button className='bg-[#FBB3D7] text-black sm:text-2xl drop-shadow-md rounded-[37px] w-3/5 sm:w-1/2 md:w-2/5 lg:w-[29%] 2xl:w-1/5 h-3/5 sm:h-4/5 z-10' onClick={handleSubmit}>
+                          <button className='bg-[#FBB3D7] text-black sm:text-2xl drop-shadow-md rounded-[37px] w-3/5 sm:w-1/2 md:w-2/5 lg:w-[29%] 2xl:w-1/5 h-3/5 sm:h-4/5 z-10 hover:scale-110 transition ease-in-out' onClick={handleSubmit}>
                               Bayar Sekarang
                           </button>
                       </div>

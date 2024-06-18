@@ -54,10 +54,12 @@ export const MerchProvider: React.FC<{ children: React.ReactNode }> = ({ childre
   const [selectedFileBayar, setSelectedFileBayar] = useState<File | null>(null);
   const [errorMessageBayar, setErrorMessageBayar] = useState<string>('');
 
-  console.log(merchValues)
-
   return (
-    <MerchContext.Provider value={{ merchValues, setMerchValues, selectedFileBayar, setSelectedFileBayar, errorMessageBayar, setErrorMessageBayar}}>
+    <MerchContext.Provider value={{ 
+      merchValues, setMerchValues, 
+      selectedFileBayar, setSelectedFileBayar, 
+      errorMessageBayar, setErrorMessageBayar
+      }}>
       {children}
     </MerchContext.Provider>
   );

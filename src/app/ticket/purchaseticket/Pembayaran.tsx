@@ -13,17 +13,28 @@ const Pembayaran: React.FC = () => {
                 <p>
                     BCA a/n Amanda Aisyah Dungga
                 </p>
-                <p>
-                    No. Rekening: 7115319213
-                </p>
+                <div className='flex flex-row space-x-2'>
+                  <p>
+                      No. Rekening:
+                  </p>
+                  <p className='font-normal'>
+                    7115319213
+                  </p>
+
+                </div>
             </div>
             <div className='w-full bg-white h-[15%] sm:h-[12.5%] rounded-[20px] text-normal sm:text-2xl md:text-3xl xl:text-4xl font-black p-4'>
                 <p>
                     BNI a/n Jennifer Alextin Unggul
                 </p>
-                <p>
-                    No. Rekening: 2977888896
-                </p>
+                <div className='flex flex-row space-x-2'>
+                  <p>
+                      No. Rekening:
+                  </p>
+                  <p className='font-normal'>
+                      2977888896
+                  </p>
+                </div>
             </div>
             <div className='w-full bg-white h-[1/2] rounded-[20px] flex justify-center p-4'>
               <img src="/ticket/pembayaran/qris-img.svg" alt="QRIS Image"  className='sm:h-full h-4/5'/>
