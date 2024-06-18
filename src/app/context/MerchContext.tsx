@@ -1,6 +1,6 @@
 'use client';
 
-import React, { createContext, useContext, useState, ReactNode } from 'react';
+import React, { createContext, useContext, useState } from 'react';
 
 interface Product {
   image: string;
@@ -27,17 +27,17 @@ interface MerchValuesType {
 interface MerchContextType {
   merchValues: MerchValuesType;
   setMerchValues: React.Dispatch<React.SetStateAction<MerchValuesType>>;
-}
-
-interface MerchProviderProps {
-  children: ReactNode;
+  selectedFileBayar: File | null;
+  setSelectedFileBayar: React.Dispatch<React.SetStateAction<File | null>>;
+  errorMessageBayar: string;
+  setErrorMessageBayar: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const MerchContext = createContext({} as MerchContextType );
   
 export const useMerchContext = () => useContext(MerchContext)
 
-export const MerchProvider: React.FC<MerchProviderProps> = ({ children }) => {
+export const MerchProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [merchValues, setMerchValues] = useState<MerchValuesType>({
     namaLengkap: '',
     noTelp: '',
@@ -51,11 +51,13 @@ export const MerchProvider: React.FC<MerchProviderProps> = ({ children }) => {
     kota: '',
     extraBubbleWrap: false,
   });
+  const [selectedFileBayar, setSelectedFileBayar] = useState<File | null>(null);
+  const [errorMessageBayar, setErrorMessageBayar] = useState<string>('');
 
   console.log(merchValues)
 
   return (
-    <MerchContext.Provider value={{ merchValues, setMerchValues }}>
+    <MerchContext.Provider value={{ merchValues, setMerchValues, selectedFileBayar, setSelectedFileBayar, errorMessageBayar, setErrorMessageBayar}}>
       {children}
     </MerchContext.Provider>
   );
