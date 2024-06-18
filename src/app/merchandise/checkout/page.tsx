@@ -17,13 +17,11 @@ const CheckOutPage = () => {
       noTelp: string;
       idLine: string;
       alamatLengkap: string;
-      kodePos: string;
     }>({
       namaLengkap: '',
       noTelp: '',
       idLine: '',
       alamatLengkap: '',
-      kodePos: ''
     });
 
     const [pickupLocation, setPickupLocation] = useState<string>('');
@@ -91,7 +89,6 @@ const CheckOutPage = () => {
         noTelp: '',
         idLine: '',
         alamatLengkap: '',
-        kodePos: '',
       };
 
       newErrors.namaLengkap = merchValues.namaLengkap ? '' : 'Nama Lengkap is required';
@@ -99,7 +96,6 @@ const CheckOutPage = () => {
       newErrors.idLine = merchValues.idLine ? '' : 'ID Line is required';
       if (pickupLocation !== 'Fakultas Psikologi UI') {
         newErrors.alamatLengkap = merchValues.alamatLengkap ? '' : 'Alamat Lengkap is required';
-        newErrors.kodePos = merchValues.kodePos ? '' : 'Kode Pos is required';
       }
 
       const indonesianPhoneRegex = /^(\+62|62|0)8[1-9][0-9]{6,9}$/;
@@ -119,15 +115,20 @@ const CheckOutPage = () => {
     };
 
     const handleSubmit = () => {
+      console.log("masuk sini juga bang")
       const isValid = validateInputs();
 
       if (pickupLocation === 'Fakultas Psikologi UI') {
+        console.log("masuk psiko")
         if (!selectedDate) {
           setDateError('Please select a date');
         }
       }
-
-      if (isValid && (pickupLocation !== 'Fakultas Psikologi UI' || selectedDate)) {
+      
+      console.log(isValid + " valid")
+      if (isValid && (pickupLocation !== 'Fakultas Psikologi UI' || (selectedDate && dateError === ''))) {
+        console.log(dateError)
+        console.log("masuk sini")
         route.push('/merchandise/checkout/payment');
       }
     };
