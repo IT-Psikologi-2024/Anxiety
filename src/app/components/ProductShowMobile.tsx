@@ -13,21 +13,21 @@ const ProductShowMobile: React.FC<ProductShowMobileProps> = ({image, nama, descr
   return (
     <div className='flex flex-col relative font-black h-full text-product-color'>
         <div className='flex relative flex-col ml-4 h-1/4'>
-            <p className='text-3xl'>
+            <p className='text-xl'>
                 {nama}
             </p>
-            <p className='overflow-y-auto'>
+            <p className='overflow-y-auto text-sm'>
                 {description}
             </p>
         </div>
-        <div className='flex relative bg-white rounded-[27px] shadow-inner-custom w-full justify-center h-1/2 my-3'>
-            <img src={image} alt={nama} className=' w-full'/>
+        <div className='flex relative bg-white rounded-[27px] shadow-inner-custom w-full justify-center my-3'>
+            <img src={image} alt={nama} className=' w-3/5'/>
         </div>
             <div className='flex flex-col relative ml-4 h-1/5'>
-            <p className='text-white text-3xl drop-shadow-md'>
+            <p className='text-white text-xl drop-shadow-md'>
                 Rp {formattedPrice}
             </p>
-            <p className='text-2xl'>
+            <p className='text-lg'>
                 Jumlah: {jumlah}
             </p>
         </div>

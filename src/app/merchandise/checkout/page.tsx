@@ -155,36 +155,39 @@ const CheckOutPage = () => {
     return (
       <div className="flex flex-col">
         <Navbar />
-        <div className="min-h-[2321px] max-h-[2321px] sm:min-h-[3962px] sm:max-h-[3962px] h-full flex flex-col overflow-hidden relative">
+        <div className="h-full flex flex-col overflow-hidden relative">
           <MerchBackground />
           <div className="flex flex-col flex-grow">
               <div className="flex absolute top-[105vh] sm:top-[10vh]">
-                  <img src="/merch/awan-1.svg" alt="Awan 1" className="w-3/5 lg:w-4/5 xl:w-full" />
+                  <img src="/merch/awan-1.svg" alt="Awan 1" className="w-3/5" />
               </div>
               <div className="flex absolute right-[-1.5rem] sm:right-0 justify-end">
-                  <img src="/merch/awan-2.svg" alt="Awan 2" className="w-3/5 g:w-4/5 xl:w-full" />
+                  <img src="/merch/awan-2.svg" alt="Awan 2" className="w-3/5" />
               </div>
               <div className='flex absolute sm:invisible top-[30vh]'>
                 <img src="/merch/mobile/awan-mobile.svg" alt="Awan Mobile" />
               </div>
               <div className="flex absolute top-[85vh] right-[-10rem] justify-end sm:left-0 sm:top-[111vh]">
-                  <img src="/merch/awan-3.svg" alt="Awan 3" className="w-3/5 lg:w-4/5 xl:w-full" />
+                  <img src="/merch/awan-3.svg" alt="Awan 3" className="w-2/5" />
               </div>
-              <div className="flex absolute justify-end top-[50vh] sm:top-[200vh] md:top-[170vh] lg:top-[150vh] xl:top-[130vh] 2xl:top-[115vh] right-0">
-                  <img src="/merch/awan-4.svg" alt="Awan 4" className="sm:w-3/5 lg:w-4/5 xl:w-[90%] 2xl:w-full" />
+              <div className="flex absolute justify-end top-[50vh] sm:top-[200vh] md:top-[170vh] lg:top-[150vh] xl:top-[130vh] 2xl:top-[65vh] right-0">
+                  <img src="/merch/awan-4.svg" alt="Awan 4" className="w-1/2" />
               </div>
               <div className="flex absolute invisible sm:visible sm:top-[238vh]">
-                  <img src="/merch/awan-5.svg" alt="Awan 5" className="lg:w-4/5 xl:w-full" />
+                  <img src="/merch/awan-5.svg" alt="Awan 5" className="w-3/5" />
               </div>
               <div className="flex absolute top-[130vh] sm:top-[250vh] right-0 justify-end">
-                  <img src="/merch/checkout/awan-1.svg" alt="Awan 6" className="w-2/5 lg:w-4/5 xl:w-full" />
+                  <img src="/merch/checkout/awan-1.svg" alt="Awan 6" className="w-2/5" />
               </div>
               <div className="flex absolute top-[155vh] left-[-2rem] sm:left-0">
-                  <img src="/merch/checkout/awan-2.svg" alt="Awan 7" className="w-2/5 lg:w-4/5 xl:w-full" />
+                  <img src="/merch/checkout/awan-2.svg" alt="Awan 7" className="w-2/5" />
               </div>
 
               <div className="flex absolute justify-end sm:bottom-[10vh] md:bottom-[15vh] xl:bottom-[20vh] 2xl:bottom-[30vh] right-0">
                   <img src="/merch/loli-kanan.svg" alt="Loli Kanan" className="w-3/5 lg:w-full invisible sm:visible" />
+              </div>
+              <div className="flex absolute sm:bottom-[20vh] md:bottom-[25vh] lg:bottom-[30vh] xl:bottom-[35vh]">
+                  <img src="/merch/loli-kiri.svg" alt="Loli Kiri" className="w-3/5 lg:w-full invisible sm:visible" />
               </div>
 
               <div className="flex flex-col absolute bottom-0 w-full sm:visible invisible">
@@ -198,9 +201,9 @@ const CheckOutPage = () => {
                 <img src="/merch/mobile/pohon-tengah.svg" alt="Pohon tengah" className=''/>
               </div>
 
-              <div className="flex flex-col relative items-center justify-center w-full mt-[5vh] sm:mt-[15vh] h-fit z-10">
-                <p className="text-white text-5xl sm:text-4xl lg:text-6xl xl:text-7xl italic font-black">Data Diri</p>
-                <div className={`flex relative flex-col w-4/5 bg-[#C8E3F6CC] backdrop-opacity-10 h-fit rounded-[25px] mt-10 p-8 sm:p-12 ${hasErrors ? 'space-y-2' : 'space-y-4'} sm:space-y-12 shadow-inner-custom`}>
+              <div className="flex flex-col relative items-center justify-center w-full mt-[5vh] sm:mt-[10vh] h-fit z-10">
+                <div className={`flex relative flex-col w-4/5 sm:w-3/5 bg-[#C8E3F6CC] backdrop-opacity-10 h-fit rounded-[25px] p-8 ${hasErrors ? 'space-y-2' : 'space-y-4'} sm:space-y-6 shadow-inner-custom`}>
+                  <p className="text-white text-3xl sm:text-4xl lg:text-5xl italic font-black text-center mb-2">Data Diri</p>
                   <MerchInput
                     label="Nama Lengkap"
                     id="namaLengkap"
@@ -222,8 +225,8 @@ const CheckOutPage = () => {
                     onChange={handleInputChange}
                     error={errors.idLine}
                   />
-                  <div className="flex flex-col w-full space-y-2 sm:space-y-8 ml-3">
-                    <p className="text-2xl sm:text-3xl md:text-4xl font-black text-product-color sm:mb-2 sm:mt-0 mt-2">Pengambilan Barang</p>
+                  <div className="flex flex-col w-full space-y-2 sm:space-y-4 ml-3">
+                    <p className="text-2xl font-black text-product-color sm:mb-2 sm:mt-0 mt-2">Pengambilan Barang</p>
                     <RadioInput
                       label="Fakultas Psikologi UI"
                       name="pickupLocation"
@@ -233,7 +236,7 @@ const CheckOutPage = () => {
                     />
                     {pickupLocation === 'Fakultas Psikologi UI' && (
                     <div className="flex sm:mb-4 flex-col sm:flex-row w-full sm:items-center z-10 sm:ml-10 sm:space-x-8">
-                      <label htmlFor="pickupDate" className="sm:ml-3 sm:text-2xl font-black text-product-color">Select Pickup Date</label>
+                      <label htmlFor="pickupDate" className="sm:ml-3 sm:text-lg font-black text-product-color">Select Pickup Date</label>
                       <input
                         type="date"
                         id="pickupLocation"
@@ -257,10 +260,10 @@ const CheckOutPage = () => {
                   {pickupLocation && pickupLocation !== 'Fakultas Psikologi UI' && (
                     <>
                       <div className="flex flex-col w-full space-y-2 sm:space-y-2 ml-3">
-                        <label htmlFor="province" className="ml-3 text-2xl font-black text-product-color">Provinsi</label>
+                        <label htmlFor="province" className="ml-3 text-xl font-black text-product-color">Provinsi</label>
                         <select
                           id="province"
-                          className="p-4 border rounded-[20px] shadow-inner-custom h-[30px] sm:h-[60px]"
+                          className="p-2 border rounded-[20px] shadow-inner-custom h-[40px]"
                           value={merchValues.provinsi}
                           onChange={(e) => handleInputChange('province', e.target.value)}
                         >
@@ -273,10 +276,10 @@ const CheckOutPage = () => {
                         </select>
                       </div>
                       <div className="flex flex-col w-full ml-3">
-                        <label htmlFor="kota" className="ml-3 text-2xl font-black text-product-color">Kota/Kabupaten</label>
+                        <label htmlFor="kota" className="ml-3 text-xl font-black text-product-color">Kota/Kabupaten</label>
                         <select
                           id="kota"
-                          className="p-4 border rounded-[20px] shadow-inner-custom h-[30px] sm:h-[60px]"
+                          className="p-2 border rounded-[20px] shadow-inner-custom h-[40px]"
                           value={merchValues.kota}
                           onChange={(e) => handleInputChange('kota', e.target.value)}
                         >
@@ -295,7 +298,7 @@ const CheckOutPage = () => {
                       value={merchValues.alamatLengkap}
                       onChange={handleInputChange}
                       error={errors.alamatLengkap}
-                      className='h-[80px] sm:h-[115px] p-4'
+                      
                       />
                     </>
                   )}
@@ -304,12 +307,12 @@ const CheckOutPage = () => {
               </div>
 
 
-              <div className='flex flex-col relative items-center justify-center w-full h-fit mt-[10vh] z-10'>
-                  <p className="text-white text-5xl sm:text-4xl lg:text-6xl xl:text-7xl italic font-black">Pesanan</p>
-                  <div className="flex relative flex-col max-h-[700px] w-4/5 bg-[#C8E3F6CC] backdrop-opacity-10 h-fit rounded-[25px] py-4 mt-5 sm:mt-10 px-5  sm:p-16 space-y-6 shadow-inner-custom">
+              <div className='flex flex-col relative items-center justify-center w-full h-fit mt-[5vh] z-10'>
+                  <div className="flex relative flex-col max-h-[500px] w-4/5 sm:w-3/5 bg-[#C8E3F6CC] backdrop-opacity-10 h-fit rounded-[25px] py-4 mt-5 sm:mt-4 px-5 sm:p-8 space-y-6 shadow-inner-custom">
+                    <p className="text-white text-3xl sm:text-4xl lg:text-5xl italic font-black mb-2 text-center">Pesanan</p>
                     {products.length > 0 && (
                       <>
-                        <div className={`space-y-8 p-8 overflow-y-scroll min-h-[200px] h-3/5 sm:visible invisible absolute sm:static`}>
+                        <div className={`space-y-8 p-4 overflow-y-scroll min-h-[100px] h-3/5 sm:visible invisible absolute sm:static`}>
                             {products.map((product, index) => (
                                 <ProductShow
                                     key={index}
@@ -338,18 +341,18 @@ const CheckOutPage = () => {
 
                       <div className="flex items-center space-x-4">
                           <input
-                          type="radio"
+                          type="checkbox"
                           id="extraBubbleWrap"
                           name="extraBubbleWrap"
                           checked={extraBubbleWrap}
                           onChange={(e) => setExtraBubbleWrap(e.target.checked)}
-                          className='sm:mr-4 w-6 sm:w-8 h-6 sm:h-8'
+                          className='w-6 h-6'
                           />
                           <div className='flex flex-col'>
-                              <label htmlFor="extraBubbleWrap" className="text-xl sm:text-3xl font-bold text-product-color">
+                              <label htmlFor="extraBubbleWrap" className="text-xl font-bold text-product-color">
                               Extra Bubble Wrap
                               </label>
-                              <p className='text-white text-lg sm:text-2xl drop-shadow-md'>Rp 5.000</p>
+                              <p className='text-white text-lg drop-shadow-md'>Rp 5.000</p>
                           </div>
                       </div>
 
@@ -359,63 +362,59 @@ const CheckOutPage = () => {
                                   id="notePemesanan"
                                   value={merchValues.notePemesanan}
                                   onChange={handleInputChange}
-                                  className='h-[50px]'
                               />
                       </div>
                   </div>
               </div>
 
-              <div className='flex relative justify-center w-full h-fit mt-12 sm:mt-[10vh]'>
-                  <div className='flex relative flex-col items-center w-4/5 bg-[#c8e3f696] h-[350px] sm:h-[489px] rounded-[25px] sm:mt-10 p-8 sm:p-16 space-y-4 sm:space-y-8 shadow-inner-custom'>
-                      <div className='flex flex-col relative h-4/5 text-product-color w-full font-black space-y-8 sm:space-y-16 sm:justify-center'>
+              <div className='flex relative justify-center w-full h-fit mt-12 mb-40 sm:mt-[10vh] sm:mb-[20vh]'>
+                  <div className='flex relative flex-col items-center w-4/5 sm:w-3/5 bg-[#c8e3f696] h-fit rounded-[25px] sm:mt-10 p-8 sm:p-12 space-y-4 shadow-inner-custom'>
+                      <div className='flex flex-col relative h-4/5 text-product-color w-full font-black space-y-8 sm:justify-center'>
                           <div className='flex flex-col relative space-y-2'>
                               <div className='flex justify-between'>
-                                  <p className='text-xl sm:text-3xl md:text-4xl'>
+                                  <p className='text-lg sm:text-2xl'>
                                       Total Harga
                                   </p>
-                                  <p className='text-white text-xl sm:text-3xl md:text-4xl drop-shadow-md'>
+                                  <p className='text-white text-lg sm:text-2xl drop-shadow-md'>
                                       Rp {merchValues.totalHargaProduk.toLocaleString('id-ID')}
                                   </p>
                               </div>
                               <div className='flex justify-between'>
-                                  <p className='text-xl sm:text-3xl md:text-4xl'>
+                                  <p className='text-lg sm:text-2xl'>
                                       Biaya Ongkir
                                   </p>
-                                  <p className='text-white text-xl sm:text-3xl md:text-4xl drop-shadow-md'>
+                                  <p className='text-white text-lg sm:text-2xl drop-shadow-md'>
                                       Rp {shippingCost.toLocaleString('id-ID')}
                                   </p>
                               </div>
                               <div className='flex justify-between'>
-                                  <p className='text-xl sm:text-3xl lg:text-4xl w-1/2'>
+                                  <p className='text-lg sm:text-2xl w-1/2'>
                                       Extra Bubble Wrap
                                   </p>
-                                  <p className='flex justify-end w-1/2 text-white text-xl sm:text-3xl md:text-4xl drop-shadow-md'>
+                                  <p className='flex justify-end w-1/2 text-white text-lg sm:text-2xl drop-shadow-md'>
                                       Rp {extraBubbleWrap ? '5.000' : '0'}
                                   </p>
                               </div>
                           </div>
                           
-                          <div className='flex justify-between sm:mt-4'>
-                              <p className='w-1/2 text-xl sm:text-3xl lg:text-4xl'>
+                          <div className='flex justify-between'>
+                              <p className='w-1/2 text-lg sm:text-2xl'>
                                   Total Pembelanjaan
                               </p>
-                              <p className='flex w-1/2 text-white text-xl sm:text-3xl md:text-4xl drop-shadow-md justify-end'>
+                              <p className='flex w-1/2 text-white text-lg sm:text-2xl drop-shadow-md justify-end'>
                                   Rp {calculateTotalPrice().toLocaleString('id-ID')}
                               </p>
                           </div>
                       </div>
                       
                       <div className='flex relative w-full h-1/5 justify-center items-center'>
-                          <button className='bg-[#FBB3D7] text-black sm:text-2xl drop-shadow-md rounded-[37px] w-3/5 sm:w-1/2 md:w-2/5 lg:w-[29%] 2xl:w-1/5 h-3/5 sm:h-4/5 z-10 hover:scale-110 transition ease-in-out' onClick={handleSubmit}>
+                          <button className='bg-[#FBB3D7] text-black sm:text-xl drop-shadow-md rounded-[37px] p-2 z-10 hover:scale-110 transition ease-in-out' onClick={handleSubmit}>
                               Bayar Sekarang
                           </button>
                       </div>
                   </div>
               </div>
 
-              <div className="flex absolute sm:bottom-[20vh] md:bottom-[25vh] lg:bottom-[30vh] xl:bottom-[35vh]">
-                  <img src="/merch/loli-kiri.svg" alt="Loli Kiri" className="w-3/5 lg:w-full invisible sm:visible" />
-              </div>
               <div className="flex absolute bottom-0 invisible sm:visible">
                   <img src="/merch/checkout/ito-1.svg" alt="Ito 1" className="w-3/5 lg:w-4/5" />
               </div>
