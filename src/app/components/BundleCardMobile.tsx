@@ -35,7 +35,7 @@ const BundleCardMobile: React.FC<BundleCardMobileProps> = ({
         </div>
         <div className='flex flex-col items-center justify-center w-1/2 p-4'>
             <p className='font-black text-4xl italic'>{nama}</p>
-            <p className='my-4'>{description}</p>
+            <p className='my-4 overflow-y-auto'>{description}</p>
             <AmountProduct 
             amount={amount}
             incrementAmount={incrementAmount}
