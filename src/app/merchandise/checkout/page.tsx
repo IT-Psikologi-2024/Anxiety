@@ -9,6 +9,16 @@ import ProductShow from '../../components/ProductShow';
 import ProductShowMobile from '@/app/components/ProductShowMobile';
 import { useRouter } from 'next/navigation';
 
+interface Province {
+  province_id: string;
+  province: string;
+}
+
+interface City {
+  city_id: string;
+  city_name: string;
+}
+
 const CheckOutPage = () => {
     const route = useRouter();
     const { merchValues, setMerchValues } = useMerchContext();
@@ -17,52 +27,63 @@ const CheckOutPage = () => {
       noTelp: string;
       idLine: string;
       alamatLengkap: string;
+      provinsi: string;
+      kota: string;
     }>({
       namaLengkap: '',
       noTelp: '',
       idLine: '',
       alamatLengkap: '',
+      provinsi: '',
+      kota: '',
     });
 
     const [pickupLocation, setPickupLocation] = useState<string>('');
     const [shippingCost, setShippingCost] = useState<number>(0);
     const [selectedDate, setSelectedDate] = useState<string>('');
     const [dateError, setDateError] = useState<string>('');
+    const [cities, setCities] = useState<City[]>([]);
 
-    const handleInputChange = (id: string, value: string) => {
-        setMerchValues((prevValues) => ({
-          ...prevValues,
-          [id]: value,
-        }));
-        setErrors((prevErrors) => ({
-          ...prevErrors,
-          [id]: '',
-        }));
-    };
+    const handleInputChange = async (id: string, value: string | Province | City | undefined) => {
+      setMerchValues((prevValues) => ({
+        ...prevValues,
+        [id]: value,
+      }));
+  
+      if (id === 'provinsi') {
+        const province = value as Province;
+        try {
+          const response = await fetch(`http://localhost:8000/ongkir/get-city/${province.province_id}`);
+          const data = await response.json();
+          setCities(data);
+          setMerchValues((prevValues) => ({
+            ...prevValues,
+            kota: { city_id: '', city_name: '' },
+          }));
+          setShippingCost(0);
+        } catch (error) {
+          console.error('Error fetching cities:', error);
+        }
+      } else if (id === 'kota') {
+        const city = value as City;
+        try {
+          const response = await fetch(`http://localhost:8000/ongkir/get-ongkir/${city.city_id}`);
+          const data = await response.json();
+          setShippingCost(data.cost);
+        } catch (error) {
+          console.error('Error fetching shipping cost:', error);
+        }
+      }
+  
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        [id]: '',
+      }));
+  };
+  
 
     const handlePickupLocationChange = (value: string) => {
       setPickupLocation(value);
-      switch (value) {
-          case 'Fakultas Psikologi UI':
-              setShippingCost(0);
-              setMerchValues((prevValues) => ({
-                ...prevValues,
-                alamatLengkap: '',
-                kodePos: '',
-              }));
-              break;
-          case 'Jabodetabek (+19.000)':
-              setShippingCost(19000);
-              break;
-          case 'Pulau Jawa (+29.000)':
-              setShippingCost(29000);
-              break;
-          case 'Luar Pulau Jawa (+49.000)':
-              setShippingCost(49000);
-              break;
-          default:
-              setShippingCost(0);
-      }
     };
 
     const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -89,6 +110,8 @@ const CheckOutPage = () => {
         noTelp: '',
         idLine: '',
         alamatLengkap: '',
+        provinsi: '',
+        kota: '',
       };
 
       newErrors.namaLengkap = merchValues.namaLengkap ? '' : 'Nama Lengkap is required';
@@ -96,6 +119,8 @@ const CheckOutPage = () => {
       newErrors.idLine = merchValues.idLine ? '' : 'ID Line is required';
       if (pickupLocation !== 'Fakultas Psikologi UI') {
         newErrors.alamatLengkap = merchValues.alamatLengkap ? '' : 'Alamat Lengkap is required';
+        newErrors.provinsi = merchValues.provinsi.province_id ? '' : 'Provinsi is required';
+        newErrors.kota = merchValues.kota.city_id ? '' : 'Kota is required';
       }
 
       const indonesianPhoneRegex = /^(\+62|62|0)8[1-9][0-9]{6,9}$/;
@@ -137,13 +162,15 @@ const CheckOutPage = () => {
     const products  = merchValues.products;
     const [extraBubbleWrap, setExtraBubbleWrap] = useState<boolean>(false);
 
-    const [provinces, setProvinces] = useState<string[]>([]);
+    const [provinces, setProvinces] = useState<Province[]>([]);
+
     useEffect(() => {
       const fetchProvinces = async () => {
         try {
-          const response = await fetch('/api/provinces');
+          const response = await fetch('http://localhost:8000/ongkir/get-province');
           const data = await response.json();
           setProvinces(data);
+          console.log(data)
         } catch (error) {
           console.error('Error fetching provinces:', error);
         }
@@ -262,34 +289,42 @@ const CheckOutPage = () => {
                       <div className="flex flex-col w-full space-y-2 sm:space-y-2 ml-3">
                         <label htmlFor="province" className="ml-3 text-xl font-black text-product-color">Provinsi</label>
                         <select
-                          id="province"
+                          id="provinsi"
                           className="p-2 border rounded-[20px] shadow-inner-custom h-[40px]"
-                          value={merchValues.provinsi}
-                          onChange={(e) => handleInputChange('province', e.target.value)}
+                          onChange={(e) => {
+                            const selectedProvince = provinces.find(prov => prov.province_id === e.target.value);
+                            handleInputChange('provinsi', selectedProvince);
+                          }}
                         >
                           <option value="">Pilih Provinsi</option>
                           {provinces.map((province) => (
-                            <option key={province} value={province}>
-                              {province}
+                            <option key={province.province_id} value={province.province_id}>
+                              {province.province}
                             </option>
                           ))}
                         </select>
+                        {errors.provinsi && <span className="text-red-500 text-sm">{errors.provinsi}</span>}
                       </div>
-                      <div className="flex flex-col w-full ml-3">
-                        <label htmlFor="kota" className="ml-3 text-xl font-black text-product-color">Kota/Kabupaten</label>
+
+                      <div className="flex flex-col w-full space-y-2 sm:space-y-2 ml-3">
+                        <label htmlFor="city" className="ml-3 text-xl font-black text-product-color">Kota</label>
                         <select
-                          id="kota"
+                          id="city"
                           className="p-2 border rounded-[20px] shadow-inner-custom h-[40px]"
-                          value={merchValues.kota}
-                          onChange={(e) => handleInputChange('kota', e.target.value)}
+                          value={merchValues.kota.city_id}
+                          onChange={(e) => {
+                            const selectedCity = cities.find((city) => city.city_id === e.target.value);
+                            handleInputChange('kota', selectedCity);
+                          }}
                         >
-                          <option value="">Pilih Kota/Kabupaten</option>
-                          {provinces.map((province) => (
-                            <option key={province} value={province}>
-                              {province}
+                          <option value="">Pilih Kota</option>
+                          {cities.map((city) => (
+                            <option key={city.city_id} value={city.city_id}>
+                              {city.city_name}
                             </option>
                           ))}
                         </select>
+                        {errors.kota && <span className="text-red-500 text-sm">{errors.kota}</span>}
                       </div>
                       <MerchInput
                       label="Alamat Lengkap"
@@ -298,10 +333,10 @@ const CheckOutPage = () => {
                       value={merchValues.alamatLengkap}
                       onChange={handleInputChange}
                       error={errors.alamatLengkap}
-                      
                       />
                     </>
                   )}
+
                   
                 </div>
               </div>

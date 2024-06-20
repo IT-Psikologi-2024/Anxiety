@@ -10,6 +10,16 @@ interface Product {
   jumlah: number;
 }
 
+interface Province {
+  province_id: string;
+  province: string;
+}
+
+interface City {
+  city_id: string;
+  city_name: string;
+}
+
 interface MerchValuesType {
   namaLengkap: string;
   noTelp: string;
@@ -19,8 +29,8 @@ interface MerchValuesType {
   products: Product[];
   notePemesanan: string;
   totalHargaProduk: number;
-  provinsi: string;
-  kota: string;
+  provinsi: Province;
+  kota: City;
   extraBubbleWrap: boolean;
 }
 
@@ -47,8 +57,14 @@ export const MerchProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     products: [],
     notePemesanan: '',
     totalHargaProduk: 0,
-    provinsi:'',
-    kota: '',
+    provinsi: {
+      province_id: '',
+      province: '',
+    },
+    kota: {
+      city_id: '',
+      city_name: '',
+    },
     extraBubbleWrap: false,
   });
   const [selectedFileBayar, setSelectedFileBayar] = useState<File | null>(null);
