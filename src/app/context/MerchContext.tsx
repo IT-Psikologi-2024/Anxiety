@@ -27,11 +27,13 @@ interface MerchValuesType {
   alamatLengkap: string;
   kodePos: string;
   products: Product[];
+  tanggalPengambilan: string; 
   notePemesanan: string;
   totalHargaProduk: number;
   provinsi: Province;
   kota: City;
   extraBubbleWrap: boolean;
+  hargaOngkir: number;
 }
 
 interface MerchContextType {
@@ -65,7 +67,9 @@ export const MerchProvider: React.FC<{ children: React.ReactNode }> = ({ childre
       city_id: '',
       city_name: '',
     },
+    tanggalPengambilan:'',
     extraBubbleWrap: false,
+    hargaOngkir: 0
   });
   const [selectedFileBayar, setSelectedFileBayar] = useState<File | null>(null);
   const [errorMessageBayar, setErrorMessageBayar] = useState<string>('');

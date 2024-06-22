@@ -1,11 +1,11 @@
 'use client'
 import React, { useState } from 'react'
-import Navbar from '../../../components/Navbar';
-import MerchBackground from '../../../components/MerchBackground';
-import { useMerchContext } from '../../../context/MerchContext';
+import Navbar from '../../components/Navbar';
+import MerchBackground from '../../components/MerchBackground';
+import { useMerchContext } from '../../context/MerchContext';
 
 const PaymentPage = () => {
-  const { selectedFileBayar, setSelectedFileBayar, errorMessageBayar, setErrorMessageBayar } = useMerchContext();
+  const { merchValues, selectedFileBayar, setSelectedFileBayar, errorMessageBayar, setErrorMessageBayar } = useMerchContext();
   const [fileError, setFileError] = useState('');
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -89,6 +89,11 @@ const PaymentPage = () => {
                   <img src="/merch/payment/qris.svg" alt="" className='w-4/5 md:w-3/4 lg:w-3/5 2xl:w-2/5'/>
                 </div>
               </div>
+              <p className='text-2xl sm:text-4xl text-center italic'>Total Harga</p>
+              <div className='bg-white w-full md:w-[90%] lg:w-3/4 rounded-[19px] shadow-inner-custom py-3 px-6 flex self-center'>
+                <p className='sm:text-2xl text-black'>Total Harga: Rp {(merchValues.hargaOngkir + merchValues.totalHargaProduk + (merchValues.extraBubbleWrap ? 5000 : 0)).toLocaleString('id-ID')}</p>
+              </div>
+
 
               <p className='text-2xl sm:text-4xl text-center italic'>Bukti Pembayaran</p>
               <div className='flex justify-center w-full md:w-[90%] lg:w-3/4 space-y-4 h-[30px] sm:h-[60px] text-2xl self-center z-30'>
