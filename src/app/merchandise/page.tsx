@@ -20,20 +20,20 @@ const MerchandisePage: React.FC = () => {
     });
 
   const products = [
-    { image:"/icon.ico", harga: 55000, nama: "Product Name 1", description: 'Product Description' },
-    { image:"/icon.ico", harga: 55000, nama: "Product Name 2", description: 'Product Description' },
-    { image:"/icon.ico", harga: 55000, nama: "Product Name 3", description: 'Product Description' },
-    { image:"/icon.ico", harga: 55000, nama: "Product Name 4", description: 'Product Description' },
-    { image:"/icon.ico", harga: 55000, nama: "Product Name 5", description: 'Product Description' },
-    { image:"/icon.ico", harga: 55000, nama: "Product Name 6", description: 'Product Description' },
-    { image:"/icon.ico", harga: 55000, nama: "Product Name 7", description: 'Product Description' },
-    { image:"/icon.ico", harga: 55000, nama: "Product Name 8", description: 'Product Description' },
+    { image:"/icon.ico", harga: 55000, nama: "Product Name 1", description: 'Product Description', isBaju:false},
+    { image:"/icon.ico", harga: 55000, nama: "Product Name 2", description: 'Product Description', isBaju:false },
+    { image:"/icon.ico", harga: 55000, nama: "Product Name 3", description: 'Product Description', isBaju:false },
+    { image:"/icon.ico", harga: 55000, nama: "Product Name 4", description: 'Product Description', isBaju:false },
+    { image:"/icon.ico", harga: 55000, nama: "Product Name 5", description: 'Product Description', isBaju:false },
+    { image:"/icon.ico", harga: 55000, nama: "Product Name 6", description: 'Product Description', isBaju:false },
+    { image:"/icon.ico", harga: 55000, nama: "Product Name 7", description: 'Product Description', isBaju:true },
+    { image:"/icon.ico", harga: 55000, nama: "Product Name 8", description: 'Product Description', isBaju:true },
   ];
 
   const bundles = [
-    { image:"/icon.ico", harga: 50000, nama: "Bundle 1", description: 'Product Description' },
-    { image:"/icon.ico", harga: 50000, nama: "Bundle 2", description: 'Product Description + Product Description +Product Description + Product Description + Product Description + Product Description' },
-    { image:"/icon.ico", harga: 50000, nama: "Bundle 3", description: 'Product Description + Product Description +Product Description' },
+    { image:"/icon.ico", harga: 50000, nama: "Bundle 1", description: 'Product Description', isBaju:true},
+    { image:"/icon.ico", harga: 50000, nama: "Bundle 2", description: 'Product Description + Product Description +Product Description + Product Description + Product Description + Product Description', isBaju:false },
+    { image:"/icon.ico", harga: 50000, nama: "Bundle 3", description: 'Product Description + Product Description +Product Description', isBaju:false },
   ];
 
   const updateQuantity = (type: 'products' | 'bundles', index: number, amount: number) => {
@@ -64,17 +64,20 @@ const MerchandisePage: React.FC = () => {
     
     const combinedFilteredItems = [...filteredProducts, ...filteredBundles];
     
+    console.log(combinedFilteredItems)
     if (combinedFilteredItems.length === 0) {
       setShowError(true);
       return;
     }
 
+    const isAnyBaju = combinedFilteredItems.some(item => item.isBaju);
     setShowError(false);
 
     setMerchValues((prevValues) => ({
         ...prevValues,
         products: combinedFilteredItems,
         totalHargaProduk: calculateTotalPrice(),
+        isBaju: isAnyBaju,
     }));
     
     setShowModal(true)
@@ -248,7 +251,7 @@ const MerchandisePage: React.FC = () => {
       </div>
       {showModal && (
                 <div className='fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50'>
-                    <div className='bg-white p-4 rounded-lg'>
+                    <div className='bg-white p-4 rounded-lg w-4/5'>
                         <ConfirmationModal />
                         <div className='flex w-full justify-center gap-6'>
                           <button className='mt-4 bg-red-500 text-white px-4 py-2 rounded-[34.15px]' onClick={() => setShowModal(false)}>

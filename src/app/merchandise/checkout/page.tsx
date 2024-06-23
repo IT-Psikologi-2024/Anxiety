@@ -383,6 +383,7 @@ const CheckOutPage = () => {
                         description={product.description}
                         harga={product.harga}
                         jumlah={product.jumlah}
+                        isBaju={product.isBaju}
                       />
                     ))}
                   </div>
@@ -395,6 +396,7 @@ const CheckOutPage = () => {
                         description={product.description}
                         harga={product.harga}
                         jumlah={product.jumlah}
+                        isBaju={product.isBaju}
                       />
                     ))}
                   </div>

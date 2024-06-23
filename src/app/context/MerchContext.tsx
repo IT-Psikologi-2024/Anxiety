@@ -8,6 +8,8 @@ interface Product {
   nama: string;
   description: string;
   jumlah: number;
+  isBaju: boolean;
+  size?: string;
 }
 
 interface Province {
@@ -34,6 +36,7 @@ interface MerchValuesType {
   kota: City;
   extraBubbleWrap: boolean;
   hargaOngkir: number;
+  isBaju: boolean;
 }
 
 interface MerchContextType {
@@ -69,7 +72,8 @@ export const MerchProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     },
     tanggalPengambilan:'',
     extraBubbleWrap: false,
-    hargaOngkir: 0
+    hargaOngkir: 0,
+    isBaju:false,
   });
   const [selectedFileBayar, setSelectedFileBayar] = useState<File | null>(null);
   const [errorMessageBayar, setErrorMessageBayar] = useState<string>('');
