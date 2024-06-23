@@ -88,6 +88,13 @@ const FormProcess: React.FC = () => {
         return label;
       });
 
+    console.log(pilihanKelas)
+    
+    while (pilihanKelas.length < 3) {
+    pilihanKelas.push("");
+    }
+      
+    console.log(pilihanKelas)
     const formData = new FormData();
     formData.append('jenisTiket', formValues.jenisTiket);
     formData.append('idLine', formValues.idLine);

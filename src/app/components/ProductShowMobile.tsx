@@ -6,9 +6,11 @@ interface ProductShowMobileProps{
     description: string;
     harga: number;
     jumlah: number;
+    isBaju:boolean;
+    size?: string;
 }
 
-const ProductShowMobile: React.FC<ProductShowMobileProps> = ({image, nama, description, harga, jumlah}) => {
+const ProductShowMobile: React.FC<ProductShowMobileProps> = ({image, nama, description, harga, jumlah, isBaju}) => {
   const formattedPrice = formatPrice(harga);
   return (
     <div className='flex flex-col relative font-black h-full text-product-color'>
