@@ -22,13 +22,13 @@ const TerimaKasihPage = () => {
                     <img src="/merch/terimakasih/awan-4.svg" alt="Awan 4" className='w-2/5 lg:w-1/3'/>
                 </div>
 
-                <div className='flex absolute'>
+                <div className='flex absolute sm:invisible'>
                     <img src="/merch/terimakasih/mobile/awan-1.svg" alt="Awan 1" />
                 </div>
-                <div className='flex absolute w-full justify-end'>
+                <div className='flex absolute w-full justify-end sm:invisible'>
                     <img src="/merch/terimakasih/mobile/awan-2.svg" alt="Awan 2" />
                 </div>
-                <div className='flex absolute top-[30vh]'>
+                <div className='flex absolute top-[30vh] sm:invisible'>
                     <img src="/merch/terimakasih/mobile/awan-3.svg" alt="Awan 3" />
                 </div>
 
@@ -72,6 +72,12 @@ const TerimaKasihPage = () => {
                 </div>
                 <div className='w-full absolute sm:visible invisible flex justify-end bottom-0'>
                     <img src="/merch/terimakasih/ivy-1.svg" alt="Ivy" className='w-[30%]'/>
+                </div>
+                <div className='w-full absolute sm:invisible flex bottom-0'>
+                    <img src="/merch/terimakasih/mobile/ito-1.svg" alt="Ito" className='w-1/2'/>
+                </div>
+                <div className='w-full absolute sm:invisible flex justify-end bottom-0'>
+                    <img src="/merch/terimakasih/mobile/ivy-1.svg" alt="Ivy" className='w-[55%]'/>
                 </div>
             </div>
         </div>

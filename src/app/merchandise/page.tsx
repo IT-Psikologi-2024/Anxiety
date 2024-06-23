@@ -7,10 +7,12 @@ import ProductCard from '../components/ProductCard';
 import BundleCard from '../components/BundleCard';
 import BundleCardMobile from '../components/BundleCardMobile';
 import { useMerchContext } from '../context/MerchContext';
+import ConfirmationModal from './ConfirmationModal';
 
 
 const MerchandisePage: React.FC = () => {
     const { merchValues, setMerchValues } = useMerchContext();
+    const [showModal, setShowModal] = useState(false);
     const router = useRouter();
     const [quantities, setQuantities] = useState<{ products: number[]; bundles: number[] }>({
       products: new Array(8).fill(0),
@@ -39,6 +41,8 @@ const MerchandisePage: React.FC = () => {
       ...prevQuantities,
       [type]: prevQuantities[type].map((qty, i) => (i === index ? amount : qty)),
     }));
+
+    setShowError(false);
   };
 
   const calculateTotalPrice = () => {
@@ -73,7 +77,7 @@ const MerchandisePage: React.FC = () => {
         totalHargaProduk: calculateTotalPrice(),
     }));
     
-    router.push('/merchandise/checkout');
+    setShowModal(true)
 };
 
   const rows = Math.ceil(products.length / 3);
@@ -82,33 +86,33 @@ const MerchandisePage: React.FC = () => {
   return (
     <div className='flex flex-col'>
       <Navbar />
-      <div className='min-h-[2321px] sm:min-h-[3855px] h-full flex flex-col overflow-hidden relative'>
+      <div className='h-fit flex flex-col overflow-hidden relative'>
         <MerchBackground />
         <div className='flex flex-col flex-grow'>
           <div className='flex absolute top-[105vh] sm:top-[10vh]'>
-            <img src="/merch/awan-1.svg" alt="Awan 1" className='w-3/5 lg:w-4/5 xl:w-full' />
+            <img src="/merch/awan-1.svg" alt="Awan 1" className='w-3/5 ' />
           </div>
           <div className='flex absolute right-[-4rem] sm:right-0 justify-end'>
-            <img src="/merch/awan-2.svg" alt="Awan 2" className='w-3/5 g:w-4/5 xl:w-full' />
+            <img src="/merch/awan-2.svg" alt="Awan 2" className='w-3/5' />
           </div>
           <div className='flex absolute sm:invisible top-[30vh]'>
             <img src="/merch/mobile/awan-mobile.svg" alt="Awan Mobile" />
           </div>
           <div className='flex absolute top-[75vh] left-[10rem] sm:left-0 sm:top-[111vh]'>
-            <img src="/merch/awan-3.svg" alt="Awan 3" className='w-3/5 lg:w-4/5 xl:w-full' />
+            <img src="/merch/awan-3.svg" alt="Awan 3" className='w-3/5' />
           </div>
           <div className='flex absolute justify-end top-[50vh] sm:top-[200vh] md:top-[170vh] lg:top-[150vh] xl:top-[130vh] 2xl:top-[115vh] right-0'>
-            <img src="/merch/awan-4.svg" alt="Awan 4" className='w-3/5 lg:w-4/5 xl:w-[90%] 2xl:w-full' />
+            <img src="/merch/awan-4.svg" alt="Awan 4" className='w-3/5' />
           </div>
           <div className='flex absolute top-[130vh] sm:top-[238vh]'>
-            <img src="/merch/awan-5.svg" alt="Awan 5" className='lg:w-4/5 xl:w-full' />
+            <img src="/merch/awan-5.svg" alt="Awan 5" className='w-3/5' />
           </div>
-          <div className='flex absolute top-[120vh] sm:top-[330vh] right-0 justify-end sm:right-8'>
-            <img src="/merch/awan-6.svg" alt="Awan 6" className='w-3/5 lg:w-4/5 xl:w-full' />
+          <div className='flex absolute top-[120vh] sm:top-[330vh] right-0 justify-end sm:right-8 invisible sm:visible'>
+            <img src="/merch/awan-6.svg" alt="Awan 6" className='w-3/5' />
           </div>
 
-          <div className='flex absolute justify-end sm:bottom-[10vh] md:bottom-[15vh] xl:bottom-[20vh] 2xl:bottom-[35vh] right-0'>
-            <img src="/merch/loli-kanan.svg" alt="Loli Kanan" className='w-3/5 lg:w-full invisible sm:visible'/>
+          <div className='flex absolute justify-end sm:bottom-[10vh] md:bottom-[15vh] lg:bottom-[25vh] xl:bottom-[35vh] 2xl:bottom-[45vh] right-0'>
+            <img src="/merch/loli-kanan.svg" alt="Loli Kanan" className='w-3/5 lg:w-4/5 invisible sm:visible'/>
           </div>
           <div className='flex flex-col absolute bottom-[7vh] w-full sm:visible invisible'>
             <img src="/merch/rumput-1.svg" alt="Rumput" />
@@ -121,9 +125,13 @@ const MerchandisePage: React.FC = () => {
             <img src="/merch/mobile/pohon-tengah.svg" alt="Pohon tengah" />
           </div>
 
-          <div className='flex flex-col relative items-center w-full top-[15vh] h-fit invisible md:visible'>
-            <p className='text-white md:text-4xl lg:text-6xl xl:text-8xl italic font-bold'>Our Products</p>
-            <div className='flex absolute  md:relative lg:w-[90%] md:h-[530px] lg:h-[580px] xl:h-[630px] 2xl:h-[683px] bg-[#C8E3F6] rounded-[80px] p-6 mt-[5rem] shadow-inner-custom justify-evenly space-x-4 text-center text-product-color font-black'>
+          <div className='flex absolute sm:bottom-[20vh] md:bottom-[25vh] lg:bottom-[30vh] xl:bottom-[40vh] 2xl:bottom-[50vh]'>
+            <img src="/merch/loli-kiri.svg" alt="Loli Kiri" className='w-3/5 lg:w-4/5 invisible sm:visible'/>
+          </div>
+
+          <div className='flex flex-col relative items-center w-full top-[10vh] h-fit invisible md:visible'>
+            <p className='text-white md:text-4xl lg:text-6xl italic font-bold'>Our Products</p>
+            <div className='flex absolute  md:relative lg:w-4/5 bg-[#C8E3F6] rounded-[80px] pt-6 mt-8 shadow-inner-custom justify-evenly space-x-4 text-center text-product-color font-black'>
               {bundles.map((bundle, index) => (
                 <BundleCard
                   key={index}
@@ -180,9 +188,9 @@ const MerchandisePage: React.FC = () => {
             </div>
           </div>
 
-          <div className='flex flex-col relative h-fit top-[10vh] sm:top-[15vh] md:top-[30vh] lg:top-[45vh] xl:top-[30vh] items-center'>
-            <p className='text-white text-4xl lg:text-6xl xl:text-7xl italic font-bold'>Items</p>
-            <div className='grid grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-16 sm:w-[90%] md:w-4/5 lg:w-[90%] sm:mt-12 md:mt-16 lg:mt-24'>
+          <div className='flex flex-col relative h-fit top-[10vh] sm:top-[20vh] items-center'>
+            <p className='text-white text-4xl lg:text-6xl italic font-bold'>Items</p>
+            <div className='grid grid-cols-2 lg:grid-cols-3 gap-8 md:gap-x-32 sm:gap-y-10 mt-8'>
               {products.slice(0, lastRowStartIndex).map((product, index) => (
                 <ProductCard
                   key={index}
@@ -195,7 +203,7 @@ const MerchandisePage: React.FC = () => {
               ))}
             </div>
 
-            <div className='grid sm:grid-cols-2 gap-4 sm:gap-8 md:w-4/5 mt-4 sm:mt-12 md:mt-16 lg:mt-24 justify-evenly lg:flex pb-2' >
+            <div className='grid gap-4 w-1/2 sm:w-full sm:gap-8 md:w-4/5 mt-4 sm:mt-12 justify-evenly lg:flex pb-2 mb-[40vh] sm:mb-[100vh] md:mb-[85vh]' >
               {products.slice(lastRowStartIndex).map((product, index) => (
                 <ProductCard
                   key={lastRowStartIndex + index}
@@ -209,23 +217,21 @@ const MerchandisePage: React.FC = () => {
             </div>
           </div>
 
-          <div className='flex absolute sm:bottom-[20vh] md:bottom-[25vh] lg:bottom-[30vh]'>
-            <img src="/merch/loli-kiri.svg" alt="Loli Kiri" className='w-3/5 lg:w-full invisible sm:visible'/>
-          </div>
+          
           <div className='flex absolute bottom-16 invisible sm:visible'>
-            <img src="/merch/ito-1.svg" alt="Ito 1" className='w-3/5 lg:w-4/5' />
+            <img src="/merch/ito-1.svg" alt="Ito 1" className='w-3/5' />
           </div>
           <div className='flex absolute sm:invisible bottom-[40vh]'>
             <img src="/merch/mobile/ito-1.svg" alt="Ito Mobile" />
           </div>
           <div className='flex absolute bottom-[8vh] right-0 justify-end invisible sm:visible'>
-            <img src="/merch/ivy-1.svg" alt="Ivy 1" className='w-3/5 lg:w-4/5' />
+            <img src="/merch/ivy-1.svg" alt="Ivy 1" className='w-3/5' />
           </div>
           <div className='flex absolute bottom-[12vh] right-0 justify-end sm:invisible'>
             <img src="/merch/mobile/ivy-1.svg" alt="Ivy Mobile" />
           </div>
 
-          <div className={`flex flex-col absolute items-end ${showError ? 'p-2' : 'p-6'} bottom-0 w-full bg-[#FBB3D7] h-[5%] sm:h-[2.5%]`}>
+          <div className={`flex flex-col absolute items-end ${showError ? 'p-2' : 'p-6'} bottom-0 w-full bg-[#FBB3D7] h-fit`}>
             <p className='text-product-color text-lg font-semibold'>
                 Total Price: Rp.{calculateTotalPrice().toLocaleString('id-ID')},00
             </p>
@@ -234,13 +240,27 @@ const MerchandisePage: React.FC = () => {
                 Please add at least one product or bundle to the cart before checking out.
               </p>
             )}
-            <button className='bg-[#618758] text-white rounded-[34.15px] w-1/4 sm:w-1/5 md:w-[15%] xl:w-[12%]' onClick={handleCheckout}>
+            <button className='bg-[#618758] text-white rounded-[34.15px] px-6 py-1' onClick={handleCheckout}>
                 Check Out
             </button>
           </div>
-
         </div>
       </div>
+      {showModal && (
+                <div className='fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50'>
+                    <div className='bg-white p-4 rounded-lg'>
+                        <ConfirmationModal />
+                        <div className='flex w-full justify-center gap-6'>
+                          <button className='mt-4 bg-red-500 text-white px-4 py-2 rounded-[34.15px]' onClick={() => setShowModal(false)}>
+                              Close
+                          </button>
+                          <button className='mt-4 bg-[#618758] text-white px-4 py-2 rounded-[34.15px]' onClick={() => setShowModal(false)}>
+                              Confirm
+                          </button>
+                        </div>
+                    </div>
+                </div>
+            )}
     </div>
   );
 };

@@ -3,8 +3,10 @@ import React, { useState } from 'react'
 import Navbar from '../../components/Navbar';
 import MerchBackground from '../../components/MerchBackground';
 import { useMerchContext } from '../../context/MerchContext';
+import { useRouter } from 'next/navigation';
 
 const PaymentPage = () => {
+  const route = useRouter()
   const { merchValues, selectedFileBayar, setSelectedFileBayar, errorMessageBayar, setErrorMessageBayar } = useMerchContext();
   const [fileError, setFileError] = useState('');
 
@@ -25,7 +27,7 @@ const PaymentPage = () => {
     if (!selectedFileBayar) {
       setFileError('Please select a file before submitting.');
     } else {
-      
+      route.push("/merchandise/terimakasih")
     }
   };
 

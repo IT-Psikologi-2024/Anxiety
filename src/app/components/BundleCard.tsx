@@ -25,19 +25,19 @@ const BundleCard: React.FC<BundleCardProps> = ({
   const formattedPrice = formatPrice(harga);
 
   return (
-    <div className="flex flex-col items-center w-4/5 h-full">
+    <div className="flex flex-col items-center w-3/5">
       <div className="flex flex-col bg-white rounded-[80px] h-4/5 shadow-inner-custom py-8 px-4 items-center space-y-2 w-4/5">
-        <p className="md:text-4xl xl:text-5xl italic">{nama}</p>
-        <img src={image} alt={nama} className="w-4/5" />
-        <p className="md: xl:text-4xl italic">Rp.{formattedPrice}</p>
-        <p className="w-4/5 overflow-y-auto">{description}</p>
+        <p className="md:text-3xl italic">{nama}</p>
+        <img src={image} alt={nama} className="w-2/5" />
+        <p className="md:text-2xl italic">Rp.{formattedPrice}</p>
+        <p className="w-4/5 max-h-20 md:text-sm overflow-y-auto">{description}</p>
       </div>
       <AmountProduct
         amount={amount}
         incrementAmount={incrementAmount}
         decrementAmount={decrementAmount}
         handleInputChange={handleInputChange}
-        className='mt-8'
+        className='mt-4'
       />
     </div>
   );
