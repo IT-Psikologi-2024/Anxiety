@@ -7,7 +7,7 @@ interface ProductShowMobileProps{
     harga: number;
     jumlah: number;
     isBaju:boolean;
-    size?: string;
+    size: string;
 }
 
 const ProductShowMobile: React.FC<ProductShowMobileProps> = ({image, nama, description, harga, jumlah, isBaju}) => {

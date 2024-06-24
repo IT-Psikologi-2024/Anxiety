@@ -1,5 +1,5 @@
 import React from 'react';
-import PsyTag from '@/app/components/PsyTag';
+import PsyTag from '@/app/components/ticket/PsyTag';
 
 const TerimaKasih: React.FC = () => {
   return (

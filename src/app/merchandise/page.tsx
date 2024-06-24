@@ -2,13 +2,22 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Navbar } from '../components/Navbar';
-import MerchBackground from '../components/MerchBackground';
-import ProductCard from '../components/ProductCard';
-import BundleCard from '../components/BundleCard';
-import BundleCardMobile from '../components/BundleCardMobile';
+import MerchBackground from '../components/merch/MerchBackground';
+import ProductCard from '../components/merch/ProductCard';
+import BundleCard from '../components/merch/BundleCard';
+import BundleCardMobile from '../components/merch/BundleCardMobile';
 import { useMerchContext } from '../context/MerchContext';
 import ConfirmationModal from './ConfirmationModal';
 
+interface ProductProps {
+  image: string;
+  nama: string;
+  description: string;
+  harga: number;
+  isBaju: boolean;  
+  size: string;
+  uniqueId?: string;
+}
 
 const MerchandisePage: React.FC = () => {
     const { merchValues, setMerchValues } = useMerchContext();
@@ -19,21 +28,22 @@ const MerchandisePage: React.FC = () => {
       bundles: new Array(3).fill(0),
     });
 
-  const products = [
-    { image:"/icon.ico", harga: 55000, nama: "Product Name 1", description: 'Product Description', isBaju:false},
-    { image:"/icon.ico", harga: 55000, nama: "Product Name 2", description: 'Product Description', isBaju:false },
-    { image:"/icon.ico", harga: 55000, nama: "Product Name 3", description: 'Product Description', isBaju:false },
-    { image:"/icon.ico", harga: 55000, nama: "Product Name 4", description: 'Product Description', isBaju:false },
-    { image:"/icon.ico", harga: 55000, nama: "Product Name 5", description: 'Product Description', isBaju:false },
-    { image:"/icon.ico", harga: 55000, nama: "Product Name 6", description: 'Product Description', isBaju:false },
-    { image:"/icon.ico", harga: 55000, nama: "Product Name 7", description: 'Product Description', isBaju:true },
-    { image:"/icon.ico", harga: 55000, nama: "Product Name 8", description: 'Product Description', isBaju:true },
-  ];
+    const products: ProductProps[] = [
+      { image:"/icon.ico", harga: 55000, nama: "Product Name 1", description: 'Product Description', isBaju:false, size: "" },
+      { image:"/icon.ico", harga: 55000, nama: "Product Name 2", description: 'Product Description', isBaju:false, size: "" },
+      { image:"/icon.ico", harga: 55000, nama: "Product Name 3", description: 'Product Description', isBaju:false, size: "" },
+      { image:"/icon.ico", harga: 55000, nama: "Product Name 4", description: 'Product Description', isBaju:false, size: "" },
+      { image:"/icon.ico", harga: 55000, nama: "Product Name 5", description: 'Product Description', isBaju:false, size: "" },
+      { image:"/icon.ico", harga: 55000, nama: "Product Name 6", description: 'Product Description', isBaju:false, size: "" },
+      { image:"/icon.ico", harga: 55000, nama: "Product Name 7", description: 'Product Description', isBaju:true, size: "" },
+      { image:"/icon.ico", harga: 55000, nama: "Product Name 8", description: 'Product Description', isBaju:true, size: "" },
+    ];
+    
 
   const bundles = [
-    { image:"/icon.ico", harga: 50000, nama: "Bundle 1", description: 'Product Description', isBaju:true},
-    { image:"/icon.ico", harga: 50000, nama: "Bundle 2", description: 'Product Description + Product Description +Product Description + Product Description + Product Description + Product Description', isBaju:false },
-    { image:"/icon.ico", harga: 50000, nama: "Bundle 3", description: 'Product Description + Product Description +Product Description', isBaju:false },
+    { image:"/icon.ico", harga: 50000, nama: "Bundle 1", description: 'Product Description', isBaju:true, size:""},
+    { image:"/icon.ico", harga: 50000, nama: "Bundle 2", description: 'Product Description + Product Description +Product Description + Product Description + Product Description + Product Description', isBaju:false, size:""},
+    { image:"/icon.ico", harga: 50000, nama: "Bundle 3", description: 'Product Description + Product Description +Product Description', isBaju:false, size:"" },
   ];
 
   const updateQuantity = (type: 'products' | 'bundles', index: number, amount: number) => {
@@ -56,13 +66,23 @@ const MerchandisePage: React.FC = () => {
   const handleCheckout = () => {
     const filteredProducts = products
         .map((product, index) => ({ ...product, jumlah: quantities.products[index] }))
-        .filter(product => product.jumlah > 0);
+        .filter(product => product.jumlah > 0)
+        .flatMap((product) =>
+          product.isBaju && product.jumlah > 1
+            ? Array.from({ length: product.jumlah }, (_, i) => ({ ...product, jumlah: 1, uniqueId: `${product.nama}-${i}` }))
+            : [{ ...product, uniqueId: `${product.nama}-0` }]
+        );
 
     const filteredBundles = bundles
         .map((bundle, index) => ({ ...bundle, jumlah: quantities.bundles[index] }))
-        .filter(bundle => bundle.jumlah > 0);
+        .filter(bundle => bundle.jumlah > 0)
+        .flatMap((bundle) =>
+          bundle.isBaju && bundle.jumlah > 1
+            ? Array.from({ length: bundle.jumlah }, (_, i) => ({ ...bundle, jumlah: 1, uniqueId: `${bundle.nama}-${i}` }))
+            : [{ ...bundle, uniqueId: `${bundle.nama}-0` }]
+        );
     
-    const combinedFilteredItems = [...filteredProducts, ...filteredBundles];
+    const combinedFilteredItems = [...filteredBundles, ...filteredProducts];
     
     console.log(combinedFilteredItems)
     if (combinedFilteredItems.length === 0) {
@@ -72,16 +92,31 @@ const MerchandisePage: React.FC = () => {
 
     const isAnyBaju = combinedFilteredItems.some(item => item.isBaju);
     setShowError(false);
+    const sortedCombinedFilteredItems = combinedFilteredItems.sort((a, b) => (b.isBaju ? 1 : 0) - (a.isBaju ? 1 : 0));
 
     setMerchValues((prevValues) => ({
         ...prevValues,
-        products: combinedFilteredItems,
+        products: sortedCombinedFilteredItems,
         totalHargaProduk: calculateTotalPrice(),
         isBaju: isAnyBaju,
     }));
     
     setShowModal(true)
 };
+
+  const [error, setError] = useState<string | null>(null);
+  const route = useRouter();
+  const handleSubmit = () => {
+    const invalidProduct = merchValues.products.find((product) => product.isBaju && !product.size);
+    if (invalidProduct) {
+      setError('Please select a size for all clothing items.');
+      return;
+    }
+
+    setError(null);
+    console.log('Submitting:', merchValues);
+    route.push("/merchandise/checkout")
+  };
 
   const rows = Math.ceil(products.length / 3);
   const lastRowStartIndex = (rows - 1) * 3;
@@ -251,13 +286,14 @@ const MerchandisePage: React.FC = () => {
       </div>
       {showModal && (
                 <div className='fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50'>
-                    <div className='bg-white p-4 rounded-lg w-4/5'>
+                    <div className='bg-[#C8E3F6] shadow-inner-custom p-4 rounded-[20px] w-4/5'>
                         <ConfirmationModal />
+                        {error && <p className='text-red-500 mt-2 text-center'>{error}</p>}
                         <div className='flex w-full justify-center gap-6'>
                           <button className='mt-4 bg-red-500 text-white px-4 py-2 rounded-[34.15px]' onClick={() => setShowModal(false)}>
                               Close
                           </button>
-                          <button className='mt-4 bg-[#618758] text-white px-4 py-2 rounded-[34.15px]' onClick={() => setShowModal(false)}>
+                          <button className='mt-4 bg-[#618758] text-white px-4 py-2 rounded-[34.15px]' onClick={handleSubmit}>
                               Confirm
                           </button>
                         </div>

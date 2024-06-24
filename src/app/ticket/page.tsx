@@ -1,8 +1,8 @@
 import React from 'react';
 import { Navbar } from '../components/Navbar';
-import TicketTypeBackground from '../components/TicketTypeBackground';
-import Footer from '../components/Footer';
-import PsyTag from '../components/PsyTag';
+import TicketTypeBackground from '../components/ticket/TicketTypeBackground';
+import Footer from '../components/home/Footer';
+import PsyTag from '../components/ticket/PsyTag';
 
 const TicketTypesPage = () => {
   return (

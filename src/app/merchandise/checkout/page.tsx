@@ -1,12 +1,12 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import Navbar from '../../components/Navbar';
-import MerchBackground from '../../components/MerchBackground';
-import MerchInput from '../../components/MerchInput';
-import RadioInput from '../../components/RadioInput';
+import MerchBackground from '../../components/merch/MerchBackground';
+import MerchInput from '../../components/merch/MerchInput';
+import RadioInput from '../../components/merch/RadioInput';
 import { useMerchContext } from '../../context/MerchContext';
-import ProductShow from '../../components/ProductShow';
-import ProductShowMobile from '@/app/components/ProductShowMobile';
+import ProductShow from '../../components/merch/ProductShow';
+import ProductShowMobile from '@/app/components/merch/ProductShowMobile';
 import { useRouter } from 'next/navigation';
 
 interface Province {
@@ -370,7 +370,7 @@ const CheckOutPage = () => {
           </div>
 
           <div className="flex flex-col relative items-center justify-center w-full h-fit mt-[5vh] z-10">
-            <div className="flex relative flex-col max-h-[500px] w-4/5 sm:w-3/5 bg-[#C8E3F6CC] backdrop-opacity-10 h-fit rounded-[25px] py-4 mt-5 sm:mt-4 px-5 sm:p-8 space-y-6 shadow-inner-custom">
+            <div className="flex relative flex-col max-h-[700px] w-4/5 sm:w-3/5 bg-[#C8E3F6CC] backdrop-opacity-10 h-fit rounded-[25px] py-4 mt-5 sm:mt-4 px-5 sm:p-8 space-y-6 shadow-inner-custom">
               <p className="text-white text-3xl sm:text-4xl lg:text-5xl italic font-black mb-2 text-center">Pesanan</p>
               {products.length > 0 && (
                 <>
@@ -384,6 +384,7 @@ const CheckOutPage = () => {
                         harga={product.harga}
                         jumlah={product.jumlah}
                         isBaju={product.isBaju}
+                        size={product.size}
                       />
                     ))}
                   </div>
@@ -397,6 +398,7 @@ const CheckOutPage = () => {
                         harga={product.harga}
                         jumlah={product.jumlah}
                         isBaju={product.isBaju}
+                        size={product.size}
                       />
                     ))}
                   </div>

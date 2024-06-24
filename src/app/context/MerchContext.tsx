@@ -2,14 +2,15 @@
 
 import React, { createContext, useContext, useState } from 'react';
 
-interface Product {
+export interface Product {
   image: string;
   harga: number;
   nama: string;
   description: string;
   jumlah: number;
   isBaju: boolean;
-  size?: string;
+  size: string;
+  uniqueId?: string | undefined;
 }
 
 interface Province {

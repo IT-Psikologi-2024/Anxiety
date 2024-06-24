@@ -1,102 +1,70 @@
-import React from 'react'
-import { useRouter } from 'next/navigation'
-import { useMerchContext } from '../context/MerchContext'
-import ProductShowConfirmation from '../components/ProductShowConfirmation'
-import ProductShowConfirmationMobile from '../components/ProductShowConfirmationMobile'
-
-interface Product {
-  image: string;
-  nama: string;
-  description: string;
-  harga: number;
-  jumlah: number;
-  isBaju: boolean;
-}
+import React, { useState, useEffect } from 'react';
+import { useMerchContext, Product } from '../context/MerchContext';
+import ProductShowConfirmation from '../components/merch/ProductShowConfirmation';
+import ProductShowConfirmationMobile from '../components/merch/ProductShowConfirmationMobile';
 
 const ConfirmationModal = () => {
-    const route = useRouter();
-    const { merchValues, setMerchValues } = useMerchContext();
-    console.log(merchValues)
-    const products: Product[] = merchValues.products;
+  const { merchValues, setMerchValues } = useMerchContext();
 
-    const handleInputChange = async (id: string, value: string | boolean | number) => {
-        setMerchValues((prevValues) => ({
-            ...prevValues,
-            [id]: value,
-        }));
-    }
+  useEffect(() => {
+    console.log(merchValues.products)
+  }, []);
 
-    const renderProducts = (product: Product, index:number) => {
-        if (product.isBaju && product.jumlah > 1) {
-            return [...Array(product.jumlah)].map((_, i) => (
-                <ProductShowConfirmation
-                    key={`${index}-${i}`}
-                    image={product.image}
-                    nama={product.nama}
-                    description={product.description}
-                    harga={product.harga}
-                    jumlah={product.jumlah}
-                    isBaju={product.isBaju}
-                />
-            ));
-        }
-        return (
-            <ProductShowConfirmation
-                key={index}
-                image={product.image}
-                nama={product.nama}
-                description={product.description}
-                harga={product.harga}
-                jumlah={product.jumlah}
-                isBaju={product.isBaju}
-            />
-        );
-    };
+  const handleSizeChange = (uniqueId: string | undefined, newSize: string) => {
+    const updatedProducts = merchValues.products.map((product) =>
+      product.uniqueId === uniqueId ? { ...product, size: newSize } : product
+    );
+    setMerchValues((prevValues) => ({
+      ...prevValues,
+      products: updatedProducts,
+    }));
+  };
 
-    const renderProductsMobile = (product:Product, index:number) => {
-        if (product.isBaju && product.jumlah > 1) {
-            return [...Array(product.jumlah)].map((_, i) => (
-                <ProductShowConfirmationMobile
-                    key={`${index}-${i}`}
-                    image={product.image}
-                    nama={product.nama}
-                    description={product.description}
-                    harga={product.harga}
-                    jumlah={product.jumlah}
-                    isBaju={product.isBaju}
-                />
-            ));
-        }
-        return (
-            <ProductShowConfirmationMobile
-                key={index}
-                image={product.image}
-                nama={product.nama}
-                description={product.description}
-                harga={product.harga}
-                jumlah={product.jumlah}
-                isBaju={product.isBaju}
-            />
-        );
-    };
+  const renderProducts = (product: Product) => (
+    <ProductShowConfirmation
+      key={product.uniqueId}
+      image={product.image}
+      nama={product.nama}
+      description={product.description}
+      harga={product.harga}
+      jumlah={product.jumlah}
+      isBaju={product.isBaju}
+      size={product.size}
+      onSizeChange={(newSize) => handleSizeChange(product.uniqueId, newSize)}
+    />
+  );
 
-    return (
-        <div className="flex flex-col relative items-center justify-center w-full h-fit mt-[5vh] z-10">
-            <p className="text-black text-3xl sm:text-4xl lg:text-5xl font-black mb-2 text-center">Konfirmasi Pesanan Anda</p>
-            <div className="flex relative flex-col max-h-[500px] w-4/5 sm:w-3/5 bg-[#C8E3F6CC] backdrop-opacity-10 h-fit rounded-[25px] py-4 mt-5 sm:mt-4 px-5 sm:p-8 space-y-6 shadow-inner-custom">
-                {products.length > 0 && (
-                    <>
-                        <div className={`space-y-8 p-4 overflow-y-scroll min-h-[100px] h-3/5 sm:visible invisible absolute sm:static`}>
-                            {products.flatMap(renderProducts)}
-                        </div>
-                        <div className={`space-y-8 p-2 h-3/5 sm:invisible sm:absolute overflow-y-scroll`}>
-                            {products.flatMap(renderProductsMobile)}
-                        </div>
-                    </>
-                )}
+  const renderProductsMobile = (product: Product) => (
+    <ProductShowConfirmationMobile
+      key={product.uniqueId}
+      image={product.image}
+      nama={product.nama}
+      description={product.description}
+      harga={product.harga}
+      jumlah={product.jumlah}
+      isBaju={product.isBaju}
+      size={product.size}
+      onSizeChange={(newSize) => handleSizeChange(product.uniqueId, newSize)}
+    />
+  );
+
+  return (
+    <div className="flex flex-col relative items-center justify-center w-full h-fit mt-[5vh] z-10">
+      <p className="text-white drop-shadow-xl text-3xl sm:text-4xl lg:text-5xl font-black mb-2 text-center">Konfirmasi Pesanan Anda</p>
+      <div className="flex relative flex-col max-h-[500px] min-w-fit w-4/5 sm:w-3/5 h-fit py-4 mt-5 sm:mt-4 px-5 sm:p-8 space-y-6">
+        {merchValues.products.length > 0 && (
+          <>
+            <div className={`space-y-8 p-4 ${merchValues.products.length > 2 ? 'overflow-y-scroll' : ''} min-h-[100px] h-3/5 sm:visible invisible absolute sm:static`}>
+              {merchValues.products.map(renderProducts)}
             </div>
-        </div>
-    )
-}
+            <div className={`space-y-8 p-2 h-3/5 sm:invisible sm:absolute ${merchValues.products.length > 1 ? 'overflow-y-scroll' : ''}`}>
+              {merchValues.products.map(renderProductsMobile)}
+            </div>
+          </>
+        )}
+      </div>
+    </div>
+  );
+};
 
-export default ConfirmationModal
+export default ConfirmationModal;

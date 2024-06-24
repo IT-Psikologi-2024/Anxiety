@@ -1,7 +1,7 @@
 'use client'
 import React, { useImperativeHandle, forwardRef, useState } from 'react';
-import PsyTag from '@/app/components/PsyTag';
-import KelasCheckBox from '../../components/KelasCheckBox';
+import PsyTag from '@/app/components/ticket/PsyTag';
+import KelasCheckBox from '../../components/ticket/KelasCheckBox';
 import { useFormContext } from '../../context/PurchaseContext';
 
 interface CheckboxGroupHandles {
