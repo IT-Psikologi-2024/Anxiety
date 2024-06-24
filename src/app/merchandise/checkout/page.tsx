@@ -29,6 +29,7 @@ const CheckOutPage = () => {
     alamatLengkap: string;
     provinsi: string;
     kota: string;
+    kodePos: string;
   }>({
     namaLengkap: '',
     noTelp: '',
@@ -36,6 +37,7 @@ const CheckOutPage = () => {
     alamatLengkap: '',
     provinsi: '',
     kota: '',
+    kodePos: '',
   });
 
   const [pickupLocation, setPickupLocation] = useState<string>('');
@@ -140,6 +142,7 @@ const CheckOutPage = () => {
       alamatLengkap: '',
       provinsi: '',
       kota: '',
+      kodePos: '',
     };
 
     newErrors.namaLengkap = merchValues.namaLengkap ? '' : 'Nama Lengkap is required';
@@ -149,6 +152,7 @@ const CheckOutPage = () => {
       newErrors.alamatLengkap = merchValues.alamatLengkap ? '' : 'Alamat Lengkap is required';
       newErrors.provinsi = merchValues.provinsi.province_id ? '' : 'Provinsi is required';
       newErrors.kota = merchValues.kota.city_id ? '' : 'Kota is required';
+      newErrors.kodePos = merchValues.kodePos ? '' : 'Kode Pos is required';
     }
 
     const indonesianPhoneRegex = /^(\+62|62|0)8[1-9][0-9]{6,9}$/;
@@ -363,6 +367,13 @@ const CheckOutPage = () => {
                     value={merchValues.alamatLengkap}
                     onChange={handleInputChange}
                     error={errors.alamatLengkap}
+                  />
+                  <MerchInput
+                    label="Kode Pos"
+                    id="kodePos"
+                    value={merchValues.kodePos}
+                    onChange={handleInputChange}
+                    error={errors.kodePos}
                   />
                 </>
               )}

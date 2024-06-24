@@ -241,7 +241,7 @@ const MerchandisePage: React.FC = () => {
               ))}
             </div>
 
-            <div className='grid gap-4 w-1/2 sm:w-full sm:gap-8 md:w-4/5 mt-4 sm:mt-12 justify-evenly lg:flex pb-2 mb-[40vh] sm:mb-[100vh] md:mb-[85vh]' >
+            <div className='grid gap-4 w-1/2 sm:w-full sm:gap-8 md:w-4/5 mt-4 sm:mt-12 justify-evenly lg:flex pb-2 mb-[80vh] sm:mb-[100vh] md:mb-[85vh]' >
               {products.slice(lastRowStartIndex).map((product, index) => (
                 <ProductCard
                   key={lastRowStartIndex + index}
@@ -285,8 +285,8 @@ const MerchandisePage: React.FC = () => {
         </div>
       </div>
       {showModal && (
-                <div className='fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50'>
-                    <div className='bg-[#C8E3F6] shadow-inner-custom p-4 rounded-[20px] w-4/5'>
+                <div className='fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 py-4'>
+                    <div className='max-h-screen bg-[#C8E3F6] shadow-inner-custom p-4 rounded-[20px] w-4/5 overflow-auto'>
                         <ConfirmationModal />
                         {error && <p className='text-red-500 mt-2 text-center'>{error}</p>}
                         <div className='flex w-full justify-center gap-6'>

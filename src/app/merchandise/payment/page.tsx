@@ -4,6 +4,7 @@ import Navbar from '../../components/Navbar';
 import MerchBackground from '../../components/merch/MerchBackground';
 import { useMerchContext } from '../../context/MerchContext';
 import { useRouter } from 'next/navigation';
+import axios from 'axios';
 
 const PaymentPage = () => {
   const route = useRouter()
@@ -23,12 +24,35 @@ const PaymentPage = () => {
     }
   };
 
-  const handleSubmit = () => {
-    if (!selectedFileBayar) {
-      setFileError('Please select a file before submitting.');
-    } else {
-      route.push("/merchandise/terimakasih")
+  const handleSubmit = async () => {
+    const formData = new FormData();
+    formData.append('namaLengkap', merchValues.namaLengkap);
+    formData.append('idLine', merchValues.idLine);
+    formData.append('noTelepon', merchValues.noTelp);
+    var alamatLengkap = '';
+    var pengambilanBarang = 'Fakultas Psikologi UI';
+    if (merchValues.tanggalPengambilan === '') {
+      pengambilanBarang = 'Dikirim berdasarkan alamat'
+      alamatLengkap = merchValues.alamatLengkap.concat(", ", merchValues.kota.city_name).concat(", " , merchValues.provinsi.province);
     }
+    formData.append('alamatLengkap', alamatLengkap);
+    formData.append('kodePos', merchValues.kodePos);
+    formData.append('pengambilanBarang', pengambilanBarang);
+    formData.append('orders', JSON.stringify(merchValues.products))
+    formData.append('extraBubbleWrap', String(merchValues.extraBubbleWrap))
+    formData.append('ongkir', String(merchValues.hargaOngkir))
+
+    if (selectedFileBayar) {
+      formData.append('Files', selectedFileBayar);
+    }
+    try {
+      console.log(formData)
+      const response = await axios.post('http://localhost:8000/merch',formData , {});
+      console.log(response.data)
+    } catch (error) {
+      console.error('Error submitting form', error);
+    }
+      route.push("/merchandise/terimakasih")
   };
 
   return (

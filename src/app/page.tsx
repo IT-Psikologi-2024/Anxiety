@@ -46,13 +46,13 @@ const MyApp: React.FC = () => {
             </div>
           </div>
 
-          <div className='flex justify-between relative mb-12'>
+          <div className='flex justify-between relative'>
             <div className='flex sm:relative invisible sm:visible absolute'>
-              <img src="home/ita-ito-awan.svg" alt="Ita Ito" className='h-[70%] md:h-[60%] xl:h-[75%] self-end mt-[-3rem]'/>
+              <img src="home/ita-ito-awan.svg" alt="Ita Ito" className='h-[70%] md:h-[60%] xl:h-[75%] self-end mt-[-12rem]'/>
             </div>
 
             <div className='flex relative sm:invisible visible'>
-              <img src="home/mobile/ita-ito-awan.svg" alt="Ita Ito Mobile" className='w-[30rem] self-end mt-[-3rem]'/>
+              <img src="home/mobile/ita-ito-awan.svg" alt="Ita Ito Mobile" className='w-[30rem] self-end mt-[-12rem]'/>
             </div>
 
             <div className='flex justify-end items-start sm:mb-0 mb-12'>
@@ -60,11 +60,11 @@ const MyApp: React.FC = () => {
             </div>
           </div>
 
-          {/* <div className='flex justify-evenly z-10'>
+          <div className='flex lg:flex-row w-full lg:justify-evenly items-center flex-col z-10 '>
             <InstagramEmbed permalink='https://www.instagram.com/p/C1CTB9DRVks/'/>
             <InstagramEmbed permalink='https://www.instagram.com/p/C1CTASMRUlu/'/>
             <InstagramEmbed permalink='https://www.instagram.com/p/C1CS9eJxgnu/'/>
-          </div> */}
+          </div>
 
           <div className='flex justify-end relative'>
             <div className='flex sm:relative justify-end invisible sm:visible absolute'>
