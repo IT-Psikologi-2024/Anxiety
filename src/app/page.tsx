@@ -1,8 +1,8 @@
 import React from 'react';
 import { Navbar } from './components/Navbar';
-import Footer from './components/Footer';
-import HomeBackground from './components/HomeBackground';
-import InstagramEmbed from './components/InstagramPost';
+import Footer from './components/home/Footer';
+import HomeBackground from './components/home/HomeBackground';
+import InstagramEmbed from './components/home/InstagramPost';
 
 const MyApp: React.FC = () => {
   return (

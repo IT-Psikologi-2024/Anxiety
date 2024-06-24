@@ -1,5 +1,5 @@
 import React, { useState, useImperativeHandle, forwardRef } from 'react';
-import InputField from '../../components/InputField';
+import InputField from '../../components/ticket/InputField';
 import { useFormContext } from '../../context/PurchaseContext';
 
 interface FormTicketHandles {

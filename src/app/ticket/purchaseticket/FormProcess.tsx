@@ -1,10 +1,10 @@
 'use client';
 import React, { useRef, useState } from 'react';
 import Navbar from '../../components/Navbar';
-import NextButton from '../../components/NextButton';
-import BackButton from '../../components/BackButton';
-import PsyTag from '../../components/PsyTag';
-import PurchaseTicketBackground from '../../components/PurchaseTicketBackground';
+import NextButton from '../../components/ticket/NextButton';
+import BackButton from '../../components/ticket/BackButton';
+import PsyTag from '../../components/ticket/PsyTag';
+import PurchaseTicketBackground from '../../components/ticket/PurchaseTicketBackground';
 import FormTicket from './FormTicket';
 import CheckboxGroup from './PilihanKelas';
 import FollowInstagram from './FollowInstagram';
@@ -14,7 +14,7 @@ import TerimaKasih from './TerimaKasih';
 import { useRouter } from 'next/navigation';
 import { useFormContext } from '../../context/PurchaseContext';
 import axios from 'axios';
-import InstagramEmbed from '../../components/InstagramPost';
+import InstagramEmbed from '../../components/home/InstagramPost';
 
 interface FormTicketHandles {
   validate: () => boolean;

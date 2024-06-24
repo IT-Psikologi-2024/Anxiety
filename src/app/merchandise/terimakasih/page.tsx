@@ -1,4 +1,4 @@
-import MerchBackground from '@/app/components/MerchBackground'
+import MerchBackground from '@/app/components/merch/MerchBackground'
 import Navbar from '@/app/components/Navbar'
 import React from 'react'
 

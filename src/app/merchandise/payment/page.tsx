@@ -1,7 +1,7 @@
 'use client'
 import React, { useState } from 'react'
 import Navbar from '../../components/Navbar';
-import MerchBackground from '../../components/MerchBackground';
+import MerchBackground from '../../components/merch/MerchBackground';
 import { useMerchContext } from '../../context/MerchContext';
 import { useRouter } from 'next/navigation';
 
