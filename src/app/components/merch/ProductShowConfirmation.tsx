@@ -28,7 +28,7 @@ const ProductShow: React.FC<ProductShowProps> = ({ image, nama, description, har
             </div>
             <div className='flex flex-col text-product-color py-4 justify-center font-black'>
                 <p className='text-2xl'>{nama}</p>
-                <p className='text-sm'>{description}</p>
+                <p className='text-sm max-w-sm'>{description}</p>
                 <p className='text-white text-xl drop-shadow-md mt-2'>Rp {formattedPrice}</p>
                 {isBaju ? (
                     <select className='mt-2 rounded-[20px] text-lg p-2 w-fit' value={size || ""} onChange={handleSizeChange}>

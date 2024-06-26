@@ -24,7 +24,7 @@ const ProductShowMobile: React.FC<ProductShowMobileProps> = ({ image, nama, desc
         <div className='flex flex-col relative font-black h-full text-product-color'>
             <div className='flex relative flex-col ml-4 h-1/4'>
                 <p className='text-xl'>{nama}</p>
-                <p className='overflow-y-auto text-sm'>{description}</p>
+                <p className='overflow-y-auto text-sm max-w-sm'>{description}</p>
             </div>
             <div className='flex relative bg-white rounded-[27px] shadow-inner-custom w-full justify-center my-3'>
                 <img src={image} alt={nama} className='w-3/5' />
