@@ -24,13 +24,6 @@ const TerimaKasih: React.FC = () => {
           </div>
         </div>
       </div>
-      <div className='flex relative justify-center top-[17vh] sm:top-[25vh] xl:top-[27vh] text-2xl text-center invisible sm:visible'>
-        <div className='flex flex-col'>
-          <p className=' z-20'>Contact Person :</p>
-          <p >XXXXXXXXXXXXXXXX</p>
-          <p >XXXXXXXXXXXXXXXX</p>
-        </div>
-      </div>
       <PsyTag />
     </div>
   );

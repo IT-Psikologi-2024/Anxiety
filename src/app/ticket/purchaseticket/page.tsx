@@ -36,6 +36,7 @@ const FormProcess: React.FC = () => {
     { id: 'sosial', label: 'Psikologi Sosial' },
     { id: 'klinis', label: 'Psikologi Klinis' },
     { id: 'industri', label: 'Psikologi Industri Organisasi' },
+    { id: 'kepribadian', label: 'Teori Kepribadian' },
   ];
 
   const { currentPage, setCurrentPage, formValues, checkedItems, selectedFileInsta, setErrorMessageInsta, selectedFileBayar, setErrorMessageBayar } = useFormContext();
@@ -144,7 +145,7 @@ const FormProcess: React.FC = () => {
   return (
     <div className='flex flex-col'>
       <Navbar />
-      <div className={`relative ${currentPage === 3 || currentPage === 5 || currentPage === 6 ? 'min-h-[880px] sm:min-h-[1219px]' : (currentPage === 4 ? 'min-h-[1500px] sm:min-h-[1642px]' : 'min-h-[1325px] sm:min-h-[1219px]')}
+      <div className={`relative ${currentPage === 3 || currentPage === 5 || currentPage === 6 ? 'min-h-[880px] sm:min-h-[1219px]' : (currentPage === 4 ? 'min-h-[1500px] sm:min-h-[1642px]' : (currentPage === 2 ? 'min-h-[1378px] sm:min-h-[1219px]' : 'min-h-[1325px] sm:min-h-[1219px]'))}
           h-full flex flex-col overflow-hidden`}>
         <PurchaseTicketBackground currentPage={currentPage} />
         <div className='flex flex-col flex-grow'>
@@ -155,19 +156,23 @@ const FormProcess: React.FC = () => {
                 <BackButton onBack={handleBackClick} />
                 <NextButton handleClick={handleNextClick} disabled={loading} />
               </div>
-              <div className={`relative flex w-full justify-center ${currentPage === 3 || currentPage === 5 ? 'top-[8rem]' : (currentPage === 4 ? 'top-[2rem]' : 'top-[10rem]')} gap-x-4`}>
+              <div className={`relative flex w-full justify-center ${currentPage === 3 || currentPage === 5 ? 'top-[8rem]' : (currentPage === 4 || currentPage === 2 ? 'top-[2rem]' : 'top-[10rem]')} gap-x-4`}>
                 <BackButton onBack={handleBackClick} />
                 <NextButton handleClick={handleNextClick} disabled={loading} />
               </div>
             </>
           )}
 
-          <div className={`${currentPage === 4 ? "relative" : "absolute"} flex sm:justify-between invisible sm:visible sm:left-[-10rem] md:left-0 bottom-10 lg:bottom-[-2rem] xl:bottom-0 md:bottom-0 w-full -mb-12`}>
-            {currentPage <= 2 && <img src="/ticket/ito-1.svg" alt="Ito Img" className='sm:w-4/5 md:w-auto md:-ml-[12rem] lg:-ml-[6rem] xl:-ml-[8rem] 2xl:ml-0' />}
-            {currentPage > 2 && <img src="/ticket/ito-1.svg" alt="Ito Img" className='sm:w-4/5 md:w-auto md:-ml-[12rem] lg:-ml-[4rem] xl:-ml-[8rem] 2xl:ml-0 rotate-15.60' />}
-            {currentPage <= 2 && <img src="/ticket/ita-1.svg" alt="Ita Img" className='md:-ml-[4rem] lg:ml-[5rem] xl:-mr-[8rem] 2xl:mr-0' />}
-            {currentPage > 2 && currentPage !== 4 && <img src="/ticket/ita-1.svg" alt="Ita Img" className='md:-ml-[4rem] lg:ml-8 xl:-mr-[8rem] 2xl:mr-0 -rotate-11.34' />}
-            {currentPage === 4 && <img src="/ticket/ita-2.svg" alt="Ita Img" className='right-0' />}
+          <div className={`${currentPage === 4 ? "relative" : "absolute"} flex sm:justify-between invisible sm:visible bottom-16 w-full -mb-12`}>
+            <div className='w-1/2 flex items-end '>
+              {currentPage <= 1 && <img src="/ticket/ito-1.svg" alt="Ito Img" className={`w-full xl:w-3/4`} />}
+              {currentPage > 1 && <img src="/ticket/ito-2.svg" alt="Ito Img" className={`${currentPage === 2 ? 'w-1/2': (currentPage === 4 ? 'w-3/4' : ' w-3/4 lg:w-1/2')} `} />}
+            </div>
+            <div className='w-1/2 flex items-end justify-end'>
+              {currentPage <= 1 && <img src="/ticket/ita-1.svg" alt="Ita Img" className={`w-full xl:w-3/4`} />}
+              {currentPage > 1 && currentPage !== 4 && <img src="/ticket/ita-3.svg" alt="Ita Img" className={`${currentPage === 2 ? 'w-1/2': ' w-3/4 lg:w-1/2'}`} />}
+              {currentPage === 4 && <img src="/ticket/ita-2.svg" alt="Ita Img" className='right-0' />}
+            </div>
           </div>
 
           <div className={`justify-evenly flex w-full absolute ${currentPage === 4 ? 'bottom-0' : 'bottom-10'} sm:invisible visible right-4`}>

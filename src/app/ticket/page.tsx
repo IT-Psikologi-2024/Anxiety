@@ -8,10 +8,10 @@ const TicketTypesPage = () => {
   return (
     <div className='flex flex-col'>
       <Navbar />
-      <div className='relative min-h-screen h-full flex flex-col overflow-hidden sm:-mt-16'>
+      <div className='relative min-h-screen max-h-[1117px] h-full flex flex-col overflow-hidden sm:-mt-16'>
         <TicketTypeBackground />
         <div className='flex flex-col flex-grow sm:text-xs lg:text-lg xl:text-xl'>
-          <div className='flex relative justify-center mt-[8rem] xl:-mt-4 lg:mb-16 sm:mt-8 md:mb-12'>
+          <div className='flex relative justify-center mt-[8rem] lg:mb-16 sm:mt-16 md:mb-12'>
             <img src="/ticket/ticketform/ticket-types-text.svg" alt="Ticket Text" className='w-3/5 sm:w-[70%] md:w-2/5'/>
           </div>
 
@@ -25,7 +25,7 @@ const TicketTypesPage = () => {
             </a>
           </div>
 
-          <div className='flex relative justify-center'>
+          <div className='flex relative justify-center mb-20'>
             <a href='/ticket/purchaseticket' className='z-20 flex relative items-center hover:scale-110 transition ease-in-out ml-8 sm:ml-0 -mt-12 w-4/5 sm:w-[45%] md:-mt-[4rem] md:w-[40%] lg:-mt-[3rem] lg:w-[35%] xl:w-[30%] 2xl:-mt-[4rem]'>
               <img src="/ticket/ticketform/ticket-2.svg" alt="Ticket Candy 2" className='w-full' />
               <div className='absolute inset-0 flex items-center justify-center text-black font-bold mt-4'>

@@ -69,7 +69,7 @@ const FormTicket = forwardRef<FormTicketHandles>((_, ref) => {
       </div>
 
       <div className='flex relative top-[9vh] sm:top-[20vh] md:top-[18vh] lg:top-[20vh] xl:top-[25vh] justify-center'>
-        <div className='min-w-fit max-w-[832px] max-h-[840px] w-[368px] sm:w-auto lg:w-[600px] xl:w-[800px] lg:h-[500px] bg-[#FBB3D7] rounded-[20px] p-8'>
+        <div className='min-w-fit max-w-[832px] h-fit w-[368px] sm:w-auto lg:w-[600px] xl:w-[800px] bg-[#FBB3D7] rounded-[20px] px-8 py-10'>
           <div className='grid sm:grid-cols-2 gap-x-10 gap-y-2 sm:gap-y-4 h-full sm:mt-10'>
             <InputField label="Jenis Tiket:" id="jenisTiket" value={formValues.jenisTiket} onChange={handleInputChange} error={errors.jenisTiket} />
             <InputField label="ID Line:" id="idLine" value={formValues.idLine} onChange={handleInputChange} error={errors.idLine} />

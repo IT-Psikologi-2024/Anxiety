@@ -24,7 +24,7 @@ const FollowInstagram: React.FC = () => {
       </div>
 
       <div className='flex relative top-[10vh] sm:top-[25vh] md:top-[17vh] lg:top-[20vh] xl:top-[20vh] justify-center'>
-        <div className='max-w-[520px] max-h-[280px] w-[368px] sm:w-auto lg:w-[600px] xl:w-[800px] lg:h-[500px] bg-[#FBB3D7] rounded-[20px] p-8'>
+        <div className='w-fit h-fit bg-[#FBB3D7] rounded-[20px] px-4 py-8 sm:px-8 sm:py-16'>
             <div className='flex flex-col items-center justify-center h-full'>
                 <div className='flex space-x-8 items-center z-10'>
               <input 
@@ -43,7 +43,7 @@ const FollowInstagram: React.FC = () => {
                   )}
                 </div>
               </label>
-              <label htmlFor='file-input' className='block text-lg sm:text-2xl md:text-4xl font-medium mb-2'>
+              <label htmlFor='file-input' className='block text-xl sm:text-4xl font-medium mb-2 max-w-xs'>
                 Upload Bukti Follow Instagram @itp_psikoui
               </label>
             </div>
