@@ -163,10 +163,10 @@ const FormProcess: React.FC = () => {
             </>
           )}
 
-          <div className={`${currentPage === 4 ? "relative" : "absolute"} flex sm:justify-between invisible sm:visible bottom-16 w-full -mb-12`}>
+          <div className={`${currentPage === 4 ? "relative" : "absolute"} flex sm:justify-between invisible sm:visible sm:bottom-5 md:bottom-16 w-full -mb-12`}>
             <div className='w-1/2 flex items-end '>
               {currentPage <= 1 && <img src="/ticket/ito-1.svg" alt="Ito Img" className={`w-full xl:w-3/4`} />}
-              {currentPage > 1 && <img src="/ticket/ito-2.svg" alt="Ito Img" className={`${currentPage === 2 ? 'w-1/2': (currentPage === 4 ? 'w-3/5' : ' w-3/4 lg:w-1/2')} `} />}
+              {currentPage > 1 && <img src="/ticket/ito-2.svg" alt="Ito Img" className={`${currentPage === 2 ? 'w-1/2': (currentPage === 4 ? 'w-3/4 xl:w-3/5' : ' w-3/4 lg:w-1/2')} `} />}
             </div>
             <div className='w-1/2 flex items-end justify-end'>
               {currentPage <= 1 && <img src="/ticket/ita-1.svg" alt="Ita Img" className={`w-full xl:w-3/4`} />}
